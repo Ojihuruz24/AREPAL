@@ -17,8 +17,7 @@ namespace ProyectoGrado.ViewModels
         private string _user;
         private SecureString _password;
 
-        public string CommandBD = @"Data Source=DESKTOP-R56U2OH\LOCALDB#EEC22370; Initial Catalog=AREPAS; Integrated Security=True; Timeout=20";
-
+        public string CommandBD = @"server=(Localdb)\PROYECTO ; database=AREPAS ; integrated security = true";
         public string User
         {
             get { return _user; }
@@ -72,7 +71,7 @@ namespace ProyectoGrado.ViewModels
         {
             try
             {
-                var validation = $"SELECT * FROM Usuarios WHERE IdUsuario = @user AND Password = @pass";
+                var validation = $"SELECT * FROM USUARIO WHERE DOCUMENTO = @user AND PASSWORD = @pass";
                 using (var consult = new SqlCommand(validation, conection))
                 {
                     var credential = new NetworkCredential(user, pass);
@@ -84,7 +83,7 @@ namespace ProyectoGrado.ViewModels
 
                     if (dataTable.Rows.Count == 1)
                     {
-                        if (dataTable.Rows[0][0].ToString() == user && dataTable.Rows[0][2].ToString() == credential.Password)
+                        if (dataTable.Rows[0][0].ToString() == user && dataTable.Rows[0][4].ToString() == credential.Password)
                         {
                             MainWindow mainWindow = new MainWindow();
                             mainWindow.Show();
