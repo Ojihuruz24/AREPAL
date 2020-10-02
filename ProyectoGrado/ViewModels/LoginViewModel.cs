@@ -17,7 +17,7 @@ namespace ProyectoGrado.ViewModels
         private string _user;
         private SecureString _password;
 
-        public string CommandBD = @"server=(Localdb)\PROYECTO ; database=AREPAS ; integrated security = true";
+        public static string ConectionBD = @"server=(Localdb)\PROYECTO ; database=AREPAS ; integrated security = true";
         public string User
         {
             get { return _user; }
@@ -53,11 +53,9 @@ namespace ProyectoGrado.ViewModels
             return true;
         }
 
-      
-
         private bool OpenConectionBD()
         {
-            using (var conection = new SqlConnection(CommandBD))
+            using (var conection = new SqlConnection(ConectionBD))
             {
                 conection.Open();
 

@@ -1,0 +1,72 @@
+﻿<UserControl
+    x:Class="ProyectoGrado.Views.ClientesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ProyectoGrado.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    Width="auto"
+    Height="500"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Background="White"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style BasedOn="{StaticResource DataGridStyle}" TargetType="DataGrid" />
+        <Style BasedOn="{StaticResource BaseTextBox}" TargetType="TextBox" />
+        <Style BasedOn="{StaticResource LabelStyle}" TargetType="Label" />
+        <Style BasedOn="{StaticResource ButtonStyle}" TargetType="Button" />
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Label Content="CLIENTES" />
+            <TextBox Text="{Binding SearchClient ,UpdateSourceTrigger=PropertyChanged}" />
+            <Button Content="Buscar" Command="{Binding SearchCommand}" />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <StackPanel HorizontalAlignment="Center" Orientation="Vertical" Margin="0,10,0,0">
+                <Label Content="NUEVO USUARIO" />
+                <Label
+                    Margin="0,5,0,0"
+                    Content="DOCUMENTO" />
+                <TextBox Text="{Binding DocumentUser}" />
+
+                <Label Content="NOMBRE COMPLETO" />
+                <TextBox Text="{Binding NameUser}" />
+
+                <Label Content="APELLIDOS" />
+                <TextBox Text="{Binding SurnameUser}" />
+
+                <Label Content="DIRECCION" />
+                <TextBox Text="{Binding DirectionUser}" />
+
+                <Label Content="TELEFONO" />
+                <TextBox Text="{Binding TelUser}" />
+            </StackPanel>
+            <StackPanel
+                Margin="0,10,0,0"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    Command="{Binding AddCommand}"
+                    Content="Agregar" />
+                <Button
+                    Command="{Binding CancelCommand}"
+                    Content="Cancelar" />
+            </StackPanel>
+
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="2">
+            <DataGrid ItemsSource="{Binding TableClient}" />
+        </StackPanel>
+    </Grid>
+</UserControl>
