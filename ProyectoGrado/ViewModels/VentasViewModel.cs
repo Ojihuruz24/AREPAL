@@ -1,8 +1,10 @@
 ﻿using Microsoft.Win32;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using ProyectoGrado.Dialog;
 using ProyectoGrado.Dialog.ViewModels;
+using ProyectoGrado.Events;
 using ProyectoGrado.Models;
 using ProyectoGrado.Views;
 using System;
@@ -19,12 +21,14 @@ namespace ProyectoGrado.ViewModels
     {
         private string _code;
         private string _product;
-        private string _quantity;
+        private int _quantity = 0;
         private int _price;
         private string _client;
         private int _total;
         private ObservableCollection<Venta> _ventas;
+        private readonly IEventAggregator _eventAggregator;
 
+        public int ProductValue { get; set; }
 
         public ObservableCollection<Venta> Ventas
         {
@@ -41,13 +45,22 @@ namespace ProyectoGrado.ViewModels
         public string Product
         {
             get { return _product; }
-            set { SetProperty(ref _product, value); }
+            set
+            {
+                SetProperty(ref _product, value);
+            }
         }
 
-        public string Quantity
+        public int Quantity
         {
             get { return _quantity; }
-            set { SetProperty(ref _quantity, value); }
+            set
+            {
+                SetProperty(ref _quantity, value);
+                Price = ProductValue * value;
+                AddProductCommand.RaiseCanExecuteChanged();
+
+            }
         }
 
         public int Price
@@ -74,13 +87,22 @@ namespace ProyectoGrado.ViewModels
         public DelegateCommand CancelProductCommand { get; }
         public DelegateCommand SearchCodeCommand { get; }
 
-        public VentasViewModel()
+        public VentasViewModel(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
             Ventas = new ObservableCollection<Venta>();
             AddProductCommand = new DelegateCommand(AddProduct, CanAddProduct);
             PrintCommand = new DelegateCommand(Print, CanPrint);
             CancelProductCommand = new DelegateCommand(CancelProduct, CanCancelProduct);
             SearchCodeCommand = new DelegateCommand(SearchCode, CanSearchCode);
+            _eventAggregator.GetEvent<ProductSelectedEvent>().Subscribe(OnProductSelected);
+        }
+
+        private void OnProductSelected(DataRowView product)
+        {
+            Code = product.Row[0].ToString();
+            Product = product.Row[1].ToString();
+            ProductValue = int.Parse(product.Row[2].ToString());
         }
 
         private bool CanSearchCode()
@@ -91,7 +113,7 @@ namespace ProyectoGrado.ViewModels
         private void SearchCode()
         {
             DialogProductoView dialogProductoView = new DialogProductoView();
-            dialogProductoView.DataContext = new DialogProductoViewModel();
+            dialogProductoView.DataContext = new DialogProductoViewModel(_eventAggregator);
             dialogProductoView.ShowDialog();
         }
 
@@ -112,11 +134,15 @@ namespace ProyectoGrado.ViewModels
 
         private void Print()
         {
-           // aca es donde se guarda en la Base de datos
+            // aca es donde se guarda en la Base de datos
         }
 
         private bool CanAddProduct()
         {
+            if (Price == 0)
+            {
+                return false;
+            }
             return true;
         }
 
@@ -126,13 +152,14 @@ namespace ProyectoGrado.ViewModels
             Total = Total + Price;
             Clear();
         }
-        
+
         private void Clear()
         {
             Code = string.Empty;
             Product = string.Empty;
-            Quantity = string.Empty;
+            Quantity = 0;
             Price = 0;
+            ProductValue = 0;
         }
     }
 }

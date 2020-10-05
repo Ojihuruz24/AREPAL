@@ -56,7 +56,7 @@
                         Margin="0,18,0,0"
                         HorizontalAlignment="Center"
                         Orientation="Horizontal">
-                <Button Command="{Binding SendCommand}" Content="Enviar" />
+                <Button Command="{Binding SendCommand}" Content="Enviar" Click="Button_Click" />
             </StackPanel>
         </StackPanel>
     </StackPanel>

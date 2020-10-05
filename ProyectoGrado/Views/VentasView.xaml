@@ -45,11 +45,11 @@
                                 <Button Margin="3" Content="Go!" Command="{Binding SearchCodeCommand}" />
                             </StackPanel>
                             <Label Content="PRODUCTO" />
-                            <TextBox Text="{Binding Product}" IsEnabled="true"/>
+                            <TextBox Text="{Binding Product}" IsEnabled="False"/>
                             <Label Content="CANTIDAD" />
-                            <TextBox Text="{Binding Quantity}" />
+                            <TextBox Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}"/>
                             <Label Content="PRECIO" />
-                            <TextBox Text="{Binding Price}" IsEnabled="true" />
+                            <TextBox Text="{Binding Price}" IsEnabled="False" />
                         </StackPanel>
                         <StackPanel
                             Margin="0,30,0,0"

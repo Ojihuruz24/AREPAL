@@ -10,7 +10,7 @@ namespace ProyectoGrado.Models
     {
         private string _code;
         private string _product;
-        private string _quantity;
+        private int _quantity;
         private int _price;
         private string _client;
 
@@ -26,7 +26,7 @@ namespace ProyectoGrado.Models
             set { _product = value; }
         }
 
-        public string Quantity
+        public int Quantity
         {
             get { return _quantity; }
             set { _quantity = value; }

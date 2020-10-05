@@ -1,5 +1,7 @@
 ﻿using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
+using ProyectoGrado.Events;
 using ProyectoGrado.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -34,6 +36,7 @@ namespace ProyectoGrado.Dialog.ViewModels
         }
 
         private DataRowView _productSelected;
+        private readonly IEventAggregator _eventAggregator;
 
         public DataRowView ProductSelected
         {
@@ -46,10 +49,12 @@ namespace ProyectoGrado.Dialog.ViewModels
 
         
 
-        public DialogProductoViewModel()
+        public DialogProductoViewModel(IEventAggregator eventAggregator)
         {
             ConectionTable();
             SendCommand = new DelegateCommand(Send, CanSend);
+            _eventAggregator = eventAggregator;
+
         }
 
         private bool CanSend()
@@ -59,7 +64,7 @@ namespace ProyectoGrado.Dialog.ViewModels
 
         private void Send()
         {
-            var daa = ProductSelected.Row[0];
+            _eventAggregator.GetEvent<ProductSelectedEvent>().Publish(ProductSelected);
         }
 
         private void Search(string search)
