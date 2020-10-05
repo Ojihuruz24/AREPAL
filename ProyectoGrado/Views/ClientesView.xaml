@@ -65,7 +65,7 @@
 
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="2">
-            <DataGrid ItemsSource="{Binding TableClient, Mode=TwoWay}" TextSearch.TextPath="{Binding TableCliente.DOCUMENTO}"  />
+            <DataGrid ItemsSource="{Binding TableClient, Mode=TwoWay}" MinHeight="350"/>
         </StackPanel>
     </Grid>
 </UserControl>
