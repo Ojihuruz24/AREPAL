@@ -34,12 +34,22 @@ namespace ProyectoGrado.ViewModels
         {
             get => _documentUser;
             set => SetProperty(ref _documentUser, value);
-        }     
-        
+        }
+
         public string SearchClient
         {
             get => _searchClient;
-            set => SetProperty(ref _searchClient, value);
+            set
+            {
+                SetProperty(ref _searchClient, value);
+
+                if (!string.IsNullOrEmpty(value))
+                {
+                    TableClient.DefaultView.RowFilter = string.Format($"DOCUMENTO = {SearchClient}");
+                    return;
+                }
+                ConectionTable();
+            }
         }
 
         public string NameUser
@@ -68,46 +78,13 @@ namespace ProyectoGrado.ViewModels
 
         public DelegateCommand AddCommand { get; set; }
         public DelegateCommand CancelCommand { get; set; }
-        public DelegateCommand SearchCommand { get; }
 
         public ClientesViewModel()
         {
             AddCommand = new DelegateCommand(Add, CanAdd);
             CancelCommand = new DelegateCommand(Cancel, CanCancel);
-            SearchCommand = new DelegateCommand(Search, CanSearch);
             ConectionTable();
         }
-
-        private bool CanSearch()
-        {
-            return true;
-        }
-
-        private void Search()
-        {
-            DataTable dt = new DataTable();
-            using (var conn = new SqlConnection(LoginViewModel.ConectionBD))
-            {
-
-                string query = "select * from CLIENTE WHERE DOCUMENTO = @Documento";
-
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@Documento", SearchClient);
-
-                conn.Open();
-
-                cmd.ExecuteNonQuery();
-
-                conn.Close();
-            }
-        }
-
-        private void InitializeFilter()
-        {
-            _collectionView = CollectionViewSource.GetDefaultView(TableClient.Columns[0]);
-            _collectionView.Filter = o => o is string info && info.Contains(SearchClient.ToLower());
-        }
-
 
         private bool CanCancel()
         {
@@ -170,7 +147,6 @@ namespace ProyectoGrado.ViewModels
             DataTable dt = new DataTable();
             using (var conn = new SqlConnection(LoginViewModel.ConectionBD))
             {
-
                 string query = "select * from CLIENTE";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -178,8 +154,6 @@ namespace ProyectoGrado.ViewModels
                 da.Fill(dt);
                 TableClient = dt;
             }
-
-
         }
 
     }
