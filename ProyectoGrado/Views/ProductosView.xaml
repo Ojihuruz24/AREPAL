@@ -15,23 +15,22 @@
         <Style BasedOn="{StaticResource DataGridStyle}" TargetType="DataGrid" />
         <Style BasedOn="{StaticResource BaseTextBox}" TargetType="TextBox" />
         <Style BasedOn="{StaticResource LabelStyle}" TargetType="Label" />
-        <Style BasedOn="{StaticResource ButtonStyle}" TargetType="Button" />
 
     </UserControl.Resources>
     <StackPanel Orientation="Vertical">
         <StackPanel
             Grid.ColumnSpan="2"
             Margin="5,20,0,40"
-            Orientation="Vertical"
-            HorizontalAlignment="Center">
+            HorizontalAlignment="Center"
+            Orientation="Vertical">
             <Label Content="ID PRODUCTO" />
             <TextBox Text="{Binding SearchProduct, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
         <DataGrid
             Width="810"
+            MinHeight="370"
             MaxHeight="300"
             AutoGenerateColumns="False"
-            MinHeight="370"
             ItemsSource="{Binding Products, Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn

@@ -29,14 +29,15 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal">
             <Label Content="CLIENTES" />
-            <TextBox Text="{Binding SearchClient ,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Text="{Binding SearchClient, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Vertical">
-            <StackPanel HorizontalAlignment="Center" Orientation="Vertical" Margin="0,10,0,0">
+            <StackPanel
+                Margin="0,10,0,0"
+                HorizontalAlignment="Center"
+                Orientation="Vertical">
                 <Label Content="NUEVO USUARIO" />
-                <Label
-                    Margin="0,5,0,0"
-                    Content="DOCUMENTO" />
+                <Label Margin="0,5,0,0" Content="DOCUMENTO" />
                 <TextBox Text="{Binding DocumentUser}" />
 
                 <Label Content="NOMBRE COMPLETO" />
@@ -55,17 +56,13 @@
                 Margin="0,10,0,0"
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
-                <Button
-                    Command="{Binding AddCommand}"
-                    Content="Agregar" />
-                <Button
-                    Command="{Binding CancelCommand}"
-                    Content="Cancelar" />
+                <Button Command="{Binding AddCommand}" Content="Agregar" />
+                <Button Command="{Binding CancelCommand}" Content="Cancelar" />
             </StackPanel>
 
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="2">
-            <DataGrid ItemsSource="{Binding TableClient, Mode=TwoWay}" MinHeight="350"/>
+            <DataGrid MinHeight="350" ItemsSource="{Binding TableClient, Mode=TwoWay}" />
         </StackPanel>
     </Grid>
 </UserControl>
