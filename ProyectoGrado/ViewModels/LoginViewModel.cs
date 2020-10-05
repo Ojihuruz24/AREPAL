@@ -18,6 +18,8 @@ namespace ProyectoGrado.ViewModels
         private SecureString _password;
 
         public static string ConectionBD = @"server=(Localdb)\PROYECTO ; database=AREPAS ; integrated security = true";
+        private readonly Action<bool> _onCompleted;
+
         public string User
         {
             get { return _user; }
@@ -35,9 +37,10 @@ namespace ProyectoGrado.ViewModels
 
         public DelegateCommand LoginUserCommand { get; }
 
-        public LoginViewModel()
+        public LoginViewModel(Action<bool> onCompleted)
         {
             LoginUserCommand = new DelegateCommand(LoginUser, CanLoginUser);
+            _onCompleted = onCompleted;
         }
         private void LoginUser()
         {
@@ -45,7 +48,6 @@ namespace ProyectoGrado.ViewModels
             {
                 MessageBox.Show("Problemas con la conexion a la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
 
         private bool CanLoginUser()
@@ -83,13 +85,12 @@ namespace ProyectoGrado.ViewModels
                     {
                         if (dataTable.Rows[0][0].ToString() == user && dataTable.Rows[0][4].ToString() == credential.Password)
                         {
-                            MainWindow mainWindow = new MainWindow();
-                            mainWindow.Show();
+                            _onCompleted(true);
                         }
                     }
                     else
                     {
-                        MessageBox.Show($"No se encontro Datos");
+                        MessageBox.Show($"No se encontro datos");
                     }
                 }
             }
