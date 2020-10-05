@@ -31,38 +31,74 @@
             <Label Content="CLIENTES" />
             <TextBox Text="{Binding SearchClient, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Vertical">
-            <StackPanel
-                Margin="0,10,0,0"
-                HorizontalAlignment="Center"
-                Orientation="Vertical">
-                <Label Content="NUEVO USUARIO" />
-                <Label Margin="0,5,0,0" Content="DOCUMENTO" />
-                <TextBox Text="{Binding DocumentUser}" />
+        <StackPanel
+            Grid.Row="1"
+            Margin="5"
+            Background="#FFDEDEDE"
+            Orientation="Vertical">
+            <Border BorderBrush="Black" BorderThickness="1">
+                <StackPanel>
+                    <StackPanel
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Center"
+                        Orientation="Vertical">
+                        <Label Content="NUEVO USUARIO" />
+                        <Label Margin="0,5,0,0" Content="DOCUMENTO" />
+                        <TextBox Text="{Binding DocumentUser}" />
 
-                <Label Content="NOMBRE COMPLETO" />
-                <TextBox Text="{Binding NameUser}" />
+                        <Label Content="NOMBRE COMPLETO" />
+                        <TextBox Text="{Binding NameUser}" />
 
-                <Label Content="APELLIDOS" />
-                <TextBox Text="{Binding SurnameUser}" />
+                        <Label Content="APELLIDOS" />
+                        <TextBox Text="{Binding SurnameUser}" />
 
-                <Label Content="DIRECCION" />
-                <TextBox Text="{Binding DirectionUser}" />
+                        <Label Content="DIRECCION" />
+                        <TextBox Text="{Binding DirectionUser}" />
 
-                <Label Content="TELEFONO" />
-                <TextBox Text="{Binding TelUser}" />
-            </StackPanel>
-            <StackPanel
-                Margin="0,10,0,0"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <Button Command="{Binding AddCommand}" Content="Agregar" />
-                <Button Command="{Binding CancelCommand}" Content="Cancelar" />
-            </StackPanel>
-
+                        <Label Content="TELEFONO" />
+                        <TextBox Text="{Binding TelUser}" />
+                    </StackPanel>
+                    <StackPanel
+                        Margin="0,18,0,0"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Button Command="{Binding AddCommand}" Content="Agregar" />
+                        <Button Command="{Binding CancelCommand}" Content="Cancelar" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
         </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="2">
-            <DataGrid MinHeight="350" ItemsSource="{Binding TableClient, Mode=TwoWay}" />
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="2"
+            Margin="5">
+            <DataGrid
+                MinHeight="410"
+                AutoGenerateColumns="False"
+                ItemsSource="{Binding TableClient, Mode=TwoWay}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="115"
+                        Binding="{Binding DOCUMENTO}"
+                        Header="DOCUMENTO" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding NOMBRE}"
+                        Header="NOMBRE" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding APELLIDO}"
+                        Header="APELLIDO" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding DIRECCION}"
+                        Header="DIRECCION" />
+                    <DataGridTextColumn
+                        Width="116"
+                        Binding="{Binding TELEFONO}"
+                        Header="TELEFONO" />
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
     </Grid>
 </UserControl>

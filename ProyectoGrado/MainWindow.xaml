@@ -22,7 +22,9 @@
                 </Grid>
             </TabItem>
             <TabItem Header="VENTAS">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <views:VentasView/>
+                </Grid>
             </TabItem>
             <TabItem Header="COMPRAS">
                 <Grid Background="#FFE5E5E5"/>

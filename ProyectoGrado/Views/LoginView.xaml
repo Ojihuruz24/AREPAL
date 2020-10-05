@@ -9,6 +9,7 @@
     Width="300"
     Height="350"
     Block.TextAlignment="Center"
+    ResizeMode="NoResize"
     mc:Ignorable="d">
     <Window.Resources>
         <Style BasedOn="{StaticResource BasePasswordBox}" TargetType="PasswordBox" />
