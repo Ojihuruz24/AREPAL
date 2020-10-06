@@ -90,10 +90,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dialog\ViewModels\DialogClienteViewModel.cs" />
     <Compile Include="Dialog\ViewModels\DialogProductoViewModel.cs" />
+    <Compile Include="Dialog\Views\DialogClienteView.xaml.cs">
+      <DependentUpon>DialogClienteView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialog\Views\DialogProductoView.xaml.cs">
       <DependentUpon>DialogProductoView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Events\ClientSelectedEvent.cs" />
     <Compile Include="Events\ProductSelectedEvent.cs" />
     <Compile Include="Models\Venta.cs" />
     <Compile Include="ViewModels\ClientesViewModel.cs" />
@@ -112,6 +117,10 @@
     <Compile Include="Views\VentasView.xaml.cs">
       <DependentUpon>VentasView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Dialog\Views\DialogClienteView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialog\Views\DialogProductoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

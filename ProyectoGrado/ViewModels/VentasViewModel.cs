@@ -4,6 +4,7 @@ using Prism.Events;
 using Prism.Mvvm;
 using ProyectoGrado.Dialog;
 using ProyectoGrado.Dialog.ViewModels;
+using ProyectoGrado.Dialog.Views;
 using ProyectoGrado.Events;
 using ProyectoGrado.Models;
 using ProyectoGrado.Views;
@@ -14,6 +15,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace ProyectoGrado.ViewModels
 {
@@ -86,6 +88,7 @@ namespace ProyectoGrado.ViewModels
         public DelegateCommand PrintCommand { get; }
         public DelegateCommand CancelProductCommand { get; }
         public DelegateCommand SearchCodeCommand { get; }
+        public DelegateCommand AddClientCommand { get; }
 
         public VentasViewModel(IEventAggregator eventAggregator)
         {
@@ -95,7 +98,26 @@ namespace ProyectoGrado.ViewModels
             PrintCommand = new DelegateCommand(Print, CanPrint);
             CancelProductCommand = new DelegateCommand(CancelProduct, CanCancelProduct);
             SearchCodeCommand = new DelegateCommand(SearchCode, CanSearchCode);
+            AddClientCommand = new DelegateCommand(AddClient, CanAddClient);
             _eventAggregator.GetEvent<ProductSelectedEvent>().Subscribe(OnProductSelected);
+            _eventAggregator.GetEvent<ClientSelectedEvent>().Subscribe(OnClientSelected);
+        }
+
+        private void OnClientSelected(DataRowView client)
+        {
+            Client = $"{client.Row[1]}  { client.Row[2]}";
+        }
+
+        private bool CanAddClient()
+        {
+            return true;
+        }
+
+        private void AddClient()
+        {
+            DialogClienteView dialogClienteView = new DialogClienteView();
+            dialogClienteView.DataContext = new DialogClienteViewModel(_eventAggregator);
+            dialogClienteView.Show();
         }
 
         private void OnProductSelected(DataRowView product)
@@ -134,7 +156,8 @@ namespace ProyectoGrado.ViewModels
 
         private void Print()
         {
-            // aca es donde se guarda en la Base de datos
+            PrintDialog printDialog = new PrintDialog();
+            printDialog.ShowDialog();
         }
 
         private bool CanAddProduct()

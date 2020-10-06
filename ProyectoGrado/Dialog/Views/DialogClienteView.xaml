@@ -1,0 +1,63 @@
+﻿<Window x:Class="ProyectoGrado.Dialog.Views.DialogClienteView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProyectoGrado.Dialog.Views"
+        mc:Ignorable="d"
+       Title="Clientes" Height="450" Width="700"
+        ResizeMode="NoResize"
+        SizeToContent="Manual">
+    <Window.Resources>
+        <Style BasedOn="{StaticResource DataGridStyle}" TargetType="DataGrid" />
+        <Style BasedOn="{StaticResource BaseTextBox}" TargetType="TextBox" />
+        <Style BasedOn="{StaticResource LabelStyle}" TargetType="Label" />
+    </Window.Resources>
+    <StackPanel>
+        <StackPanel Orientation="Vertical">
+            <StackPanel
+            Grid.ColumnSpan="2"
+            Margin="5,20,0,40"
+            HorizontalAlignment="Center"
+            Orientation="Vertical">
+                <Label Content="ID PRODUCTO" />
+                <TextBox Text="{Binding SearchClient, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+            <DataGrid
+            Width="auto"
+            MinHeight="250"
+            AutoGenerateColumns="False"
+            ItemsSource="{Binding Clients, Mode=TwoWay}"
+            SelectedItem="{Binding ClientSelected}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                    Width="160"
+                    Binding="{Binding DOCUMENTO}"
+                    Header="DOCUMENTO" />
+                    <DataGridTextColumn
+                    Width="160"
+                    Binding="{Binding NOMBRE}"
+                    Header="NOMBRE" />
+                    <DataGridTextColumn
+                    Width="110"
+                    Binding="{Binding APELLIDO}"
+                    Header="APELLIDO" />
+                    <DataGridTextColumn
+                    Width="110"
+                    Binding="{Binding DIRECCION}"
+                    Header="DIRECCION" />
+                    <DataGridTextColumn
+                    Width="150"
+                    Binding="{Binding TELEFONO}"
+                    Header="TELEFONO" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel
+                        Margin="0,18,0,0"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                <Button Command="{Binding SendCommand}" Content="Enviar" Click="Button_Click" />
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</Window>

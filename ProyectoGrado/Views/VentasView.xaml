@@ -131,7 +131,7 @@
                                     <StackPanel>
                                         <Label Content="TOTAL A PAGAR" />
                                         <TextBox IsEnabled="False" Text="{Binding Total , Mode=TwoWay}"/>
-                                        <Button Content="IMPRIMIR" Command="{Binding Print}" />
+                                        <Button Content="IMPRIMIR" Command="{Binding PrintCommand}" />
                                     </StackPanel>
                                 </Border>
                             </StackPanel>
