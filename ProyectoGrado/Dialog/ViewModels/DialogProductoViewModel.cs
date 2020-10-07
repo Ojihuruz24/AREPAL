@@ -44,7 +44,6 @@ namespace ProyectoGrado.Dialog.ViewModels
             set { SetProperty(ref _productSelected, value); }
         }
 
-
         public DelegateCommand SendCommand { get; }
 
         

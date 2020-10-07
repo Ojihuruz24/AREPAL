@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -7,6 +8,9 @@ using ProyectoGrado.Dialog.ViewModels;
 using ProyectoGrado.Dialog.Views;
 using ProyectoGrado.Events;
 using ProyectoGrado.Models;
+using ProyectoGrado.Reportings;
+using ProyectoGrado.Reportings.ViewModels;
+using ProyectoGrado.Services;
 using ProyectoGrado.Views;
 using System;
 using System.Collections.Generic;
@@ -35,6 +39,7 @@ namespace ProyectoGrado.ViewModels
         private int _total;
         private ObservableCollection<Venta> _ventas;
         private readonly IEventAggregator _eventAggregator;
+        private readonly IVentasService _ventasService;
 
         public int ProductValue { get; set; }
 
@@ -43,8 +48,6 @@ namespace ProyectoGrado.ViewModels
             get { return _ventas; }
             set { SetProperty(ref _ventas, value); }
         }
-
-        private DataTable _dataTable { get; set; }
 
         public string Code
         {
@@ -97,9 +100,10 @@ namespace ProyectoGrado.ViewModels
         public DelegateCommand SearchCodeCommand { get; }
         public DelegateCommand AddClientCommand { get; }
 
-        public VentasViewModel(IEventAggregator eventAggregator)
+        public VentasViewModel(IEventAggregator eventAggregator, IVentasService ventasService)
         {
             _eventAggregator = eventAggregator;
+            _ventasService = ventasService;
             Ventas = new ObservableCollection<Venta>();
             AddProductCommand = new DelegateCommand(AddProduct, CanAddProduct);
             PrintCommand = new DelegateCommand(Print, CanPrint);
@@ -163,6 +167,18 @@ namespace ProyectoGrado.ViewModels
 
         private void Print()
         {
+            _ventasService.Client = Client;
+            _ventasService.Code = Code;
+            _ventasService.Price = Price;
+            _ventasService.Product = Product;
+            _ventasService.Quantity = Quantity;
+            _ventasService.Total = Total;
+            _ventasService.Ventas = Ventas.ToList();
+
+            ReportVentView reportVentView = new ReportVentView();
+            reportVentView.DataContext = new ReportVentViewModel(_ventasService);
+            reportVentView.Show();
+
             //using (var conn = new SqlConnection(LoginViewModel.ConectionBD))
             //{
             //    try
@@ -197,11 +213,11 @@ namespace ProyectoGrado.ViewModels
             //    }
             //}
 
-            PrintDocument document = new PrintDocument();
-            PrinterSettings settings = new PrinterSettings();
-            document.PrinterSettings = settings;
-            document.PrintPage += Imprimir;
-            document.Print();
+            //PrintDocument document = new PrintDocument();
+            //PrinterSettings settings = new PrinterSettings();
+            //document.PrinterSettings = settings;
+            //document.PrintPage += Imprimir;
+            //document.Print();
         }
 
         private void Imprimir(object sender, PrintPageEventArgs e)
