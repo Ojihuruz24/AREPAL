@@ -12,10 +12,16 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Forms;
 
 namespace ProyectoGrado.ViewModels
 {
@@ -37,6 +43,8 @@ namespace ProyectoGrado.ViewModels
             get { return _ventas; }
             set { SetProperty(ref _ventas, value); }
         }
+
+        private DataTable _dataTable { get; set; }
 
         public string Code
         {
@@ -82,7 +90,6 @@ namespace ProyectoGrado.ViewModels
             get { return _total; }
             set { SetProperty(ref _total, value); }
         }
-
 
         public DelegateCommand AddProductCommand { get; }
         public DelegateCommand PrintCommand { get; }
@@ -156,9 +163,69 @@ namespace ProyectoGrado.ViewModels
 
         private void Print()
         {
-            PrintDialog printDialog = new PrintDialog();
-            printDialog.ShowDialog();
+            //using (var conn = new SqlConnection(LoginViewModel.ConectionBD))
+            //{
+            //    try
+            //    {
+            //        conn.Open();
+
+            //        foreach (var item in Ventas)
+            //        {
+            //            string query = "INSERT INTO VENTA (ID_PRODUCTO, NOMBRE , CANTIDAD, PRECIO, CLIENTE) VALUES (@Id_producto, @Name, @Quantity, @Price, @Client)";
+            //            SqlCommand cmd = new SqlCommand(query, conn);
+
+            //            cmd.Parameters.AddWithValue("@Id_producto", item.Code);
+            //            cmd.Parameters.AddWithValue("@Name", item.Product);
+            //            cmd.Parameters.AddWithValue("@Quantity", item.Quantity);
+            //            cmd.Parameters.AddWithValue("@Price", item.Price);
+            //            cmd.Parameters.AddWithValue("@Client", Client);
+            //            cmd.ExecuteNonQuery();
+            //        }
+            //        conn.Close();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        System.Windows.Forms.MessageBox.Show("Error al insertar la venta: ", ex.Message);
+            //    }
+            //    finally
+            //    {
+            //        PrintDocument document = new PrintDocument();
+            //        PrinterSettings settings = new PrinterSettings();
+            //        document.PrinterSettings = settings;
+            //        document.PrintPage += Imprimir;
+            //        document.Print();
+            //    }
+            //}
+
+            PrintDocument document = new PrintDocument();
+            PrinterSettings settings = new PrinterSettings();
+            document.PrinterSettings = settings;
+            document.PrintPage += Imprimir;
+            document.Print();
         }
+
+        private void Imprimir(object sender, PrintPageEventArgs e)
+        {
+
+            Font font = new Font("Arial", 14);
+            int ancho = 500;
+            int y = 20;
+
+            e.Graphics.DrawString("--------PUNTO DE VENTA--------", font, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString($"Cliente: {Client}", font, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("---------PRODUCTOS------------", font, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
+
+            foreach (var venta in Ventas)
+            {
+                e.Graphics.DrawString($"{venta.Code} - {venta.Product} - {venta.Quantity} - {venta.Price} ", font, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
+            }
+
+            e.Graphics.DrawString($"------TOTAL A PAGAR: {Total}", font, Brushes.Black, new RectangleF(0, y += 30, ancho, 20));
+
+            e.Graphics.DrawString($"------GRACIAS POR VISITARNOS-------", font, Brushes.Black, new RectangleF(0, y += 40, ancho, 20));
+
+        }
+
 
         private bool CanAddProduct()
         {
@@ -184,5 +251,24 @@ namespace ProyectoGrado.ViewModels
             Price = 0;
             ProductValue = 0;
         }
+    }
+
+    public class PrintText
+    {
+        public PrintText(string text, Font font) : this(text, font, new StringFormat()) { }
+
+        public PrintText(string text, Font font, StringFormat stringFormat)
+        {
+            Text = text;
+            Font = font;
+            StringFormat = stringFormat;
+        }
+
+        public string Text { get; set; }
+
+        public Font Font { get; set; }
+
+        /// <summary> Default is horizontal string formatting </summary>
+        public StringFormat StringFormat { get; set; }
     }
 }

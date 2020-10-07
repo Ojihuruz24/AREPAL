@@ -42,14 +42,17 @@
                             <Label Content="CODIGO" />
                             <StackPanel Orientation="Horizontal">
                                 <TextBox Text="{Binding Code}" />
-                                <Button Margin="3" Content="Go!" Command="{Binding SearchCodeCommand}" />
+                                <Button
+                                    Margin="3"
+                                    Command="{Binding SearchCodeCommand}"
+                                    Content="Go!" />
                             </StackPanel>
                             <Label Content="PRODUCTO" />
-                            <TextBox Text="{Binding Product}" IsEnabled="False"/>
+                            <TextBox IsEnabled="False" Text="{Binding Product}" />
                             <Label Content="CANTIDAD" />
-                            <TextBox Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" />
                             <Label Content="PRECIO" />
-                            <TextBox Text="{Binding Price}" IsEnabled="False" />
+                            <TextBox IsEnabled="False" Text="{Binding Price}" />
                         </StackPanel>
                         <StackPanel
                             Margin="0,30,0,0"
@@ -80,7 +83,7 @@
                         Grid.Row="0"
                         Grid.ColumnSpan="2"
                         Margin="0,0,0,0">
-                        <DataGrid
+                        <DataGrid x:Name="GridOfVents"
                             Width="auto"
                             MinHeight="340"
                             Margin="0"
@@ -120,7 +123,7 @@
                                 <StackPanel Grid.Column="0" Orientation="Vertical">
                                     <Label Content="CLIENTE" />
                                     <TextBox Text="{Binding Client}" />
-                                    <Button Content="Agregar" Command="{Binding AddClientCommand}"/>
+                                    <Button Command="{Binding AddClientCommand}" Content="Agregar" />
                                 </StackPanel>
                             </Border>
                             <StackPanel
@@ -130,8 +133,8 @@
                                 <Border BorderBrush="Black" BorderThickness="1,1,1,1">
                                     <StackPanel>
                                         <Label Content="TOTAL A PAGAR" />
-                                        <TextBox IsEnabled="False" Text="{Binding Total , Mode=TwoWay}"/>
-                                        <Button Content="IMPRIMIR" Command="{Binding PrintCommand}" />
+                                        <TextBox IsEnabled="False" Text="{Binding Total, Mode=TwoWay}" />
+                                        <Button Command="{Binding PrintCommand}" Content="IMPRIMIR"/>
                                     </StackPanel>
                                 </Border>
                             </StackPanel>
