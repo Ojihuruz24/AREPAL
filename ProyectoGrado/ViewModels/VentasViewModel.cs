@@ -207,22 +207,41 @@ namespace ProyectoGrado.ViewModels
         private void Imprimir(object sender, PrintPageEventArgs e)
         {
 
+            Console.WriteLine("{0,6} {1,20} {2,20} {3,20} {4,30}",
+                              "Codigo", "Producto", "Cantidad", "Preico", "Cliente");
+
+            foreach (var item in Ventas)
+            {
+                var datusua = ("{0,6} {1,20} {2,20} {3,20} {4,30}",
+                                 item.Code, item.Product, item.Quantity, item.Price, Client);
+                Console.WriteLine(datusua);
+            }
+
+
+
             Font font = new Font("Arial", 14);
-            int ancho = 500;
+            int ancho = 700;
             int y = 20;
 
-            e.Graphics.DrawString("--------PUNTO DE VENTA--------", font, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("--------FACTURA AREPAL--------", font, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
+
+
             e.Graphics.DrawString($"Cliente: {Client}", font, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
-            e.Graphics.DrawString("---------PRODUCTOS------------", font, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString(string.Format("{0,6} {1,10} {2,10} {3,18}",
+                              "Codigo", "Producto", "Cantidad", "Preico"), font, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
+
 
             foreach (var venta in Ventas)
             {
-                e.Graphics.DrawString($"{venta.Code} - {venta.Product} - {venta.Quantity} - {venta.Price} ", font, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
+                e.Graphics.DrawString(string.Format("{0,6} {1,15} {2,10} {3,18} ",
+                                     venta.Code, venta.Product, venta.Quantity, venta.Price), font, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
+                //e.Graphics.DrawString($"{venta.Code} - {venta.Product} - {venta.Quantity} - {venta.Price} ", font, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
             }
+
 
             e.Graphics.DrawString($"------TOTAL A PAGAR: {Total}", font, Brushes.Black, new RectangleF(0, y += 30, ancho, 20));
 
-            e.Graphics.DrawString($"------GRACIAS POR VISITARNOS-------", font, Brushes.Black, new RectangleF(0, y += 40, ancho, 20));
+            e.Graphics.DrawString($"------GRACIAS POR TU COMPRA-------", font, Brushes.Black, new RectangleF(0, y += 40, ancho, 20));
 
         }
 
