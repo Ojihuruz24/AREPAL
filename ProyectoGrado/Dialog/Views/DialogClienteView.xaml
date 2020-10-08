@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProyectoGrado.Dialog.Views"
         mc:Ignorable="d"
-       Title="Clientes" Height="450" Width="700"
-        ResizeMode="NoResize"
-        SizeToContent="Manual">
+       Title="Clientes" Height="420" Width="700"
+        ResizeMode="NoResize" WindowStyle="None" FontFamily="Roboto" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style BasedOn="{StaticResource DataGridStyle}" TargetType="DataGrid" />
         <Style BasedOn="{StaticResource BaseTextBox}" TargetType="TextBox" />

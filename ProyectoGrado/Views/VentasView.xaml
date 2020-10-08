@@ -92,11 +92,11 @@
                             <DataGrid.Columns>
                                 <DataGridTextColumn
                                     Width="130"
-                                    Binding="{Binding Code}"
+                                    Binding="{Binding IdProduct}"
                                     Header="CODIGO" />
                                 <DataGridTextColumn
                                     Width="190"
-                                    Binding="{Binding Product}"
+                                    Binding="{Binding NameProduct}"
                                     Header="PRODUCTO" />
                                 <DataGridTextColumn
                                     Width="150"
@@ -104,7 +104,7 @@
                                     Header="CANTIDAD" />
                                 <DataGridTextColumn
                                     Width="150"
-                                    Binding="{Binding Price}"
+                                    Binding="{Binding SubTotal}"
                                     Header="PRECIO" />
                             </DataGrid.Columns>
                         </DataGrid>

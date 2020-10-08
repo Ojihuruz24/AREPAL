@@ -8,40 +8,17 @@ namespace ProyectoGrado.Models
 {
     public class Venta
     {
-        private string _code;
-        private string _product;
-        private int _quantity;
-        private int _price;
-        private string _client;
+        public string IdProduct { get; set; }
 
-        public string Code
-        {
-            get { return _code; }
-            set { _code = value; }
-        }
+        public string NameProduct { get; set; }
 
-        public string Product
-        {
-            get { return _product; }
-            set { _product = value; }
-        }
+        public int Quantity { get; set; }
 
-        public int Quantity
-        {
-            get { return _quantity; }
-            set { _quantity = value; }
-        }
+        public int SubTotasl { get; set; }
 
-        public int Price
-        {
-            get { return _price; }
-            set { _price = value; }
-        }
+        public string Client { get; set; }
 
-        public string Client
-        {
-            get { return _client; }
-            set { _client = value; }
-        }
+        public int SubTotal { get; set; }
+
     }
 }

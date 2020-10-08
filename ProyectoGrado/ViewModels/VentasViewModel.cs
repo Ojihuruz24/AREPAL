@@ -128,7 +128,7 @@ namespace ProyectoGrado.ViewModels
         {
             DialogClienteView dialogClienteView = new DialogClienteView();
             dialogClienteView.DataContext = new DialogClienteViewModel(_eventAggregator);
-            dialogClienteView.Show();
+            dialogClienteView.ShowDialog();
         }
 
         private void OnProductSelected(DataRowView product)
@@ -168,17 +168,14 @@ namespace ProyectoGrado.ViewModels
         private void Print()
         {
             _ventasService.Client = Client;
-            _ventasService.Code = Code;
-            _ventasService.Price = Price;
-            _ventasService.Product = Product;
-            _ventasService.Quantity = Quantity;
             _ventasService.Total = Total;
             _ventasService.Ventas = Ventas.ToList();
 
             ReportVentView reportVentView = new ReportVentView();
             reportVentView.DataContext = new ReportVentViewModel(_ventasService);
-            reportVentView.Show();
+            reportVentView.ShowDialog();
 
+            #region Commemt
             //using (var conn = new SqlConnection(LoginViewModel.ConectionBD))
             //{
             //    try
@@ -217,7 +214,8 @@ namespace ProyectoGrado.ViewModels
             //PrinterSettings settings = new PrinterSettings();
             //document.PrinterSettings = settings;
             //document.PrintPage += Imprimir;
-            //document.Print();
+            //document.Print(); 
+            #endregion
         }
 
         private void Imprimir(object sender, PrintPageEventArgs e)
@@ -229,7 +227,7 @@ namespace ProyectoGrado.ViewModels
             foreach (var item in Ventas)
             {
                 var datusua = ("{0,6} {1,20} {2,20} {3,20} {4,30}",
-                                 item.Code, item.Product, item.Quantity, item.Price, Client);
+                                 item.IdProduct, item.NameProduct, item.Quantity, item.SubTotal, Client);
                 Console.WriteLine(datusua);
             }
 
@@ -250,7 +248,7 @@ namespace ProyectoGrado.ViewModels
             foreach (var venta in Ventas)
             {
                 e.Graphics.DrawString(string.Format("{0,6} {1,15} {2,10} {3,18} ",
-                                     venta.Code, venta.Product, venta.Quantity, venta.Price), font, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
+                                     venta.IdProduct, venta.NameProduct, venta.Quantity, venta.SubTotal), font, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
                 //e.Graphics.DrawString($"{venta.Code} - {venta.Product} - {venta.Quantity} - {venta.Price} ", font, Brushes.Black, new RectangleF(0, y += 20, ancho, 20));
             }
 
@@ -260,7 +258,6 @@ namespace ProyectoGrado.ViewModels
             e.Graphics.DrawString($"------GRACIAS POR TU COMPRA-------", font, Brushes.Black, new RectangleF(0, y += 40, ancho, 20));
 
         }
-
 
         private bool CanAddProduct()
         {
@@ -273,7 +270,7 @@ namespace ProyectoGrado.ViewModels
 
         private void AddProduct()
         {
-            Ventas.Add(new Venta { Code = Code, Product = Product, Quantity = Quantity, Price = Price, Client = Client });
+            Ventas.Add(new Venta { IdProduct = Code, NameProduct = Product, Quantity = Quantity, SubTotal = Price, Client = Client});
             Total = Total + Price;
             Clear();
         }

@@ -9,15 +9,8 @@ namespace ProyectoGrado.Services
 {
     public class VentasService : IVentasService
     {
-        public int ProductValue { get; set; }
 
         public List<Venta> Ventas { get; set; }
-
-        public string Code { get; set; }
-
-        public string Product { get; set; }
-
-        public int Quantity { get; set; }
 
         public int Price { get; set; }
 

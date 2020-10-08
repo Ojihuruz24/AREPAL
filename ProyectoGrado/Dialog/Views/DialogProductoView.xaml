@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:ProyectoGrado.Dialog"
         mc:Ignorable="d"
         Title="Producto" Height="450" Width="700"
-        ResizeMode="NoResize"
-        SizeToContent="Manual">
+        ResizeMode="NoResize" 
+        WindowStyle="None" FontFamily="Roboto" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style BasedOn="{StaticResource DataGridStyle}" TargetType="DataGrid" />
         <Style BasedOn="{StaticResource BaseTextBox}" TargetType="TextBox" />

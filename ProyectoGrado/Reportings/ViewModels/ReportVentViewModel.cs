@@ -30,6 +30,9 @@ namespace ProyectoGrado.Reportings.ViewModels
             set { SetProperty(ref _description, value); }
         }
 
+        public DateTime DataTimeNow { get; set; } = DateTime.Now;
+
+
         public int SaleUnit
         {
             get { return _saleUnit; }
@@ -69,17 +72,7 @@ namespace ProyectoGrado.Reportings.ViewModels
         {
             NameClient = _ventasService.Client;
             Total = _ventasService.Total;
-
-            //ProductsSale = new List<Venta>(_ventasService.Ventas);
-
-            Task.Run(() =>
-            {
-                foreach (var venta in _ventasService.Ventas)
-                {
-                    ProductsSale.Add(new Venta { Code = venta.Code, Product = venta.Product, Quantity = venta.Quantity, Price = venta.Price });
-                }
-            });
-           
+            ProductsSale = new List<Venta>(_ventasService.Ventas);
 
         }
     }
