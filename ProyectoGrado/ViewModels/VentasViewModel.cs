@@ -36,6 +36,7 @@ namespace ProyectoGrado.ViewModels
         private int _quantity = 0;
         private int _price;
         private string _client;
+        private string _clientName;
         private int _total;
         private ObservableCollection<Venta> _ventas;
         private readonly IEventAggregator _eventAggregator;
@@ -86,6 +87,12 @@ namespace ProyectoGrado.ViewModels
         {
             get { return _client; }
             set { SetProperty(ref _client, value); }
+        } 
+
+        public string ClientName
+        {
+            get { return _clientName; }
+            set { SetProperty(ref _clientName, value); }
         }
 
         public int Total
@@ -116,7 +123,8 @@ namespace ProyectoGrado.ViewModels
 
         private void OnClientSelected(DataRowView client)
         {
-            Client = $"{client.Row[1]}  { client.Row[2]}";
+            Client = $"{client.Row[0]}";
+            ClientName = $"{client.Row[1]}";
         }
 
         private bool CanAddClient()
@@ -135,7 +143,7 @@ namespace ProyectoGrado.ViewModels
         {
             Code = product.Row[0].ToString();
             Product = product.Row[1].ToString();
-            ProductValue = int.Parse(product.Row[2].ToString());
+            ProductValue = int.Parse(product.Row[3].ToString());
         }
 
         private bool CanSearchCode()
@@ -167,6 +175,74 @@ namespace ProyectoGrado.ViewModels
 
         private void Print()
         {
+            using (var conn = new SqlConnection(LoginViewModel.ConectionBD))
+            {
+                SqlCommand cmd = null;
+                try
+                {
+                    conn.Open();
+
+                    #region Tabla venta
+                    string venta = "INSERT INTO VENTA" +
+                        " (ID_USUARIO , VALOR_TOTAL , ESTADO , FECHA)" +
+                        " VALUES (@ID_USUARIO, @VALOR_TOTAL, @ESTADO, @FECHA) SELECT SCOPE_IDENTITY()";
+
+                    cmd = new SqlCommand(venta, conn);
+
+                    cmd.Parameters.AddWithValue("@ID_USUARIO", Client);
+                    cmd.Parameters.AddWithValue("@VALOR_TOTAL", Total);
+                    cmd.Parameters.AddWithValue("@ESTADO", "Pagado");
+                    cmd.Parameters.AddWithValue("@FECHA", DateTime.Now);
+
+                    int id_venta = Convert.ToInt32(cmd.ExecuteScalar());
+                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.Clear();
+
+                    #endregion
+
+                    #region detalle venta
+                    string detalle_venta;
+
+                    foreach (var item in Ventas)
+                    {
+                        detalle_venta = "INSERT INTO DETALLE_VENTA" +
+                        " (PRECIO, DESCUENTO, ID_PRODUCTO , CANTIDAD, ID_VENTA)" +
+                        " VALUES (@PRECIO, @DESCUENTO, @ID_PRODUCTO, @CANTIDAD, @ID_VENTA) SELECT SCOPE_IDENTITY() ";
+                        cmd = new SqlCommand(detalle_venta, conn);
+
+                        cmd.Parameters.AddWithValue("@PRECIO", item.SubTotal);
+                        cmd.Parameters.AddWithValue("@DESCUENTO", 0);
+                        cmd.Parameters.AddWithValue("@ID_PRODUCTO", item.IdProduct);
+                        cmd.Parameters.AddWithValue("@CANTIDAD", item.Quantity);
+                        cmd.Parameters.AddWithValue("@ID_VENTA", id_venta);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    cmd.Parameters.Clear();
+                    #endregion
+
+                    #region tabla Venta cliente
+                    string venta_cliente = "INSERT INTO VENTAS_CLIENTE " +
+                                " (ID_VENTA ,ID_CLIENTE) VALUES (@ID_VENTA ,@Client)";
+
+                    cmd = new SqlCommand(venta_cliente, conn);
+                    cmd.Parameters.AddWithValue("@ID_VENTA", id_venta);
+                    cmd.Parameters.AddWithValue("@Client", Client);
+
+                    cmd.ExecuteNonQuery();
+
+                    cmd.Parameters.Clear();
+                    #endregion
+
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show("Error a la hora de insertar el cliente", ex.Message);
+                }
+            }
+
+
             _ventasService.Client = Client;
             _ventasService.Total = Total;
             _ventasService.Ventas = Ventas.ToList();
@@ -270,7 +346,7 @@ namespace ProyectoGrado.ViewModels
 
         private void AddProduct()
         {
-            Ventas.Add(new Venta { IdProduct = Code, NameProduct = Product, Quantity = Quantity, SubTotal = Price, Client = Client});
+            Ventas.Add(new Venta { IdProduct = Code, NameProduct = Product, Quantity = Quantity, SubTotal = Price, Client = Client });
             Total = Total + Price;
             Clear();
         }

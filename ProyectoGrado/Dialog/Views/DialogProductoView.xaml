@@ -32,7 +32,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn
                     Width="160"
-                    Binding="{Binding ID_PRODUCTO}"
+                    Binding="{Binding CODIGO}"
                     Header="ID PRODUCTO" />
                     <DataGridTextColumn
                     Width="160"
@@ -42,10 +42,6 @@
                     Width="110"
                     Binding="{Binding PRECIO}"
                     Header="PRECIO" />
-                    <DataGridTextColumn
-                    Width="110"
-                    Binding="{Binding CANTIDAD}"
-                    Header="CATNIDAD" />
                     <DataGridTextColumn
                     Width="150"
                     Binding="{Binding CATEGORIA}"

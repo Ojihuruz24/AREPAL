@@ -100,7 +100,8 @@ namespace ProyectoGrado.ViewModels
             {
                 try
                 {
-                    string query = "INSERT INTO CLIENTE (ID, NOMBRE , DIRECCION, TELEFONO) VALUES (@DocumentUser, @NameUser, @DirectionUser, @TelUser)";
+                    string query = "INSERT INTO CLIENTE (ID, NOMBRE , DIRECCION, TELEFONO)" +
+                        " VALUES (@DocumentUser, @NameUser, @DirectionUser, @TelUser)";
                     SqlCommand cmd = new SqlCommand(query, conn);
 
                     conn.Open();

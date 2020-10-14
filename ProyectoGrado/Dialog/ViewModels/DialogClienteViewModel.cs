@@ -67,7 +67,7 @@ namespace ProyectoGrado.Dialog.ViewModels
         {
             if (!string.IsNullOrEmpty(search))
             {
-                Clients.DefaultView.RowFilter = $"DOCUMENTO = {SearchClient}";
+                Clients.DefaultView.RowFilter = $"ID = {SearchClient}";
                 return;
             }
 
@@ -80,6 +80,7 @@ namespace ProyectoGrado.Dialog.ViewModels
             using (var conn = new SqlConnection(LoginViewModel.ConectionBD))
             {
                 string query = "select * from CLIENTE";
+               
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);

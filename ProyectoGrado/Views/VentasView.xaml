@@ -122,7 +122,7 @@
                             <Border BorderBrush="Black" BorderThickness="1">
                                 <StackPanel Grid.Column="0" Orientation="Vertical">
                                     <Label Content="CLIENTE" />
-                                    <TextBox Text="{Binding Client}" />
+                                    <TextBox Text="{Binding ClientName}" />
                                     <Button Command="{Binding AddClientCommand}" Content="Agregar" />
                                 </StackPanel>
                             </Border>

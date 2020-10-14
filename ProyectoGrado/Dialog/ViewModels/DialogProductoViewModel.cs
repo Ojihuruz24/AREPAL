@@ -82,7 +82,9 @@ namespace ProyectoGrado.Dialog.ViewModels
             DataTable dt = new DataTable();
             using (var conn = new SqlConnection(LoginViewModel.ConectionBD))
             {
-                string query = "select * from PRODUCTO";
+                string query = "SELECT PRODUCTO.ID, PRODUCTO.CODIGO, PRODUCTO.NOMBRE ,PRODUCTO.PRECIO, CATEGORIA.NOMBRE AS CATEGORIA" +
+                     " FROM CATEGORIA " +
+                     "INNER JOIN PRODUCTO ON CATEGORIA.ID = PRODUCTO.ID_CATEGORIA";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);

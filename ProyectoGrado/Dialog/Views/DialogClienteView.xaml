@@ -31,16 +31,12 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn
                     Width="160"
-                    Binding="{Binding DOCUMENTO}"
+                    Binding="{Binding ID}"
                     Header="DOCUMENTO" />
                     <DataGridTextColumn
                     Width="160"
                     Binding="{Binding NOMBRE}"
                     Header="NOMBRE" />
-                    <DataGridTextColumn
-                    Width="110"
-                    Binding="{Binding APELLIDO}"
-                    Header="APELLIDO" />
                     <DataGridTextColumn
                     Width="110"
                     Binding="{Binding DIRECCION}"

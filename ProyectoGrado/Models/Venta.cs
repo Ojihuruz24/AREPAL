@@ -20,5 +20,6 @@ namespace ProyectoGrado.Models
 
         public int SubTotal { get; set; }
 
+
     }
 }
