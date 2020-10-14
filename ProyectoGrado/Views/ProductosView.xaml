@@ -35,22 +35,18 @@
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="160"
-                    Binding="{Binding ID_PRODUCTO}"
-                    Header="ID PRODUCTO" />
+                    Binding="{Binding ID}"
+                    Header="CODIGO" />
                 <DataGridTextColumn
-                    Width="160"
+                    Width="230"
                     Binding="{Binding NOMBRE}"
                     Header="NOMBRE" />
                 <DataGridTextColumn
-                    Width="160"
+                    Width="210"
                     Binding="{Binding PRECIO}"
                     Header="PRECIO" />
                 <DataGridTextColumn
-                    Width="160"
-                    Binding="{Binding CANTIDAD}"
-                    Header="CATNIDAD" />
-                <DataGridTextColumn
-                    Width="160"
+                    Width="200"
                     Binding="{Binding CATEGORIA}"
                     Header="CATEGORIA" />
             </DataGrid.Columns>
