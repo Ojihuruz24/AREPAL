@@ -22,6 +22,7 @@ namespace ProyectoGrado.Reportings.ViewModels
         private List<Venta> _prodcutsSale;
         private int _quantity;
         private int _subTotal;
+        private int _idVenta;
         private int _saleUnit;
 
         public string Description
@@ -37,6 +38,12 @@ namespace ProyectoGrado.Reportings.ViewModels
         {
             get { return _saleUnit; }
             set { SetProperty(ref _saleUnit, value); }
+        }
+
+        public int IdVenta
+        {
+            get { return _idVenta; }
+            set { SetProperty(ref _idVenta, value); }
         }
 
         public int Quantity
@@ -58,6 +65,7 @@ namespace ProyectoGrado.Reportings.ViewModels
         }
 
         public string NameClient { get; set; } = "";
+        public string Cedula { get; set; } = "";
         public string Tel { get; set; }
         public int Total { get; set; }
 
@@ -70,9 +78,12 @@ namespace ProyectoGrado.Reportings.ViewModels
 
         private void OnDatum()
         {
-            NameClient = _ventasService.Client;
+            NameClient = _ventasService.NameClient;
+            Tel = _ventasService.Tel;
             Total = _ventasService.Total;
             ProductsSale = new List<Venta>(_ventasService.Ventas);
+            IdVenta = _ventasService.IdVenta;
+            Cedula = _ventasService.Cedula;
 
         }
     }

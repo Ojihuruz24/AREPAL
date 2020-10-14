@@ -36,6 +36,7 @@ namespace ProyectoGrado.ViewModels
         private int _quantity = 0;
         private int _price;
         private string _client;
+        private string _number;
         private string _clientName;
         private int _total;
         private ObservableCollection<Venta> _ventas;
@@ -87,7 +88,13 @@ namespace ProyectoGrado.ViewModels
         {
             get { return _client; }
             set { SetProperty(ref _client, value); }
-        } 
+        }
+
+        public string Number 
+        {
+            get { return _number; }
+            set { SetProperty(ref _number, value); }
+        }
 
         public string ClientName
         {
@@ -125,6 +132,7 @@ namespace ProyectoGrado.ViewModels
         {
             Client = $"{client.Row[0]}";
             ClientName = $"{client.Row[1]}";
+            Number = $"{client.Row[3]}";
         }
 
         private bool CanAddClient()
@@ -175,6 +183,7 @@ namespace ProyectoGrado.ViewModels
 
         private void Print()
         {
+            int _idVenta = 0;
             using (var conn = new SqlConnection(LoginViewModel.ConectionBD))
             {
                 SqlCommand cmd = null;
@@ -194,7 +203,7 @@ namespace ProyectoGrado.ViewModels
                     cmd.Parameters.AddWithValue("@ESTADO", "Pagado");
                     cmd.Parameters.AddWithValue("@FECHA", DateTime.Now);
 
-                    int id_venta = Convert.ToInt32(cmd.ExecuteScalar());
+                    _idVenta = Convert.ToInt32(cmd.ExecuteScalar());
                     cmd.ExecuteNonQuery();
                     cmd.Parameters.Clear();
 
@@ -214,7 +223,7 @@ namespace ProyectoGrado.ViewModels
                         cmd.Parameters.AddWithValue("@DESCUENTO", 0);
                         cmd.Parameters.AddWithValue("@ID_PRODUCTO", item.IdProduct);
                         cmd.Parameters.AddWithValue("@CANTIDAD", item.Quantity);
-                        cmd.Parameters.AddWithValue("@ID_VENTA", id_venta);
+                        cmd.Parameters.AddWithValue("@ID_VENTA", _idVenta);
 
                         cmd.ExecuteNonQuery();
                     }
@@ -227,7 +236,7 @@ namespace ProyectoGrado.ViewModels
                                 " (ID_VENTA ,ID_CLIENTE) VALUES (@ID_VENTA ,@Client)";
 
                     cmd = new SqlCommand(venta_cliente, conn);
-                    cmd.Parameters.AddWithValue("@ID_VENTA", id_venta);
+                    cmd.Parameters.AddWithValue("@ID_VENTA", _idVenta);
                     cmd.Parameters.AddWithValue("@Client", Client);
 
                     cmd.ExecuteNonQuery();
@@ -243,8 +252,12 @@ namespace ProyectoGrado.ViewModels
             }
 
 
-            _ventasService.Client = Client;
+            _ventasService.Cedula = Client;
+            _ventasService.Cedula = Client;
             _ventasService.Total = Total;
+            _ventasService.IdVenta = _idVenta;
+            _ventasService.NameClient = ClientName;
+            _ventasService.Tel = Number;
             _ventasService.Ventas = Ventas.ToList();
 
             ReportVentView reportVentView = new ReportVentView();
