@@ -49,9 +49,6 @@
                         <Label Content="NOMBRE COMPLETO" />
                         <TextBox Text="{Binding NameUser}" />
 
-                        <Label Content="APELLIDOS" />
-                        <TextBox Text="{Binding SurnameUser}" />
-
                         <Label Content="DIRECCION" />
                         <TextBox Text="{Binding DirectionUser}" />
 
@@ -78,23 +75,19 @@
                 ItemsSource="{Binding TableClient, Mode=TwoWay}">
                 <DataGrid.Columns>
                     <DataGridTextColumn
-                        Width="115"
-                        Binding="{Binding DOCUMENTO}"
+                        Width="125"
+                        Binding="{Binding ID}"
                         Header="DOCUMENTO" />
                     <DataGridTextColumn
-                        Width="120"
+                        Width="180"
                         Binding="{Binding NOMBRE}"
                         Header="NOMBRE" />
                     <DataGridTextColumn
-                        Width="120"
-                        Binding="{Binding APELLIDO}"
-                        Header="APELLIDO" />
-                    <DataGridTextColumn
-                        Width="120"
+                        Width="150"
                         Binding="{Binding DIRECCION}"
                         Header="DIRECCION" />
                     <DataGridTextColumn
-                        Width="116"
+                        Width="136"
                         Binding="{Binding TELEFONO}"
                         Header="TELEFONO" />
                 </DataGrid.Columns>

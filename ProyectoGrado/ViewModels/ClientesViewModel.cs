@@ -20,7 +20,6 @@ namespace ProyectoGrado.ViewModels
         private string _telUser;
         private string _documentUser;
         private string _nameUser;
-        private string _surnameUser;
         private string _directionUser;
         private ICollectionView _collectionView;
         private string _searchClient;
@@ -56,12 +55,6 @@ namespace ProyectoGrado.ViewModels
         {
             get => _nameUser;
             set => SetProperty(ref _nameUser, value);
-        }
-
-        public string SurnameUser
-        {
-            get => _surnameUser;
-            set => SetProperty(ref _surnameUser, value);
         }
 
         public string DirectionUser
@@ -107,14 +100,13 @@ namespace ProyectoGrado.ViewModels
             {
                 try
                 {
-                    string query = "INSERT INTO CLIENTE (DOCUMENTO, NOMBRE , APELLIDO, DIRECCION, TELEFONO) VALUES (@DocumentUser, @NameUser, @SurnameUser, @DirectionUser, @TelUser)";
+                    string query = "INSERT INTO CLIENTE (ID, NOMBRE , DIRECCION, TELEFONO) VALUES (@DocumentUser, @NameUser, @DirectionUser, @TelUser)";
                     SqlCommand cmd = new SqlCommand(query, conn);
 
                     conn.Open();
 
                     cmd.Parameters.AddWithValue("@DocumentUser", DocumentUser);
                     cmd.Parameters.AddWithValue("@NameUser", NameUser);
-                    cmd.Parameters.AddWithValue("@SurnameUser", SurnameUser);
                     cmd.Parameters.AddWithValue("@DirectionUser", DirectionUser);
                     cmd.Parameters.AddWithValue("@TelUser", TelUser);
 
@@ -137,7 +129,6 @@ namespace ProyectoGrado.ViewModels
         {
             DocumentUser = string.Empty;
             NameUser = string.Empty;
-            SurnameUser = string.Empty;
             DirectionUser = string.Empty;
             TelUser = string.Empty;
         }
