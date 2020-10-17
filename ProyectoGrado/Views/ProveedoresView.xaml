@@ -1,0 +1,104 @@
+﻿<UserControl
+    x:Class="ProyectoGrado.Views.ProveedoresView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    Width="auto"
+    Height="500"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Background="White"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style BasedOn="{StaticResource DataGridStyle}" TargetType="DataGrid" />
+        <Style BasedOn="{StaticResource BaseTextBox}" TargetType="TextBox" />
+        <Style BasedOn="{StaticResource LabelStyle}" TargetType="Label" />
+        <Style BasedOn="{StaticResource ButtonStyle}" TargetType="Button" />
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Label Content="PROVEEDOR" />
+            <TextBox Text="{Binding SearchProvider}" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="1"
+            Margin="5"
+            Background="#FFDEDEDE"
+            Orientation="Vertical">
+            <Border BorderBrush="Black" BorderThickness="1">
+                <StackPanel>
+                    <StackPanel
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Center"
+                        Orientation="Vertical">
+                        <Label Content="NUEVO PROVEEDOR" />
+                        <Label Margin="0,5,0,0" Content="NOMBRE - RAZON SOCIAL" />
+                        <TextBox Text="{Binding DocumentUser}" />
+
+                        <Label Content="TIPO DE DOCUMENTO" />
+                        <ComboBox
+                            Grid.Row="6"
+                            Grid.Column="1"
+                            Margin="5"
+                            Height="30"
+                            DisplayMemberPath="Name"
+                            ItemsSource="{Binding TypeDocuments}"
+                            SelectedItem="{Binding TypeDocument}"
+                            SelectedValuePath="Codigo" />
+
+                        <Label Content="NUMERO DE DOCUMENTO" />
+                        <TextBox Text="{Binding NumberDocument}" />
+
+                        <Label Content="TELEFONO" />
+                        <TextBox Text="{Binding TelUser}" />
+                    </StackPanel>
+                    <StackPanel
+                        Margin="0,18,0,0"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Button Command="{Binding AddCommand}" Content="Agregar" />
+                        <Button Command="{Binding CancelCommand}" Content="Cancelar" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="2"
+            Margin="5">
+            <DataGrid
+                MinHeight="410"
+                AutoGenerateColumns="False"
+                ItemsSource="{Binding TableProvider, Mode=TwoWay}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="125"
+                        Binding="{Binding NUM_DOCUMENTO}"
+                        Header="DOCUMENTO" />
+                    <DataGridTextColumn
+                        Width="100"
+                        Binding="{Binding TIPO:DOCUMENTO}"
+                        Header="TIPO" />
+                    <DataGridTextColumn
+                        Width="250"
+                        Binding="{Binding RAZON_SOCIAL}"
+                        Header="NOMBRE - RAZON SOCIAL" />
+                    <DataGridTextColumn
+                        Width="116"
+                        Binding="{Binding TELEFONO}"
+                        Header="TELEFONO" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</UserControl>
