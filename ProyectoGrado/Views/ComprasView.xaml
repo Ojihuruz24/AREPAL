@@ -159,7 +159,7 @@
                         Header="ID" />
                     <DataGridTextColumn
                         Width="190"
-                        Binding="{Binding ARTICULO}"
+                        Binding="{Binding NOMBRE}"
                         Header="ARTICULO" />
                     <DataGridTextColumn
                         Width="120"

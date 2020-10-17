@@ -126,82 +126,80 @@ namespace ProyectoGrado.ViewModels
 
                 var isExist = ValidationDatosDetalleCompra(conn);
 
-                if (!isExist)
+                try
                 {
-                    try
-                    {
-                        #region Tabla COMPRA
-                        string compra = "INSERT INTO COMPRA" +
-                            " (COMPROBANTE , NUM_COMPROBANTE , DESCRIPCION , FECHA, ID_PROVEEDOR, ID_USUARIO)" +
-                            " VALUES (@COMPROBANTE, @NUM_COMPROBANTE, @DESCRIPCION, @FECHA, @ID_PROVEEDOR, @ID_USUARIO) " +
-                            "SELECT SCOPE_IDENTITY()";
+                    #region Tabla COMPRA
+                    string compra = "INSERT INTO COMPRA" +
+                        " (COMPROBANTE , NUM_COMPROBANTE , DESCRIPCION , FECHA, ID_PROVEEDOR, ID_USUARIO)" +
+                        " VALUES (@COMPROBANTE, @NUM_COMPROBANTE, @DESCRIPCION, @FECHA, @ID_PROVEEDOR, @ID_USUARIO) " +
+                        "SELECT SCOPE_IDENTITY()";
 
-                        cmd = new SqlCommand(compra, conn);
+                    cmd = new SqlCommand(compra, conn);
 
-                        cmd.Parameters.AddWithValue("@COMPROBANTE", Vouncher.Name);
-                        cmd.Parameters.AddWithValue("@NUM_COMPROBANTE", NumComprobante);
-                        cmd.Parameters.AddWithValue("@DESCRIPCION", "Compra");
-                        cmd.Parameters.AddWithValue("@FECHA", DateTime.Now);
-                        cmd.Parameters.AddWithValue("@ID_PROVEEDOR", Provider.Codigo);
-                        cmd.Parameters.AddWithValue("@ID_USUARIO", LoginViewModel.UserBD);
+                    cmd.Parameters.AddWithValue("@COMPROBANTE", Vouncher.Name);
+                    cmd.Parameters.AddWithValue("@NUM_COMPROBANTE", NumComprobante);
+                    cmd.Parameters.AddWithValue("@DESCRIPCION", "Compra");
+                    cmd.Parameters.AddWithValue("@FECHA", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@ID_PROVEEDOR", Provider.Codigo);
+                    cmd.Parameters.AddWithValue("@ID_USUARIO", LoginViewModel.UserBD);
 
-                        _idCompra = Convert.ToInt32(cmd.ExecuteScalar());
+                    _idCompra = Convert.ToInt32(cmd.ExecuteScalar());
 
-                        cmd.Parameters.Clear();
-
-                        #endregion
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Windows.MessageBox.Show("Error a la hora de insertar la compra", ex.Message);
-                    }
-
-                    try
-                    {
-                        #region tabla DETALLE COMPRA
-                        string detalleCompra = $"INSERT INTO DETALLE_COMPRA " +
-                                    " (STOCK, CANTIDAD, MEDIDA, PRECIO, ID_ARTICULO, ID_COMPRA)" +
-                           " VALUES ( @STOCK, @CANTIDAD, @MEDIDA, @PRECIO, @ID_ARTICULO, @ID_COMPRA)";
-
-                        cmd = new SqlCommand(detalleCompra, conn);
-                        cmd.Parameters.AddWithValue("@STOCK", Quantity);
-                        cmd.Parameters.AddWithValue("@CANTIDAD", Quantity);
-                        cmd.Parameters.AddWithValue("@MEDIDA", "Kilogramos");
-                        cmd.Parameters.AddWithValue("@PRECIO", Price);
-                        cmd.Parameters.AddWithValue("@ID_ARTICULO", Article.Codigo);
-                        cmd.Parameters.AddWithValue("@ID_COMPRA", _idCompra);
-
-                        cmd.ExecuteNonQuery();
-
-                        cmd.Parameters.Clear();
-                        #endregion
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Windows.MessageBox.Show("Error a la hora de insertar el detalle de la compra", ex.Message);
-                    }
-
-                }
-                else
-                {
-                    #region  ARTICULO
-
-                    try
-                    {
-                        var stock = Stock(conn);
-
-                        UpdateStock(conn, stock);
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Windows.MessageBox.Show("Error a la hora de actualizar el stock", ex.Message);
-                    }
-
+                    cmd.Parameters.Clear();
 
                     #endregion
                 }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show("Error a la hora de insertar la compra", ex.Message);
+                }
+
+                try
+                {
+                    #region tabla DETALLE COMPRA
+                    string detalleCompra = $"INSERT INTO DETALLE_COMPRA " +
+                                " (STOCK, CANTIDAD, MEDIDA, PRECIO, ID_ARTICULO, ID_COMPRA)" +
+                       " VALUES ( @STOCK, @CANTIDAD, @MEDIDA, @PRECIO, @ID_ARTICULO, @ID_COMPRA)";
+
+                    cmd = new SqlCommand(detalleCompra, conn);
+                    cmd.Parameters.AddWithValue("@STOCK", Quantity);
+                    cmd.Parameters.AddWithValue("@CANTIDAD", Quantity);
+                    cmd.Parameters.AddWithValue("@MEDIDA", "Kilogramos");
+                    cmd.Parameters.AddWithValue("@PRECIO", Price);
+                    cmd.Parameters.AddWithValue("@ID_ARTICULO", Article.Codigo);
+                    cmd.Parameters.AddWithValue("@ID_COMPRA", _idCompra);
+
+                    cmd.ExecuteNonQuery();
+
+                    cmd.Parameters.Clear();
+                    #endregion
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show("Error a la hora de insertar el detalle de la compra", ex.Message);
+                }
+
+
+                #region  ARTICULO
+
+                try
+                {
+                    var stock = Stock(conn);
+
+                    UpdateStock(conn, stock);
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show("Error a la hora de actualizar el stock", ex.Message);
+                }
+
+                #endregion
+
 
                 DetailsTable();
+
+                Clear();
+
             }
         }
 
@@ -232,7 +230,7 @@ namespace ProyectoGrado.ViewModels
             var updateDetalleCompra = "UPDATE DETALLE_COMPRA SET STOCK=@STOCK WHERE ID_ARTICULO = @ID";
             comand = new SqlCommand(updateDetalleCompra, conn);
 
-            comand.Parameters.AddWithValue("@STOCK", stockValue);
+            comand.Parameters.AddWithValue("@STOCK", Quantity);
             comand.Parameters.AddWithValue("@ID", Article.Codigo);
             comand.ExecuteNonQuery();
             comand.Parameters.Clear();
@@ -271,12 +269,17 @@ namespace ProyectoGrado.ViewModels
 
         private void ConectionTables()
         {
-            ArticleOpen();
+            AddArticles();
 
             ProveedorOpen();
 
             DetailsTable();
 
+            AddVounchers();
+        }
+
+        private void AddVounchers()
+        {
             Vounchers.Add(new Articulo { Codigo = "0001", Name = "FACTURA" });
             Vounchers.Add(new Articulo { Codigo = "0002", Name = "RECIBO" });
             Vounchers.Add(new Articulo { Codigo = "0003", Name = "CONTADO" });
@@ -287,15 +290,33 @@ namespace ProyectoGrado.ViewModels
             using (var conn = new SqlConnection(LoginViewModel.ConectionBD))
             {
                 DataTable dt = new DataTable();
-                string query = "SELECT DETALLE_COMPRA.ID, DETALLE_COMPRA.ID_ARTICULO, DETALLE_COMPRA.STOCK ,DETALLE_COMPRA.MEDIDA, ARTICULO.NOMBRE AS ARTICULO" +
-                    " FROM ARTICULO " +
-                    "INNER JOIN DETALLE_COMPRA ON ARTICULO.ID = DETALLE_COMPRA.ID_ARTICULO";
+                //string query = "SELECT DETALLE_COMPRA.ID, DETALLE_COMPRA.ID_ARTICULO, DETALLE_COMPRA.STOCK ,DETALLE_COMPRA.MEDIDA, ARTICULO.NOMBRE AS ARTICULO" +
+                //    " FROM ARTICULO " +
+                //    "INNER JOIN DETALLE_COMPRA ON ARTICULO.ID = DETALLE_COMPRA.ID_ARTICULO";
+
+                string query = "SELECT * FROM ARTICULO";
+
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
                 TableArticle = dt;
             }
+        }
+
+        public void Clear()
+        {
+            Quantity = string.Empty;
+            Price = 0;
+            Total = 0;
+            NumComprobante = string.Empty;
+            Articles = new ObservableCollection<Articulo>();
+            AddArticles();
+            Vounchers = new ObservableCollection<Articulo>();
+            AddVounchers();
+            Providers = new ObservableCollection<Articulo>();
+            ProveedorOpen();
+
         }
 
         private void ProveedorOpen()
@@ -321,7 +342,7 @@ namespace ProyectoGrado.ViewModels
             }
         }
 
-        private void ArticleOpen()
+        private void AddArticles()
         {
             using (var conn = new SqlConnection(LoginViewModel.ConectionBD))
             {
