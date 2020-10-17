@@ -18,6 +18,7 @@ namespace ProyectoGrado.ViewModels
         private SecureString _password;
 
         public static string ConectionBD = @"server=(Localdb)\PROYECTO ; database=AREPAL ; integrated security = true";
+        public static string UserBD = "";
         private readonly Action<bool> _onCompleted;
 
         public string User
@@ -83,9 +84,12 @@ namespace ProyectoGrado.ViewModels
 
                     if (dataTable.Rows.Count == 1)
                     {
+                        
                         if (dataTable.Rows[0][0].ToString() == user && dataTable.Rows[0][2].ToString() == credential.Password)
                         {
+                            UserBD = dataTable.Rows[0][0].ToString();
                             _onCompleted(true);
+
                         }
                     }
                     else

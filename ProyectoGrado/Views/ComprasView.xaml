@@ -40,9 +40,10 @@
                     <Grid Margin="0,50,0,0" HorizontalAlignment="Left">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
-                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="150" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
+                            <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
@@ -73,37 +74,62 @@
                         <Label
                             Grid.Row="5"
                             Margin="5"
+                            Content="# Comprobante" />
+                        <Label
+                            Grid.Row="6"
+                            Margin="5"
                             Content="Proveedor" />
                         <ComboBox
                             Grid.Row="0"
                             Grid.Column="1"
                             Margin="5"
-                            ItemsSource="{Binding Articles}" />
+                            DisplayMemberPath="Name"
+                            ItemsSource="{Binding Articles}"
+                            SelectedItem="{Binding Article}"
+                            SelectedValuePath="Codigo" />
                         <TextBox
                             Grid.Row="1"
                             Grid.Column="1"
                             Margin="5"
-                            Text="{Binding Quantity}" />
+                            Text="{Binding Quantity}" Width="Auto" />
                         <TextBox
                             Grid.Row="2"
                             Grid.Column="1"
                             Margin="5"
-                            Text="{Binding Price}" />
+                            Text="{Binding Price}" Width="Auto" />
                         <TextBox
                             Grid.Row="3"
                             Grid.Column="1"
                             Margin="5"
                             Text="{Binding Total}" />
+                        <TextBox
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Margin="5"
+                            Text="{Binding Total}" Width="Auto" />
                         <ComboBox
                             Grid.Row="4"
                             Grid.Column="1"
-                            Margin="5"
-                            ItemsSource="{Binding Voucher}" />
-                        <ComboBox
+                            Height="30"
+                            Margin="5,5,5,0"
+                            VerticalAlignment="Top"
+                            DisplayMemberPath="Name"
+                            ItemsSource="{Binding Vounchers}"
+                            SelectedItem="{Binding Vouncher}"
+                            SelectedValuePath="Codigo" />
+                        <TextBox
                             Grid.Row="5"
                             Grid.Column="1"
                             Margin="5"
-                            ItemsSource="{Binding Provider}" />
+                            Text="{Binding NumComprobante}" Width="Auto" />
+                        <ComboBox
+                            Grid.Row="6"
+                            Grid.Column="1"
+                            Margin="5"
+                            DisplayMemberPath="Name"
+                            ItemsSource="{Binding Providers}"
+                            SelectedItem="{Binding Provider}"
+                            SelectedValuePath="Codigo" />
                     </Grid>
                     <StackPanel
                         Margin="0,50,0,68"
@@ -122,23 +148,23 @@
             <DataGrid
                 Width="Auto"
                 MinHeight="450"
-                MaxWidth="545"
+                MaxWidth="585"
                 Margin="0,0,10,0"
                 AutoGenerateColumns="False"
-                ItemsSource="{Binding SaleTable, Mode=TwoWay}">
+                ItemsSource="{Binding TableArticle, Mode=TwoWay}">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="125"
-                        Binding="{Binding ID_ARTICULO}"
-                        Header="CODIGO" />
+                        Binding="{Binding ID}"
+                        Header="ID" />
                     <DataGridTextColumn
-                        Width="150"
-                        Binding="{Binding NOMBRE}"
-                        Header="PRODUCTO" />
+                        Width="190"
+                        Binding="{Binding ARTICULO}"
+                        Header="ARTICULO" />
                     <DataGridTextColumn
                         Width="120"
-                        Binding="{Binding CANTIDAD}"
-                        Header="CANTIDAD" />
+                        Binding="{Binding STOCK}"
+                        Header="STOCK" />
                     <DataGridTextColumn
                         Width="140"
                         Binding="{Binding MEDIDA}"
