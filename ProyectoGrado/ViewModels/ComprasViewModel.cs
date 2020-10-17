@@ -18,7 +18,7 @@ namespace ProyectoGrado.ViewModels
         private ObservableCollection<Articulo> _articles;
         private ObservableCollection<Articulo> _providers;
         private int _price;
-        private string _quantity;
+        private int _quantity;
         private int _total;
         private ObservableCollection<Articulo> _vouncher;
         private string _numComprobante;
@@ -36,24 +36,34 @@ namespace ProyectoGrado.ViewModels
             set { SetProperty(ref _article, value); }
         }
 
-        public string Quantity
+        public int Quantity
         {
             get { return _quantity; }
-            set { SetProperty(ref _quantity, value); }
+            set
+            {
+                SetProperty(ref _quantity, value);
+                Total = Quantity * Price;
+            }
         }
 
         public int Price
         {
             get { return _price; }
-            set { SetProperty(ref _price, value); }
+            set
+            {
+                SetProperty(ref _price, value);
+                Total = Quantity * Price;
+            }
         }
 
         public int Total
         {
             get { return _total; }
-            set { SetProperty(ref _total, value); }
+            set
+            {
+                SetProperty(ref _total, value);
+            }
         }
-
 
         public string NumComprobante
         {
@@ -126,9 +136,10 @@ namespace ProyectoGrado.ViewModels
 
                 var isExist = ValidationDatosDetalleCompra(conn);
 
+                #region Tabla COMPRA
                 try
                 {
-                    #region Tabla COMPRA
+
                     string compra = "INSERT INTO COMPRA" +
                         " (COMPROBANTE , NUM_COMPROBANTE , DESCRIPCION , FECHA, ID_PROVEEDOR, ID_USUARIO)" +
                         " VALUES (@COMPROBANTE, @NUM_COMPROBANTE, @DESCRIPCION, @FECHA, @ID_PROVEEDOR, @ID_USUARIO) " +
@@ -147,16 +158,18 @@ namespace ProyectoGrado.ViewModels
 
                     cmd.Parameters.Clear();
 
-                    #endregion
+
                 }
                 catch (Exception ex)
                 {
                     System.Windows.MessageBox.Show("Error a la hora de insertar la compra", ex.Message);
                 }
+                #endregion
+
+                #region tabla DETALLE COMPRA
 
                 try
                 {
-                    #region tabla DETALLE COMPRA
                     string detalleCompra = $"INSERT INTO DETALLE_COMPRA " +
                                 " (STOCK, CANTIDAD, MEDIDA, PRECIO, ID_ARTICULO, ID_COMPRA)" +
                        " VALUES ( @STOCK, @CANTIDAD, @MEDIDA, @PRECIO, @ID_ARTICULO, @ID_COMPRA)";
@@ -172,13 +185,12 @@ namespace ProyectoGrado.ViewModels
                     cmd.ExecuteNonQuery();
 
                     cmd.Parameters.Clear();
-                    #endregion
                 }
                 catch (Exception ex)
                 {
                     System.Windows.MessageBox.Show("Error a la hora de insertar el detalle de la compra", ex.Message);
                 }
-
+                #endregion
 
                 #region  ARTICULO
 
@@ -195,11 +207,8 @@ namespace ProyectoGrado.ViewModels
 
                 #endregion
 
-
                 DetailsTable();
-
                 Clear();
-
             }
         }
 
@@ -224,7 +233,7 @@ namespace ProyectoGrado.ViewModels
         private void UpdateStock(SqlConnection conn, int stock)
         {
             SqlCommand comand = null;
-            int stockValue = int.Parse(Quantity) + stock;
+            int stockValue = Quantity + stock;
 
 
             var updateDetalleCompra = "UPDATE DETALLE_COMPRA SET STOCK=@STOCK WHERE ID_ARTICULO = @ID";
@@ -306,7 +315,7 @@ namespace ProyectoGrado.ViewModels
 
         public void Clear()
         {
-            Quantity = string.Empty;
+            Quantity = 0;
             Price = 0;
             Total = 0;
             NumComprobante = string.Empty;

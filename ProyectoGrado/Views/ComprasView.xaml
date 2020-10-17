@@ -62,7 +62,7 @@
                         <Label
                             Grid.Row="2"
                             Margin="5"
-                            Content="Precio" />
+                            Content="Precio - u/n" />
                         <Label
                             Grid.Row="3"
                             Margin="5"
@@ -90,23 +90,26 @@
                         <TextBox
                             Grid.Row="1"
                             Grid.Column="1"
+                            Width="Auto"
                             Margin="5"
-                            Text="{Binding Quantity}" Width="Auto" />
+                            Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBox
                             Grid.Row="2"
                             Grid.Column="1"
+                            Width="Auto"
                             Margin="5"
-                            Text="{Binding Price}" Width="Auto" />
+                            Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.ToolTip>
+                                <TextBlock Text="PRECIO POR UNIDAD" />
+                            </TextBox.ToolTip>
+                        </TextBox>
                         <TextBox
                             Grid.Row="3"
                             Grid.Column="1"
+                            Width="Auto"
                             Margin="5"
+                            IsEnabled="False"
                             Text="{Binding Total}" />
-                        <TextBox
-                            Grid.Row="3"
-                            Grid.Column="1"
-                            Margin="5"
-                            Text="{Binding Total}" Width="Auto" />
                         <ComboBox
                             Grid.Row="4"
                             Grid.Column="1"
@@ -120,8 +123,9 @@
                         <TextBox
                             Grid.Row="5"
                             Grid.Column="1"
+                            Width="Auto"
                             Margin="5"
-                            Text="{Binding NumComprobante}" Width="Auto" />
+                            Text="{Binding NumComprobante}" />
                         <ComboBox
                             Grid.Row="6"
                             Grid.Column="1"
