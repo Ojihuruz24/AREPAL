@@ -15,7 +15,6 @@
         <Style BasedOn="{StaticResource BaseTextBox}" TargetType="TextBox" />
         <Style BasedOn="{StaticResource LabelStyle}" TargetType="Label" />
         <Style BasedOn="{StaticResource ButtonStyle}" TargetType="Button" />
-
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -28,7 +27,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal">
             <Label Content="PROVEEDOR" />
-            <TextBox Text="{Binding SearchProvider}" />
+            <TextBox Text="{Binding SearchProvider, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
         <StackPanel
             Grid.Row="1"
@@ -43,7 +42,7 @@
                         Orientation="Vertical">
                         <Label Content="NUEVO PROVEEDOR" />
                         <Label Margin="0,5,0,0" Content="NOMBRE - RAZON SOCIAL" />
-                        <TextBox Text="{Binding DocumentUser}" />
+                        <TextBox Text="{Binding RazonSocial}" />
 
                         <Label Content="TIPO DE DOCUMENTO" />
                         <ComboBox
@@ -51,10 +50,10 @@
                             Grid.Column="1"
                             Margin="5"
                             Height="30"
-                            DisplayMemberPath="Name"
+                            DisplayMemberPath="Tipe"
                             ItemsSource="{Binding TypeDocuments}"
                             SelectedItem="{Binding TypeDocument}"
-                            SelectedValuePath="Codigo" />
+                            SelectedValuePath="Tipe" />
 
                         <Label Content="NUMERO DE DOCUMENTO" />
                         <TextBox Text="{Binding NumberDocument}" />
@@ -66,8 +65,8 @@
                         Margin="0,18,0,0"
                         HorizontalAlignment="Center"
                         Orientation="Horizontal">
-                        <Button Command="{Binding AddCommand}" Content="Agregar" />
-                        <Button Command="{Binding CancelCommand}" Content="Cancelar" />
+                        <Button Command="{Binding AddProviderCommand}" Content="Agregar" />
+                        <Button Command="{Binding CancelProviderCommand}" Content="Cancelar" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -82,15 +81,15 @@
                 ItemsSource="{Binding TableProvider, Mode=TwoWay}">
                 <DataGrid.Columns>
                     <DataGridTextColumn
-                        Width="125"
-                        Binding="{Binding NUM_DOCUMENTO}"
-                        Header="DOCUMENTO" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding TIPO:DOCUMENTO}"
+                        Width="50"
+                        Binding="{Binding TIPO_DOCUMENTO}"
                         Header="TIPO" />
                     <DataGridTextColumn
-                        Width="250"
+                        Width="140"
+                        Binding="{Binding NUM_DOCUMENTO}"
+                        Header="NUMERO" />
+                    <DataGridTextColumn
+                        Width="280"
                         Binding="{Binding RAZON_SOCIAL}"
                         Header="NOMBRE - RAZON SOCIAL" />
                     <DataGridTextColumn

@@ -119,6 +119,7 @@
     <Compile Include="ViewModels\ComprasViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ProductosViewModel.cs" />
+    <Compile Include="ViewModels\ProveedoresViewModel.cs" />
     <Compile Include="ViewModels\VentasViewModel.cs" />
     <Compile Include="Views\ClientesView.xaml.cs">
       <DependentUpon>ClientesView.xaml</DependentUpon>
