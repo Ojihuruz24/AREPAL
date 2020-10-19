@@ -1,0 +1,335 @@
+﻿<UserControl
+    x:Class="ProyectoGrado.Views.Administracion"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    Width="auto"
+    Height="500"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Background="White"
+    mc:Ignorable="d">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Cateogira">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border
+                        Margin="5"
+                        BorderBrush="Black"
+                        BorderThickness="1">
+                        <StackPanel>
+                            <StackPanel
+                                Margin="0,40,0,0"
+                                HorizontalAlignment="Center"
+                                Orientation="Vertical">
+                                <Label Content="NUEVA CATEGORIA" />
+                                <Label
+                                    Margin="0,15,0,15"
+                                    HorizontalAlignment="Center"
+                                    Content="NOMBRE" />
+                                <TextBox Text="{Binding NombreCategoria}" />
+                            </StackPanel>
+                            <StackPanel
+                                Margin="0,18,0,0"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Button
+                                    Margin="5"
+                                    Command="{Binding AddCategoriaCommand}"
+                                    Content="Agregar" />
+                                <Button
+                                    Margin="5"
+                                    Command="{Binding CancelCategoriaCommand}"
+                                    Content="Cancelar" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <DataGrid
+                        Grid.Column="1"
+                        Margin="5"
+                        AutoGenerateColumns="False"
+                        ItemsSource="{Binding TableCategoria, Mode=TwoWay}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Width="300"
+                                Binding="{Binding ID}"
+                                Header="ID" />
+                            <DataGridTextColumn
+                                Width="310"
+                                Binding="{Binding NOMBRE}"
+                                Header="NOMBRE" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Producto">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border
+                        Margin="5"
+                        BorderBrush="Black"
+                        BorderThickness="1">
+                        <StackPanel>
+                            <StackPanel
+                                Margin="0,50,0,0"
+                                HorizontalAlignment="Center"
+                                Orientation="Vertical">
+                                <Label Content="NUEVO PRODUCTO" />
+                                <Label Margin="0,5,0,0" Content="CODIGO" />
+                                <TextBox Text="{Binding CodeProducto}" />
+
+                                <Label Content="NOMBRE PRODUCTO" />
+                                <TextBox Text="{Binding NombreProducto}" />
+
+                                <Label Content="PRECIO VENTA" />
+                                <TextBox Text="{Binding PrecioVentaProducto}" />
+
+                                <Label Content="CATEGORIA" />
+                                <ComboBox
+                                    DisplayMemberPath="Name" 
+                                    ItemsSource="{Binding CategoriaProductos}"
+                                    SelectedItem="{Binding CategoriaProducto}"
+                                    SelectedValuePath="Codigo">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PreviewMouseDown">
+                                            <i:InvokeCommandAction Command="{Binding CategoriaComboboxCommand}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel
+                                Margin="0,20,0,0"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Button Margin="5" Command="{Binding AddProductoCommand}" Content="Agregar" />
+                                <Button Margin="5" Command="{Binding CancelProductoCommand}" Content="Cancelar" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <DataGrid
+                        Grid.Column="1"
+                        Margin="5"
+                        AutoGenerateColumns="False"
+                        ItemsSource="{Binding TableProductos, Mode=TwoWay}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Width="100"
+                                Binding="{Binding CODIGO}"
+                                Header="CODIGO" />
+                            <DataGridTextColumn
+                                Width="200"
+                                Binding="{Binding NOMBRE}"
+                                Header="NOMBRE" />
+                            <DataGridTextColumn
+                                Width="115"
+                                Binding="{Binding PRECIO}"
+                                Header="PRECIO" />
+                            <DataGridTextColumn
+                                Width="200"
+                                Binding="{Binding CATEGORIA}"
+                                Header="CATEGORIA" />
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Detalle producto">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border
+                        Margin="5"
+                        BorderBrush="Black"
+                        BorderThickness="1">
+                        <StackPanel>
+                            <StackPanel
+                                Margin="0,10,0,0"
+                                HorizontalAlignment="Center"
+                                Orientation="Vertical">
+                                <Label Content="NUEVO USUARIO" />
+                                <Label Margin="0,5,0,0" Content="DOCUMENTO" />
+                                <TextBox Text="{Binding DocumentUser}" />
+
+                                <Label Content="NOMBRE COMPLETO" />
+                                <TextBox Text="{Binding NameUser}" />
+
+                                <Label Content="DIRECCION" />
+                                <TextBox Text="{Binding DirectionUser}" />
+
+                                <Label Content="TELEFONO" />
+                                <TextBox Text="{Binding TelUser}" />
+                            </StackPanel>
+                            <StackPanel
+                                Margin="0,18,0,0"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Button Command="{Binding AddCommand}" Content="Agregar" />
+                                <Button Command="{Binding CancelCommand}" Content="Cancelar" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <DataGrid
+                        Grid.Column="1"
+                        Margin="5"
+                        AutoGenerateColumns="False"
+                        ItemsSource="{Binding TableClient, Mode=TwoWay}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Width="125"
+                                Binding="{Binding ID}"
+                                Header="DOCUMENTO" />
+                            <DataGridTextColumn
+                                Width="200"
+                                Binding="{Binding NOMBRE}"
+                                Header="NOMBRE" />
+                            <DataGridTextColumn
+                                Width="170"
+                                Binding="{Binding DIRECCION}"
+                                Header="DIRECCION" />
+                            <DataGridTextColumn
+                                Width="136"
+                                Binding="{Binding TELEFONO}"
+                                Header="TELEFONO" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Articulo">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border
+                        Margin="5"
+                        BorderBrush="Black"
+                        BorderThickness="1">
+                        <StackPanel>
+                            <StackPanel
+                                Margin="0,10,0,0"
+                                HorizontalAlignment="Center"
+                                Orientation="Vertical">
+                                <Label Content="NUEVO USUARIO" />
+                                <Label Margin="0,5,0,0" Content="DOCUMENTO" />
+                                <TextBox Text="{Binding DocumentUser}" />
+
+                                <Label Content="NOMBRE COMPLETO" />
+                                <TextBox Text="{Binding NameUser}" />
+
+                                <Label Content="DIRECCION" />
+                                <TextBox Text="{Binding DirectionUser}" />
+
+                                <Label Content="TELEFONO" />
+                                <TextBox Text="{Binding TelUser}" />
+                            </StackPanel>
+                            <StackPanel
+                                Margin="0,18,0,0"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Button Command="{Binding AddCommand}" Content="Agregar" />
+                                <Button Command="{Binding CancelCommand}" Content="Cancelar" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <DataGrid
+                        Grid.Column="1"
+                        Margin="5"
+                        AutoGenerateColumns="False"
+                        ItemsSource="{Binding TableClient, Mode=TwoWay}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Width="125"
+                                Binding="{Binding ID}"
+                                Header="DOCUMENTO" />
+                            <DataGridTextColumn
+                                Width="200"
+                                Binding="{Binding NOMBRE}"
+                                Header="NOMBRE" />
+                            <DataGridTextColumn
+                                Width="170"
+                                Binding="{Binding DIRECCION}"
+                                Header="DIRECCION" />
+                            <DataGridTextColumn
+                                Width="136"
+                                Binding="{Binding TELEFONO}"
+                                Header="TELEFONO" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Usuarios">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border
+                        Margin="5"
+                        BorderBrush="Black"
+                        BorderThickness="1">
+                        <StackPanel>
+                            <StackPanel
+                                Margin="0,10,0,0"
+                                HorizontalAlignment="Center"
+                                Orientation="Vertical">
+                                <Label Content="NUEVO USUARIO" />
+                                <Label Margin="0,5,0,0" Content="DOCUMENTO" />
+                                <TextBox Text="{Binding DocumentUser}" />
+
+                                <Label Content="NOMBRE COMPLETO" />
+                                <TextBox Text="{Binding NameUser}" />
+
+                                <Label Content="DIRECCION" />
+                                <TextBox Text="{Binding DirectionUser}" />
+
+                                <Label Content="TELEFONO" />
+                                <TextBox Text="{Binding TelUser}" />
+                            </StackPanel>
+                            <StackPanel
+                                Margin="0,18,0,0"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Button Command="{Binding AddCommand}" Content="Agregar" />
+                                <Button Command="{Binding CancelCommand}" Content="Cancelar" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <DataGrid
+                        Grid.Column="1"
+                        Margin="5"
+                        AutoGenerateColumns="False"
+                        ItemsSource="{Binding TableClient, Mode=TwoWay}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Width="125"
+                                Binding="{Binding ID}"
+                                Header="DOCUMENTO" />
+                            <DataGridTextColumn
+                                Width="200"
+                                Binding="{Binding NOMBRE}"
+                                Header="NOMBRE" />
+                            <DataGridTextColumn
+                                Width="170"
+                                Binding="{Binding DIRECCION}"
+                                Header="DIRECCION" />
+                            <DataGridTextColumn
+                                Width="136"
+                                Binding="{Binding TELEFONO}"
+                                Header="TELEFONO" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

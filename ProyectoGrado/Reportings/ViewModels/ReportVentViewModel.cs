@@ -16,7 +16,6 @@ namespace ProyectoGrado.Reportings.ViewModels
 {
     public class ReportVentViewModel : BindableBase
     {
-        private readonly IEventAggregator _eventAggregator;
         private readonly IVentasService _ventasService;
         private string _description;
         private List<Venta> _prodcutsSale;

@@ -15,13 +15,11 @@ namespace ProyectoGrado.ViewModels
 {
     public class ClientesViewModel : BindableBase
     {
-
         private DataTable _tableClient;
         private string _telUser;
         private string _documentUser;
         private string _nameUser;
         private string _directionUser;
-        private ICollectionView _collectionView;
         private string _searchClient;
 
         public DataTable TableClient
@@ -44,7 +42,7 @@ namespace ProyectoGrado.ViewModels
 
                 if (!string.IsNullOrEmpty(value))
                 {
-                    TableClient.DefaultView.RowFilter = string.Format($"DOCUMENTO = {SearchClient}");
+                    TableClient.DefaultView.RowFilter = string.Format($"ID = {SearchClient}");
                     return;
                 }
                 ConectionTable();

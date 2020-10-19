@@ -51,6 +51,8 @@ namespace ProyectoGrado.ViewModels
             set { SetProperty(ref _ventas, value); }
         }
 
+        public string NameProduct { get; set; }
+
         public string Code
         {
             get { return _code; }
@@ -151,6 +153,7 @@ namespace ProyectoGrado.ViewModels
         {
             Code = product.Row[0].ToString();
             Product = product.Row[1].ToString();
+            NameProduct = product.Row[2].ToString();
             ProductValue = int.Parse(product.Row[3].ToString());
         }
 
@@ -359,7 +362,7 @@ namespace ProyectoGrado.ViewModels
 
         private void AddProduct()
         {
-            Ventas.Add(new Venta { IdProduct = Code, NameProduct = Product, Quantity = Quantity, SubTotal = Price, Client = Client });
+            Ventas.Add(new Venta { IdProduct = Code, NameProduct = NameProduct, Quantity = Quantity, SubTotal = Price, Client = Client });
             Total = Total + Price;
             Clear();
         }

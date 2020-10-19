@@ -115,12 +115,16 @@
     </Compile>
     <Compile Include="Services\Ventas\IVentasService.cs" />
     <Compile Include="Services\Ventas\VentasService.cs" />
+    <Compile Include="ViewModels\AdministracionViewModel.cs" />
     <Compile Include="ViewModels\ClientesViewModel.cs" />
     <Compile Include="ViewModels\ComprasViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ProductosViewModel.cs" />
     <Compile Include="ViewModels\ProveedoresViewModel.cs" />
     <Compile Include="ViewModels\VentasViewModel.cs" />
+    <Compile Include="Views\Administracion.xaml.cs">
+      <DependentUpon>Administracion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ClientesView.xaml.cs">
       <DependentUpon>ClientesView.xaml</DependentUpon>
     </Compile>
@@ -180,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\BaseTextBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Administracion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

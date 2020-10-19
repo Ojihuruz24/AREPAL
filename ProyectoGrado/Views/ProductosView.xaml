@@ -15,7 +15,6 @@
         <Style BasedOn="{StaticResource DataGridStyle}" TargetType="DataGrid" />
         <Style BasedOn="{StaticResource BaseTextBox}" TargetType="TextBox" />
         <Style BasedOn="{StaticResource LabelStyle}" TargetType="Label" />
-
     </UserControl.Resources>
     <StackPanel Orientation="Vertical">
         <StackPanel
@@ -31,11 +30,11 @@
             MinHeight="370"
             MaxHeight="300"
             AutoGenerateColumns="False"
-            ItemsSource="{Binding Products, Mode=TwoWay}">
+            ItemsSource="{Binding Products, Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="160"
-                    Binding="{Binding ID}"
+                    Binding="{Binding CODIGO}"
                     Header="CODIGO" />
                 <DataGridTextColumn
                     Width="230"
