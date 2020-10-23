@@ -19,7 +19,7 @@
             Margin="5,20,0,40"
             HorizontalAlignment="Center"
             Orientation="Vertical">
-                <Label Content="ID PRODUCTO" />
+                <Label Content="DOCUMENTO" />
                 <TextBox Text="{Binding SearchClient, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
             <DataGrid
