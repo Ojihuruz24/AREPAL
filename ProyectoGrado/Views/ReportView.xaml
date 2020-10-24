@@ -1,0 +1,70 @@
+﻿<UserControl
+    x:Class="ProyectoGrado.Views.ReportView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:local="clr-namespace:ProyectoGrado.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    d:DesignHeight="450"
+    d:DesignWidth="900"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Background="White"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style BasedOn="{StaticResource DataGridStyle}" TargetType="DataGrid" />
+        <Style BasedOn="{StaticResource BaseTextBox}" TargetType="TextBox" />
+        <Style BasedOn="{StaticResource LabelStyle}" TargetType="Label" />
+        <Style BasedOn="{StaticResource ButtonStyle}" TargetType="Button" />
+    </UserControl.Resources>
+    <Border
+        Width="450"
+        BorderBrush="Black"
+        BorderThickness="2">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="40"/>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                Content="REPORTES"
+                FontSize="40" />
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <RadioButton Content="VENTA" Margin="5" IsChecked="{Binding IsVenta}" />
+                <RadioButton Content="COMPRA"  Margin="5" IsChecked="{Binding IsCompra}"/>
+            </StackPanel>
+            <StackPanel
+                Grid.Row="2"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label Content="DESDE" />
+                <DatePicker SelectedDate="{Binding DateInitial}" />
+            </StackPanel>
+            <StackPanel
+                Grid.Row="2"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Label Content="HASTA" />
+                <DatePicker SelectedDate="{Binding DateEnd}" />
+            </StackPanel>
+            <StackPanel
+                Grid.Row="3"
+                Grid.ColumnSpan="2"
+                VerticalAlignment="Center">
+                <Button Command="{Binding PrintReportCommand}" Content="IMPRIMIR" />
+            </StackPanel>
+
+        </Grid>
+    </Border>
+</UserControl>
