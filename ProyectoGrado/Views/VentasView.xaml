@@ -42,10 +42,9 @@
                             <Label Content="CODIGO" />
                             <StackPanel Orientation="Horizontal">
                                 <TextBox Text="{Binding Code}" />
-                                <Button
-                                    Margin="3"
-                                    Command="{Binding SearchCodeCommand}"
-                                    Content="Go!" />
+                                <Button Margin="3" Command="{Binding SearchCodeCommand}">
+                                    <Image Source="/ProyectoGrado;component/Utility/Icons/Search-icon.png" />
+                                </Button>
                             </StackPanel>
                             <Label Content="PRODUCTO" />
                             <TextBox IsEnabled="False" Text="{Binding Product}" />
@@ -83,7 +82,8 @@
                         Grid.Row="0"
                         Grid.ColumnSpan="2"
                         Margin="0,0,0,0">
-                        <DataGrid x:Name="GridOfVents"
+                        <DataGrid
+                            x:Name="GridOfVents"
                             Width="auto"
                             MinHeight="340"
                             Margin="0"
@@ -134,7 +134,7 @@
                                     <StackPanel>
                                         <Label Content="TOTAL A PAGAR" />
                                         <TextBox IsEnabled="False" Text="{Binding Total, Mode=TwoWay}" />
-                                        <Button Command="{Binding PrintCommand}" Content="IMPRIMIR"/>
+                                        <Button Command="{Binding PrintCommand}" Content="IMPRIMIR" />
                                     </StackPanel>
                                 </Border>
                             </StackPanel>

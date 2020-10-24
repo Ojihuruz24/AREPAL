@@ -100,6 +100,8 @@ namespace ProyectoGrado.ViewModels
 
         public DelegateCommand AddCommand { get; set; }
         public DelegateCommand CancelCommand { get; set; }
+        public DelegateCommand ArticleComboboxCommand { get; set; }
+        public DelegateCommand ProveedorComboboxCommand { get; set; }
 
 
         public ComprasViewModel()
@@ -109,9 +111,30 @@ namespace ProyectoGrado.ViewModels
 
             AddCommand = new DelegateCommand(Add, CanAdd);
             CancelCommand = new DelegateCommand(Cancel, CanCancel);
+            ArticleComboboxCommand = new DelegateCommand(ArticleCombobox, CanArticleCombobox);
+            ProveedorComboboxCommand = new DelegateCommand(ProveedorCombobox, CanProveedorCombobox);
             ConectionTables();
         }
 
+        private bool CanProveedorCombobox()
+        {
+            return true;
+        }
+
+        private void ProveedorCombobox()
+        {
+            ProveedorOpen();
+        }
+
+        private bool CanArticleCombobox()
+        {
+            return true;
+        }
+
+        private void ArticleCombobox()
+        {
+            AddArticles();
+        }
 
         private bool CanCancel()
         {

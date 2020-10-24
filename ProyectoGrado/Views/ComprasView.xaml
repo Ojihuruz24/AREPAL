@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:prism="http://prismlibrary.com/"
+    xmlns:prism="http://prismlibrary.com/" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     Width="900"
     Height="500"
     prism:ViewModelLocator.AutoWireViewModel="True"
@@ -86,7 +86,13 @@
                             DisplayMemberPath="Name"
                             ItemsSource="{Binding Articles}"
                             SelectedItem="{Binding Article}"
-                            SelectedValuePath="Codigo" />
+                            SelectedValuePath="Codigo">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PreviewMouseDown">
+                                    <i:InvokeCommandAction Command="{Binding ArticleComboboxCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
                         <TextBox
                             Grid.Row="1"
                             Grid.Column="1"
@@ -133,7 +139,13 @@
                             DisplayMemberPath="Name"
                             ItemsSource="{Binding Providers}"
                             SelectedItem="{Binding Provider}"
-                            SelectedValuePath="Codigo" />
+                            SelectedValuePath="Codigo">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PreviewMouseDown">
+                                    <i:InvokeCommandAction Command="{Binding ProveedorComboboxCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
                     </Grid>
                     <StackPanel
                         Margin="0,50,0,68"
