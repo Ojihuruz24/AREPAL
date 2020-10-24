@@ -27,10 +27,8 @@ namespace ProyectoGrado.ViewModels
             ProductoViewModel();
             DetalleProductoViewModel();
             ArticleViewModel();
+            UserViewModel();
         }
-
-    
-
 
 
         #region CATEGORIA
@@ -166,14 +164,26 @@ namespace ProyectoGrado.ViewModels
         }
 
         public DelegateCommand AddProductoCommand { get; set; }
+        public DelegateCommand CancelProductoCommand { get; set; }
         public DelegateCommand CategoriaComboboxCommand { get; set; }
 
         private void ProductoViewModel()
         {
             AddProductoCommand = new DelegateCommand(AddProducto, CanProducto);
+            CancelProductoCommand = new DelegateCommand(CancelProducto, CanCancelProducto);
             CategoriaComboboxCommand = new DelegateCommand(CategoriaCombobo, CanCategoriaCombobox);
             ConsultProducto();
             AddCategoriaProducto();
+        }
+
+        private bool CanCancelProducto()
+        {
+            return true;
+        }
+
+        private void CancelProducto()
+        {
+            ClearProduct();
         }
 
         private bool CanCategoriaCombobox()
@@ -219,7 +229,7 @@ namespace ProyectoGrado.ViewModels
 
                 ConsultProducto();
 
-
+                ClearProduct();
             }
         }
 
@@ -260,6 +270,14 @@ namespace ProyectoGrado.ViewModels
                 da.Fill(dt);
                 TableProductos = dt;
             }
+        }
+
+        private void ClearProduct()
+        {
+            CodeProducto = 0;
+            NombreProducto = string.Empty;
+            PrecioVentaProducto = 0;
+            AddCategoriaProducto();
         }
 
         #endregion
@@ -311,6 +329,7 @@ namespace ProyectoGrado.ViewModels
         public DelegateCommand ArticleDetalleComboboxCommand { get; private set; }
         public DelegateCommand SearchCodeDetalleProductoCommand { get; private set; }
         public DelegateCommand AddDetailProductCommand { get; private set; }
+        public DelegateCommand CancelDetailProductCommand { get; private set; }
 
         private void DetalleProductoViewModel()
         {
@@ -318,8 +337,19 @@ namespace ProyectoGrado.ViewModels
             ArticleDetalleComboboxCommand = new DelegateCommand(UpdateArticle, CanUpdateArticle);
             SearchCodeDetalleProductoCommand = new DelegateCommand(OpenProduct, CanOpenProduct);
             AddDetailProductCommand = new DelegateCommand(AddDetailProduct, CanAddDetailProduct);
+            CancelDetailProductCommand = new DelegateCommand(CancelDetailProduct, CanAddCancelDetailProduct);
             AddArticleDetalle();
             _eventAggregator.GetEvent<ProductSelectedEvent>().Subscribe(OnProductSelected);
+        }
+
+        private bool CanAddCancelDetailProduct()
+        {
+            return true;
+        }
+
+        private void CancelDetailProduct()
+        {
+            ClearDetailProduct();
         }
 
         private bool CanAddDetailProduct()
@@ -363,7 +393,6 @@ namespace ProyectoGrado.ViewModels
         {
             CodeProductDetailProduct = string.Empty;
             NameProducto = string.Empty;
-            ArticlesDetailProduct = new ObservableCollection<Articulo>();
             AddArticleDetalle();
             CountDetailProduct = string.Empty;
 
@@ -448,6 +477,9 @@ namespace ProyectoGrado.ViewModels
 
         private ObservableCollection<string> _measureArticles;
         private DataTable _tableArticles;
+        private string nameArticle;
+        private int _quantityArticle;
+        private string _measureArticle;
 
         public ObservableCollection<string> MeasureArticles
         {
@@ -455,11 +487,23 @@ namespace ProyectoGrado.ViewModels
             set { SetProperty(ref _measureArticles, value); }
         }
 
-        public string MeasureArticle { get; set; }
+        public string MeasureArticle 
+        {
+            get => _measureArticle;
+            set => SetProperty(ref _measureArticle, value);
+        }
 
-        public string NameArticle { get; set; }
+        public string NameArticle
+        {
+            get => nameArticle;
+            set => SetProperty(ref nameArticle, value);
+        }
 
-        public int QuantityArticle { get; set; }
+        public int QuantityArticle
+        {
+            get => _quantityArticle;
+            set => SetProperty(ref _quantityArticle, value);
+        }
 
         public DataTable TableArticles
         {
@@ -467,12 +511,24 @@ namespace ProyectoGrado.ViewModels
             set => SetProperty(ref _tableArticles, value);
         }
         public DelegateCommand AddArticleCommand { get; private set; }
+        public DelegateCommand CancelArticleCommand { get; private set; }
 
         private void ArticleViewModel()
         {
             AddArticleCommand = new DelegateCommand(AddArticle, CanAddArticle);
+            CancelArticleCommand = new DelegateCommand(CancelArticle, CanCancelArticle);
             ConsultArticles();
             AddArticles();
+        }
+
+        private bool CanCancelArticle()
+        {
+            return true;
+        }
+
+        private void CancelArticle()
+        {
+            ClearArticle();
         }
 
         private bool CanAddArticle()
@@ -544,6 +600,145 @@ namespace ProyectoGrado.ViewModels
         }
 
         #endregion
+
+        #region USUARIO
+
+        private int _documentUser;
+        private string _nameUser;
+        private string _passwordUser;
+        private ObservableCollection<string> _rolUsers;
+        private string _rolUser;
+        private DataTable _tableUser;
+
+
+        public DataTable TableUser
+        {
+            get { return _tableUser; }
+            set { SetProperty(ref _tableUser, value); }
+        }
+
+
+        public int DocumentUser
+        {
+            get { return _documentUser; }
+            set { SetProperty(ref _documentUser, value); }
+        }
+
+        public string NameUser
+        {
+            get { return _nameUser; }
+            set { SetProperty(ref _nameUser, value); }
+        }
+
+        public string PasswordUser
+        {
+            get { return _passwordUser; }
+            set { SetProperty(ref _passwordUser, value); }
+        }
+
+        public ObservableCollection<string> RolUsers
+        {
+            get { return _rolUsers; }
+            set { SetProperty(ref _rolUsers, value); }
+        }
+
+        public string RolUser
+        {
+            get { return _rolUser; }
+            set { SetProperty(ref _rolUser, value); }
+        }
+
+        public DelegateCommand AddUserCommand { get; set; }
+        public DelegateCommand CancelUserCommand { get; set; }
+
+        private void UserViewModel()
+        {
+            AddUserCommand = new DelegateCommand(AddUser, CanAddUser);
+            CancelUserCommand = new DelegateCommand(CancelUser, CanCancelUser);
+
+            AddListRols();
+            ConsultUser();
+        }
+
+       
+
+        private bool CanCancelUser()
+        {
+            return true;
+        }
+
+        private void CancelUser()
+        {
+            ClearUser();
+        }
+
+       
+        private bool CanAddUser()
+        {
+            return true;
+        }
+
+        private void AddUser()
+        {
+            using (var conn = new SqlConnection(LoginViewModel.ConectionBD))
+            {
+                try
+                {
+                    string query = "INSERT INTO USUARIO (ID, NOMBRE , PASSWORD, ROL)" +
+                        " VALUES (@ID, @NOMBRE, @PASSWORD, @ROL)";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+
+                    conn.Open();
+
+                    cmd.Parameters.AddWithValue("@ID", DocumentUser);
+                    cmd.Parameters.AddWithValue("@NOMBRE", NameUser);
+                    cmd.Parameters.AddWithValue("@PASSWORD", PasswordUser);
+                    cmd.Parameters.AddWithValue("@ROL", RolUser);
+
+                    cmd.ExecuteNonQuery();
+
+                    conn.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error a la hora de insertar el cliente", ex.Message);
+                }
+
+                ConsultUser();
+                ClearUser();
+            }
+        }
+
+        private void ClearUser()
+        {
+            DocumentUser = 0;
+            NameUser = string.Empty;
+            PasswordUser = string.Empty;
+            AddListRols();
+        }
+
+        private void AddListRols()
+        {
+            RolUsers = new ObservableCollection<string>();
+            RolUsers.Add("ADMIN");
+            RolUsers.Add("VENDEDOR");
+        }
+
+        private void ConsultUser()
+        {
+            using (var conn = new SqlConnection(LoginViewModel.ConectionBD))
+            {
+                DataTable dt = new DataTable();
+                string query = "SELECT * FROM USUARIO";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+                TableUser = dt;
+            }
+        }
+        #endregion
+
     }
 }
 

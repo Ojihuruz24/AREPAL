@@ -171,26 +171,25 @@
                                 HorizontalAlignment="Center"
                                 Orientation="Vertical">
                                 <Label Content="ARTICULOS QUE EL PRODUCTO " />
-                                <Label Content="CONTIENE" Margin="0,-10,0,10" />
+                                <Label Margin="0,-10,0,10" Content="CONTIENE" />
                                 <Label Content="CODIGO" />
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBox Text="{Binding CodeProductDetailProduct}" Width="200" />
-                                    <Button
-                                    Command="{Binding SearchCodeDetalleProductoCommand}">
-                                        <Image Source="/ProyectoGrado;component/Utility/Icons/Search-icon.png"/>
+                                    <TextBox Width="200" Text="{Binding CodeProductDetailProduct}" />
+                                    <Button Command="{Binding SearchCodeDetalleProductoCommand}">
+                                        <Image Source="/ProyectoGrado;component/Utility/Icons/Search-icon.png" />
                                     </Button>
                                 </StackPanel>
                                 <Label Margin="0,5,0,0" Content="PRODUCTO" />
                                 <TextBox Text="{Binding NameProducto}" />
                                 <Label Content="ARTICULO" />
                                 <ComboBox
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Margin="5"
-                            DisplayMemberPath="Name"
-                            ItemsSource="{Binding ArticlesDetailProduct}"
-                            SelectedItem="{Binding ArticleDetailProduct}"
-                            SelectedValuePath="Codigo">
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="5"
+                                    DisplayMemberPath="Name"
+                                    ItemsSource="{Binding ArticlesDetailProduct}"
+                                    SelectedItem="{Binding ArticleDetailProduct}"
+                                    SelectedValuePath="Codigo">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="PreviewMouseDown">
                                             <i:InvokeCommandAction Command="{Binding ArticleDetalleComboboxCommand}" />
@@ -198,14 +197,14 @@
                                     </i:Interaction.Triggers>
                                 </ComboBox>
                                 <Label Content="CANTIDAD" />
-                                <TextBox Text="{Binding CountDetailProduct}"/>
+                                <TextBox Text="{Binding CountDetailProduct}" />
                             </StackPanel>
                             <StackPanel
                                 Margin="0,18,0,0"
                                 HorizontalAlignment="Center"
                                 Orientation="Horizontal">
                                 <Button Command="{Binding AddDetailProductCommand}" Content="Agregar" />
-                                <Button Command="{Binding CancelCommand}" Content="Cancelar" />
+                                <Button Command="{Binding CancelDetailProductCommand}" Content="Cancelar" />
                             </StackPanel>
                         </StackPanel>
                     </Border>
@@ -222,7 +221,7 @@
                             <DataGridTextColumn
                                 Width="100"
                                 Binding="{Binding CODIGO}"
-                                Header="CODIGO" /> 
+                                Header="CODIGO" />
                             <DataGridTextColumn
                                 Width="150"
                                 Binding="{Binding PRODUCTO}"
@@ -260,17 +259,16 @@
 
                                 <Label Content="MEDIDA" />
                                 <ComboBox
-                            Grid.Row="4"
-                            Grid.Column="1"
-                            Height="30"
-                            Margin="5,5,5,0"
-                            VerticalAlignment="Top"
-                            ItemsSource="{Binding MeasureArticles}"
-                            SelectedItem="{Binding MeasureArticle}"
-                           />
+                                    Grid.Row="4"
+                                    Grid.Column="1"
+                                    Height="30"
+                                    Margin="5,5,5,0"
+                                    VerticalAlignment="Top"
+                                    ItemsSource="{Binding MeasureArticles}"
+                                    SelectedItem="{Binding MeasureArticle}" />
                                 <Label Content="CANTIDAD" />
                                 <TextBox Text="{Binding QuantityArticle}" />
-                                
+
                             </StackPanel>
                             <StackPanel
                                 Margin="0,18,0,0"
@@ -329,18 +327,26 @@
                                 <Label Content="NOMBRE COMPLETO" />
                                 <TextBox Text="{Binding NameUser}" />
 
-                                <Label Content="DIRECCION" />
-                                <TextBox Text="{Binding DirectionUser}" />
+                                <Label Content="CONTRASEÑA" />
+                                <TextBox Text="{Binding PasswordUser}" />
 
-                                <Label Content="TELEFONO" />
-                                <TextBox Text="{Binding TelUser}" />
+                                <Label Content="ROL" />
+
+                                <ComboBox
+                                    Grid.Row="4"
+                                    Grid.Column="1"
+                                    Height="30"
+                                    Margin="5,5,5,0"
+                                    VerticalAlignment="Top"
+                                    ItemsSource="{Binding RolUsers}"
+                                    SelectedItem="{Binding RolUser}" />
                             </StackPanel>
                             <StackPanel
                                 Margin="0,18,0,0"
                                 HorizontalAlignment="Center"
                                 Orientation="Horizontal">
-                                <Button Command="{Binding AddCommand}" Content="Agregar" />
-                                <Button Command="{Binding CancelCommand}" Content="Cancelar" />
+                                <Button Command="{Binding AddUserCommand}" Content="Agregar" />
+                                <Button Command="{Binding CancelUserCommand}" Content="Cancelar" />
                             </StackPanel>
                         </StackPanel>
                     </Border>
@@ -348,24 +354,20 @@
                         Grid.Column="1"
                         Margin="5"
                         AutoGenerateColumns="False"
-                        ItemsSource="{Binding TableClient, Mode=TwoWay}">
+                        ItemsSource="{Binding TableUser, Mode=TwoWay}">
                         <DataGrid.Columns>
                             <DataGridTextColumn
-                                Width="125"
+                                Width="180"
                                 Binding="{Binding ID}"
                                 Header="DOCUMENTO" />
                             <DataGridTextColumn
-                                Width="200"
+                                Width="250"
                                 Binding="{Binding NOMBRE}"
                                 Header="NOMBRE" />
                             <DataGridTextColumn
-                                Width="170"
-                                Binding="{Binding DIRECCION}"
-                                Header="DIRECCION" />
-                            <DataGridTextColumn
-                                Width="136"
-                                Binding="{Binding TELEFONO}"
-                                Header="TELEFONO" />
+                                Width="165"
+                                Binding="{Binding ROL}"
+                                Header="PERMISO" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
