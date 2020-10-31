@@ -128,6 +128,8 @@
     <Compile Include="Reportings\Views\ReportVentView.xaml.cs">
       <DependentUpon>ReportVentView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\ReportNeto\IReportNetosService.cs" />
+    <Compile Include="Services\ReportNeto\ReportNetosService.cs" />
     <Compile Include="Services\Ventas\IVentasService.cs" />
     <Compile Include="Services\Ventas\VentasService.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />

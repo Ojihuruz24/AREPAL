@@ -1,4 +1,5 @@
 ﻿using Prism.Mvvm;
+using ProyectoGrado.Services.ReportNeto;
 using ProyectoGrado.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -13,14 +14,19 @@ namespace ProyectoGrado.Reportings.ViewModels
     public class ReportComprasNetoViewModel : BindableBase
     {
         private DataTable _comprasNeto;
+        private readonly string _dateInitial;
+        private readonly string _dateEnd;
 
         public DateTime FechaNow { get; set; }
         public string User { get; set; }
 
-        public ReportComprasNetoViewModel()
+        public ReportComprasNetoViewModel(IReportNetosService reportNetosService)
         {
+            _dateInitial = reportNetosService.DateInitial;
+            _dateEnd = reportNetosService.DateEnd;
             ConectionTableCompra();
             FechaNow = DateTime.Now;
+       
         }
 
         public DataTable ComprasNeto 
@@ -45,7 +51,9 @@ namespace ProyectoGrado.Reportings.ViewModels
                     "FROM DETALLE_COMPRA " +
                     "INNER JOIN COMPRA ON COMPRA.ID = DETALLE_COMPRA.ID_COMPRA " +
                     "INNER JOIN PROVEEDOR ON PROVEEDOR.ID = COMPRA.ID_PROVEEDOR " +
-                    "INNER JOIN ARTICULO ON ARTICULO.ID = DETALLE_COMPRA.ID_ARTICULO ORDER BY COMPRA.FECHA";
+                    "INNER JOIN ARTICULO ON ARTICULO.ID = DETALLE_COMPRA.ID_ARTICULO " +
+                    $"WHERE COMPRA.FECHA BETWEEN '{_dateInitial}' AND '{_dateEnd}' " +
+                    "ORDER BY COMPRA.FECHA";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);

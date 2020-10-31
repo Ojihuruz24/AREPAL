@@ -1,6 +1,7 @@
 ﻿using Prism.Commands;
 using ProyectoGrado.Reportings.ViewModels;
 using ProyectoGrado.Reportings.Views;
+using ProyectoGrado.Services.ReportNeto;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,6 +18,7 @@ namespace ProyectoGrado.ViewModels
         private bool _isCompra = false;
         private DateTime _dateInitial = DateTime.Now;
         private DateTime _dateEnd = DateTime.Now;
+        private readonly IReportNetosService _reportNetosService;
 
         public DateTime DateInitial
         {
@@ -55,9 +57,10 @@ namespace ProyectoGrado.ViewModels
 
         public DelegateCommand PrintReportCommand { get; set; }
 
-        public ReportViewModel()
+        public ReportViewModel(IReportNetosService reportNetosService)
         {
             PrintReportCommand = new DelegateCommand(PrintReport, CanPrintReport);
+            _reportNetosService = reportNetosService;
         }
 
         private bool CanPrintReport()
@@ -84,8 +87,10 @@ namespace ProyectoGrado.ViewModels
 
         private void PrintCompra()
         {
+            _reportNetosService.DateInitial = DateInitial.ToString("yyyy-MM-dd");
+            _reportNetosService.DateEnd = DateEnd.ToString("yyyy-MM-dd");
             ReportComprasNetoView reportComprasNetoView = new ReportComprasNetoView();
-            reportComprasNetoView.DataContext = new ReportComprasNetoViewModel();
+            reportComprasNetoView.DataContext = new ReportComprasNetoViewModel(_reportNetosService);
             reportComprasNetoView.ShowDialog();
         }
 

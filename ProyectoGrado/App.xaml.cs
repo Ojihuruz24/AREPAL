@@ -1,6 +1,7 @@
 ﻿using Prism.Ioc;
 using Prism.Unity;
 using ProyectoGrado.Services;
+using ProyectoGrado.Services.ReportNeto;
 using ProyectoGrado.ViewModels;
 using ProyectoGrado.Views;
 using System;
@@ -22,6 +23,7 @@ namespace ProyectoGrado
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IVentasService, VentasService>();
+            containerRegistry.RegisterSingleton<IReportNetosService, ReportNetosService>();
         }
 
         protected override Window CreateShell()
