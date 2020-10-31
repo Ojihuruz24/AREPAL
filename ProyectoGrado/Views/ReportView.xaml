@@ -7,9 +7,11 @@
     xmlns:local="clr-namespace:ProyectoGrado.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
+    xmlns:rep="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+    prism:ViewModelLocator.AutoWireViewModel="True"
     d:DesignHeight="450"
     d:DesignWidth="900"
-    prism:ViewModelLocator.AutoWireViewModel="True"
+
     Background="White"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -29,7 +31,7 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition />
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="40" />
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
@@ -39,9 +41,20 @@
                 Content="REPORTES"
                 FontSize="40" />
 
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <RadioButton Content="VENTA" Margin="5" IsChecked="{Binding IsVenta}" />
-                <RadioButton Content="COMPRA"  Margin="5" IsChecked="{Binding IsCompra}"/>
+            <StackPanel
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <RadioButton
+                    Margin="5"
+                    Content="VENTA"
+                    IsChecked="{Binding IsVenta}" />
+                <RadioButton
+                    Margin="5"
+                    Content="COMPRA"
+                    IsChecked="{Binding IsCompra}" />
             </StackPanel>
             <StackPanel
                 Grid.Row="2"
@@ -62,9 +75,8 @@
                 Grid.Row="3"
                 Grid.ColumnSpan="2"
                 VerticalAlignment="Center">
-                <Button Command="{Binding PrintReportCommand}" Content="IMPRIMIR" />
+                <Button Command="{Binding PrintReportCommand}" CommandParameter="{Binding ElementName=ReportViewer}" Content="IMPRIMIR" />
             </StackPanel>
-
         </Grid>
     </Border>
 </UserControl>

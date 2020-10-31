@@ -1,6 +1,10 @@
 ﻿using Prism.Commands;
+using ProyectoGrado.Reportings.ViewModels;
+using ProyectoGrado.Reportings.Views;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -80,12 +84,16 @@ namespace ProyectoGrado.ViewModels
 
         private void PrintCompra()
         {
-
+            ReportComprasNetoView reportComprasNetoView = new ReportComprasNetoView();
+            reportComprasNetoView.DataContext = new ReportComprasNetoViewModel();
+            reportComprasNetoView.ShowDialog();
         }
 
         private void PrintVenta()
         {
-
+            ReportVentaTotalesView reportVentaTotalesView = new ReportVentaTotalesView();
+            reportVentaTotalesView.DataContext = new ReportVentaTotalesViewModel();
+            reportVentaTotalesView.ShowDialog();
         }
     }
 }

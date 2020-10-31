@@ -1,0 +1,106 @@
+﻿<Window
+    x:Class="ProyectoGrado.Reportings.Views.ReportComprasNetoView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ProyectoGrado.Reportings.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    Title="ReportComprasTotales"
+    Width="850"
+    Height="auto"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    FontFamily="Roboto"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Grid>
+        <Button
+            Grid.Column="6"
+            Margin="10"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Click="Button_Click">
+            <materialDesign:PackIcon Kind="Printer" />
+        </Button>
+        <Grid x:Name="print">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="100" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <StackPanel>
+                    <Label Content="FECHA: " />
+                    <Label Content="USUARIO: " />
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="{Binding FechaNow}" />
+                    <Label Content="{Binding User}" />
+                </StackPanel>
+            </StackPanel>
+            <Label
+                Grid.Row="1"
+                Grid.Column="2"
+                Grid.ColumnSpan="3"
+                VerticalAlignment="Center"
+                Content="REPORTE COMPRAS"
+                FontSize="33" Margin="0,25,123.5,25" />
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="4"
+                Grid.ColumnSpan="2"
+               />
+            <DataGrid
+                Grid.Row="2"
+                Grid.ColumnSpan="6"
+                AutoGenerateColumns="False"
+                ItemsSource="{Binding ComprasNeto}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="70"
+                        Binding="{Binding CANTIDAD}"
+                        Header="CANTIDAD" />
+                    <DataGridTextColumn
+                        Width="100"
+                        Binding="{Binding ARTICULO}"
+                        Header="ARTICULO" />
+                    <DataGridTextColumn
+                        Width="100"
+                        Binding="{Binding PRECIO}"
+                        Header="PRECIO" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding COMPROBANTE}"
+                        Header="COMPROBANTE" />
+                    <DataGridTextColumn
+                        Width="auto"
+                        Binding="{Binding NUMERO_COMPROBANTE}"
+                        Header="NUMERO COMPROBANTE" />
+                    <DataGridTextColumn
+                        Width="140"
+                        Binding="{Binding PROVEEDOR}"
+                        Header="PROVEEDOR" />
+                    <DataGridTextColumn
+                        Width="140"
+                        Binding="{Binding FECHA}"
+                        Header="FECHA" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>
