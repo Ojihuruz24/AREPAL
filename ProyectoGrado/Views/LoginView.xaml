@@ -37,6 +37,7 @@
                     Grid.Row="1"
                     Content="USUARIO" />
                 <TextBox
+                  PreviewTextInput="TextBox_PreviewTextInput"
                     Text="{Binding User, UpdateSourceTrigger=PropertyChanged}"
                     TextAlignment="Center" />
             </StackPanel>
