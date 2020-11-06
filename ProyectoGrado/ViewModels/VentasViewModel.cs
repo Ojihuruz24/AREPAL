@@ -11,6 +11,7 @@ using ProyectoGrado.Models;
 using ProyectoGrado.Reportings;
 using ProyectoGrado.Reportings.ViewModels;
 using ProyectoGrado.Services;
+using ProyectoGrado.Utility.Validations;
 using ProyectoGrado.Views;
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,11 @@ namespace ProyectoGrado.ViewModels
         public ObservableCollection<Venta> Ventas
         {
             get { return _ventas; }
-            set { SetProperty(ref _ventas, value); }
+            set 
+            {
+                SetProperty(ref _ventas, value);
+                PrintCommand.RaiseCanExecuteChanged(); 
+            }
         }
 
         public string NameProduct { get; set; }
@@ -73,10 +78,9 @@ namespace ProyectoGrado.ViewModels
             get { return _quantity; }
             set
             {
-                SetProperty(ref _quantity, value);
-                Price = ProductValue * value;
-                AddProductCommand.RaiseCanExecuteChanged();
-
+                    SetProperty(ref _quantity, value);
+                    Price = ProductValue * value;
+                    AddProductCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -92,7 +96,7 @@ namespace ProyectoGrado.ViewModels
             set { SetProperty(ref _client, value); }
         }
 
-        public string Number 
+        public string Number
         {
             get { return _number; }
             set { SetProperty(ref _number, value); }
@@ -101,7 +105,11 @@ namespace ProyectoGrado.ViewModels
         public string ClientName
         {
             get { return _clientName; }
-            set { SetProperty(ref _clientName, value); }
+            set
+            { 
+                SetProperty(ref _clientName, value);
+                PrintCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public int Total
@@ -120,12 +128,12 @@ namespace ProyectoGrado.ViewModels
         {
             _eventAggregator = eventAggregator;
             _ventasService = ventasService;
-            Ventas = new ObservableCollection<Venta>();
             AddProductCommand = new DelegateCommand(AddProduct, CanAddProduct);
             PrintCommand = new DelegateCommand(Print, CanPrint);
             CancelProductCommand = new DelegateCommand(CancelProduct, CanCancelProduct);
             SearchCodeCommand = new DelegateCommand(SearchCode, CanSearchCode);
             AddClientCommand = new DelegateCommand(AddClient, CanAddClient);
+            Ventas = new ObservableCollection<Venta>();
             _eventAggregator.GetEvent<ProductSelectedEvent>().Subscribe(OnProductSelected);
             _eventAggregator.GetEvent<ClientSelectedEvent>().Subscribe(OnClientSelected);
         }
@@ -176,12 +184,18 @@ namespace ProyectoGrado.ViewModels
 
         private void CancelProduct()
         {
+            Ventas.Clear();
+            Total = 0;
             Clear();
         }
 
         private bool CanPrint()
         {
-            return true;
+            if (!string.IsNullOrEmpty(ClientName) && Ventas.Count > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void Print()
@@ -266,6 +280,11 @@ namespace ProyectoGrado.ViewModels
             ReportVentView reportVentView = new ReportVentView();
             reportVentView.DataContext = new ReportVentViewModel(_ventasService);
             reportVentView.ShowDialog();
+
+            Clear();
+
+            Ventas.Clear();
+            Total = 0;
 
             #region Commemt
             //using (var conn = new SqlConnection(LoginViewModel.ConectionBD))
@@ -365,6 +384,7 @@ namespace ProyectoGrado.ViewModels
             Ventas.Add(new Venta { IdProduct = Code, NameProduct = NameProduct, Quantity = Quantity, SubTotal = Price, Client = Client });
             Total = Total + Price;
             Clear();
+            PrintCommand.RaiseCanExecuteChanged();
         }
 
         private void Clear()
@@ -374,6 +394,7 @@ namespace ProyectoGrado.ViewModels
             Quantity = 0;
             Price = 0;
             ProductValue = 0;
+            ClientName = string.Empty;
         }
     }
 

@@ -16,7 +16,18 @@ namespace ProyectoGrado.Utility.Validations
             Regex regex = new Regex("[^0-9]+");
             if (regex.IsMatch(number))
             {
-                MessageBox.Show(mensaje);
+                MessageBox.Show(mensaje, "VALIDACIÓN", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+            return true;
+        }
+
+        public static bool IsNumber(int number, string mensaje)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            if (regex.IsMatch(number.ToString()))
+            {
+                MessageBox.Show(mensaje, "VALIDACIÓN" , MessageBoxButton.OK , MessageBoxImage.Warning);
                 return false;
             }
             return true;
@@ -27,7 +38,7 @@ namespace ProyectoGrado.Utility.Validations
             Regex regex = new Regex(@"[^a-zA-Z\s]");
             if (regex.IsMatch(name))
             {
-                MessageBox.Show(mensaje);
+                MessageBox.Show(mensaje, "VALIDACIÓN", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
             return true;

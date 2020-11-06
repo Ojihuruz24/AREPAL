@@ -35,6 +35,7 @@ namespace ProyectoGrado.ViewModels
             {
                 if (ValidationesInput.IsNumber(value, "Documento Invalido"))
                 {
+                    AddCommand.RaiseCanExecuteChanged();
                     SetProperty(ref _documentUser, value);
                 }
             }
@@ -63,7 +64,9 @@ namespace ProyectoGrado.ViewModels
             {
                 if (ValidationesInput.IsString(value, "Nombre Invalido"))
                 {
+                    AddCommand.RaiseCanExecuteChanged();
                     SetProperty(ref _nameUser, value);
+
                 }
             }
         }
@@ -71,7 +74,11 @@ namespace ProyectoGrado.ViewModels
         public string DirectionUser
         {
             get => _directionUser;
-            set => SetProperty(ref _directionUser, value);
+            set
+            {
+                SetProperty(ref _directionUser, value);
+                AddCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public string TelUser
@@ -79,9 +86,10 @@ namespace ProyectoGrado.ViewModels
             get => _telUser;
             set
             {
-                if (ValidationesInput.IsNumber(value, "Telefono Invalido"))
+                if (ValidationesInput.IsNumber(value, "Teléfono Invalido"))
                 {
                     SetProperty(ref _telUser, value);
+                    AddCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -108,9 +116,10 @@ namespace ProyectoGrado.ViewModels
 
         private bool CanAdd()
         {
-            if (true)
+            if (string.IsNullOrWhiteSpace(DocumentUser) || string.IsNullOrWhiteSpace(NameUser)
+                || string.IsNullOrWhiteSpace(DirectionUser) || string.IsNullOrWhiteSpace(TelUser))
             {
-
+                return false;
             }
             return true;
         }

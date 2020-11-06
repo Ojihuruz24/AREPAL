@@ -40,7 +40,11 @@ namespace ProyectoGrado.Dialog.ViewModels
         public DataRowView ClientSelected
         {
             get { return _clientSelected; }
-            set { SetProperty(ref _clientSelected, value); }
+            set
+            { 
+                SetProperty(ref _clientSelected, value);
+                SendCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public DelegateCommand SendCommand { get; }
@@ -55,7 +59,11 @@ namespace ProyectoGrado.Dialog.ViewModels
 
         private bool CanSend()
         {
+            if (ClientSelected != null)
+            {
             return true;
+            }
+            return false;
         }
 
         private void Send()

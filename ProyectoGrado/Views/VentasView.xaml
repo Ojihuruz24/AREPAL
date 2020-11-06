@@ -41,7 +41,7 @@
                             Orientation="Vertical">
                             <Label Content="CODIGO" />
                             <StackPanel Orientation="Horizontal">
-                                <TextBox Text="{Binding Code}" />
+                                <TextBox Text="{Binding Code}" IsEnabled="False" />
                                 <Button Margin="3" Command="{Binding SearchCodeCommand}">
                                     <Image Source="/ProyectoGrado;component/Utility/Icons/Search-icon.png" />
                                 </Button>
@@ -122,7 +122,7 @@
                             <Border BorderBrush="Black" BorderThickness="1">
                                 <StackPanel Grid.Column="0" Orientation="Vertical">
                                     <Label Content="CLIENTE" />
-                                    <TextBox Text="{Binding ClientName}" />
+                                    <TextBox Text="{Binding ClientName, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" />
                                     <Button Command="{Binding AddClientCommand}" Content="Agregar" />
                                 </StackPanel>
                             </Border>

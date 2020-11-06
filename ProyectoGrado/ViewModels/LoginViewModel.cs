@@ -26,7 +26,7 @@ namespace ProyectoGrado.ViewModels
         {
             get { return _user; }
             set {
-                if (ValidationesInput.IsNumber(value, "Cedula Incorrecta"))
+                if (ValidationesInput.IsNumber(value, "Cédula Incorrecta"))
                 {
                     SetProperty(ref _user, value);
                 }
@@ -100,7 +100,7 @@ namespace ProyectoGrado.ViewModels
                     }
                     else
                     {
-                        MessageBox.Show($"No se encontro datos");
+                        MessageBox.Show($"Usuario o contraseña incorrecta", "AUTENTICACIÓN", MessageBoxButton.OK , MessageBoxImage.Warning);
                     }
                 }
             }
