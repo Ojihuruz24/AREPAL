@@ -580,7 +580,7 @@ namespace ProyectoGrado.ViewModels
                 if (ValidationesInput.IsString(value, "Nombre invalido"))
                 {
                     SetProperty(ref nameArticle, value);
-                    AddArticleCommand.RaiseCanExecuteChanged(); 
+                    AddArticleCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -600,10 +600,10 @@ namespace ProyectoGrado.ViewModels
             get => _quantityArticle;
             set
             {
-                if (ValidationesInput.IsNumber(value , "Cantidad invalida"))
+                if (ValidationesInput.IsNumber(value, "Cantidad invalida"))
                 {
                     SetProperty(ref _quantityArticle, value);
-                    AddArticleCommand.RaiseCanExecuteChanged(); 
+                    AddArticleCommand.RaiseCanExecuteChanged();
                 }
             }
 
@@ -713,13 +713,13 @@ namespace ProyectoGrado.ViewModels
 
         #region USUARIO
 
-        private int _documentUser;
+        private string _documentUser;
         private string _nameUser;
         private string _passwordUser;
         private ObservableCollection<string> _rolUsers;
         private string _rolUser;
         private DataTable _tableUser;
-     
+
 
         public DataTable TableUser
         {
@@ -727,23 +727,40 @@ namespace ProyectoGrado.ViewModels
             set { SetProperty(ref _tableUser, value); }
         }
 
-
-        public int DocumentUser
+        public string DocumentUser
         {
             get { return _documentUser; }
-            set { SetProperty(ref _documentUser, value); }
+            set
+            {
+                if (ValidationesInput.IsNumber(value, "Documento invalido"))
+                {
+                    SetProperty(ref _documentUser, value);
+                    AddUserCommand.RaiseCanExecuteChanged();
+                }
+            }
         }
 
         public string NameUser
         {
             get { return _nameUser; }
-            set { SetProperty(ref _nameUser, value); }
+            set
+            {
+                if (ValidationesInput.IsString(value, "Nombre invalido"))
+                {
+                    SetProperty(ref _nameUser, value);
+                    AddUserCommand.RaiseCanExecuteChanged();
+                }
+            }
         }
 
         public string PasswordUser
         {
             get { return _passwordUser; }
-            set { SetProperty(ref _passwordUser, value); }
+            set
+            {
+                SetProperty(ref _passwordUser, value);
+                AddUserCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public ObservableCollection<string> RolUsers
@@ -755,7 +772,11 @@ namespace ProyectoGrado.ViewModels
         public string RolUser
         {
             get { return _rolUser; }
-            set { SetProperty(ref _rolUser, value); }
+            set
+            {
+                SetProperty(ref _rolUser, value);
+                AddUserCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public DelegateCommand AddUserCommand { get; set; }
@@ -785,7 +806,14 @@ namespace ProyectoGrado.ViewModels
 
         private bool CanAddUser()
         {
-            return true;
+            if (!string.IsNullOrWhiteSpace(DocumentUser)
+                && !string.IsNullOrWhiteSpace(NameUser)
+                && !string.IsNullOrWhiteSpace(PasswordUser)
+                && !string.IsNullOrWhiteSpace(RolUser))
+            {
+                return true;
+            }
+            return false;
         }
 
         private void AddUser()
@@ -821,7 +849,7 @@ namespace ProyectoGrado.ViewModels
 
         private void ClearUser()
         {
-            DocumentUser = 0;
+            DocumentUser = string.Empty;
             NameUser = string.Empty;
             PasswordUser = string.Empty;
             AddListRols();
