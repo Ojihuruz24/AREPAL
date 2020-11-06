@@ -2,6 +2,7 @@
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
+using ProyectoGrado.Utility.Validations;
 using ProyectoGrado.Views;
 using System;
 using System.Data;
@@ -24,7 +25,12 @@ namespace ProyectoGrado.ViewModels
         public string User
         {
             get { return _user; }
-            set { SetProperty(ref _user, value); }
+            set {
+                if (ValidationesInput.IsNumber(value, "Cedula Incorrecta"))
+                {
+                    SetProperty(ref _user, value);
+                }
+            }
         }
         public SecureString Password
         {

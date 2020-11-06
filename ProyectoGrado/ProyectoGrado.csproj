@@ -133,6 +133,7 @@
     <Compile Include="Services\Ventas\IVentasService.cs" />
     <Compile Include="Services\Ventas\VentasService.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="Utility\Validations\ValidationesInput.cs" />
     <Compile Include="ViewModels\AdministracionViewModel.cs" />
     <Compile Include="ViewModels\ClientesViewModel.cs" />
     <Compile Include="ViewModels\ComprasViewModel.cs" />

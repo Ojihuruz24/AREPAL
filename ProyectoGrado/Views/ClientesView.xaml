@@ -44,16 +44,16 @@
                         Orientation="Vertical">
                         <Label Content="NUEVO USUARIO" />
                         <Label Margin="0,5,0,0" Content="DOCUMENTO" />
-                        <TextBox Text="{Binding DocumentUser}" />
+                        <TextBox Text="{Binding DocumentUser, UpdateSourceTrigger=PropertyChanged}" />
 
                         <Label Content="NOMBRE COMPLETO" />
-                        <TextBox Text="{Binding NameUser}" />
+                        <TextBox Text="{Binding NameUser, UpdateSourceTrigger=PropertyChanged}" />
 
                         <Label Content="DIRECCION" />
                         <TextBox Text="{Binding DirectionUser}" />
 
                         <Label Content="TELEFONO" />
-                        <TextBox Text="{Binding TelUser}" />
+                        <TextBox Text="{Binding TelUser, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <StackPanel
                         Margin="0,18,0,0"

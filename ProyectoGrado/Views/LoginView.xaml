@@ -32,19 +32,18 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="1" Grid.RowSpan="2" Orientation="Vertical">
-                <Label
-                    Grid.Row="1"
-                    Content="USUARIO" />
-                <TextBox
-                  PreviewTextInput="TextBox_PreviewTextInput"
-                    Text="{Binding User, UpdateSourceTrigger=PropertyChanged}"
-                    TextAlignment="Center" />
+            <StackPanel
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                Orientation="Vertical">
+                <Label Grid.Row="1" Content="USUARIO" />
+                <TextBox Text="{Binding User, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" />
             </StackPanel>
-            <StackPanel Grid.Row="3" Grid.RowSpan="2" Orientation="Vertical">
-                <Label
-                    Grid.Row="3"
-                    Content="CONTRASEÑA" />
+            <StackPanel
+                Grid.Row="3"
+                Grid.RowSpan="2"
+                Orientation="Vertical">
+                <Label Grid.Row="3" Content="CONTRASEÑA" />
                 <PasswordBox
                     Grid.Row="4"
                     PasswordChanged="OnPasswordChanged"

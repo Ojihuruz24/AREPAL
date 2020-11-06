@@ -1,5 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using ProyectoGrado.Utility.Validations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,7 +31,13 @@ namespace ProyectoGrado.ViewModels
         public string DocumentUser
         {
             get => _documentUser;
-            set => SetProperty(ref _documentUser, value);
+            set
+            {
+                if (ValidationesInput.IsNumber(value, "Documento Invalido"))
+                {
+                    SetProperty(ref _documentUser, value);
+                }
+            }
         }
 
         public string SearchClient
@@ -52,7 +59,13 @@ namespace ProyectoGrado.ViewModels
         public string NameUser
         {
             get => _nameUser;
-            set => SetProperty(ref _nameUser, value);
+            set
+            {
+                if (ValidationesInput.IsString(value, "Nombre Invalido"))
+                {
+                    SetProperty(ref _nameUser, value);
+                }
+            }
         }
 
         public string DirectionUser
@@ -64,7 +77,13 @@ namespace ProyectoGrado.ViewModels
         public string TelUser
         {
             get => _telUser;
-            set => SetProperty(ref _telUser, value);
+            set
+            {
+                if (ValidationesInput.IsNumber(value, "Telefono Invalido"))
+                {
+                    SetProperty(ref _telUser, value);
+                }
+            }
         }
 
         public DelegateCommand AddCommand { get; set; }
@@ -89,6 +108,10 @@ namespace ProyectoGrado.ViewModels
 
         private bool CanAdd()
         {
+            if (true)
+            {
+
+            }
             return true;
         }
 

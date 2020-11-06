@@ -1,4 +1,5 @@
 ﻿using Prism.Mvvm;
+using ProyectoGrado.Utility.Validations;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -25,8 +26,13 @@ namespace ProyectoGrado.ViewModels
             get { return _searchProduct; }
             set
             {
-                SetProperty(ref _searchProduct, value);
-                Search(value);
+                if (ValidationesInput.IsNumber(value, "Codigo invalido"))
+                {
+                    SetProperty(ref _searchProduct, value);
+                    Search(value);
+                }
+
+
             }
         }
 
@@ -40,7 +46,7 @@ namespace ProyectoGrado.ViewModels
         {
             if (!string.IsNullOrEmpty(search))
             {
-                Products.DefaultView.RowFilter = $"ID = {SearchProduct}";
+                Products.DefaultView.RowFilter = $"CODIGO = {SearchProduct}";
                 return;
             }
 
