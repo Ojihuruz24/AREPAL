@@ -255,7 +255,7 @@
                                 Orientation="Vertical">
                                 <Label Content="NUEVO ARTICULO" />
                                 <Label Margin="0,5,0,0" Content="NOMBRE" />
-                                <TextBox Text="{Binding NameArticle}" />
+                                <TextBox Text="{Binding NameArticle, UpdateSourceTrigger=PropertyChanged}" />
 
                                 <Label Content="MEDIDA" />
                                 <ComboBox
@@ -267,7 +267,7 @@
                                     ItemsSource="{Binding MeasureArticles}"
                                     SelectedItem="{Binding MeasureArticle}" />
                                 <Label Content="CANTIDAD" />
-                                <TextBox Text="{Binding QuantityArticle}" />
+                                <TextBox Text="{Binding QuantityArticle, UpdateSourceTrigger=PropertyChanged}" />
 
                             </StackPanel>
                             <StackPanel

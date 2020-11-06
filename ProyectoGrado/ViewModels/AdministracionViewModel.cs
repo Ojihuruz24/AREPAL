@@ -563,7 +563,7 @@ namespace ProyectoGrado.ViewModels
         private ObservableCollection<string> _measureArticles;
         private DataTable _tableArticles;
         private string nameArticle;
-        private int _quantityArticle;
+        private string _quantityArticle;
         private string _measureArticle;
 
         public ObservableCollection<string> MeasureArticles
@@ -572,22 +572,41 @@ namespace ProyectoGrado.ViewModels
             set { SetProperty(ref _measureArticles, value); }
         }
 
-        public string MeasureArticle
-        {
-            get => _measureArticle;
-            set => SetProperty(ref _measureArticle, value);
-        }
-
         public string NameArticle
         {
             get => nameArticle;
-            set => SetProperty(ref nameArticle, value);
+            set
+            {
+                if (ValidationesInput.IsString(value, "Nombre invalido"))
+                {
+                    SetProperty(ref nameArticle, value);
+                    AddArticleCommand.RaiseCanExecuteChanged(); 
+                }
+            }
         }
 
-        public int QuantityArticle
+        public string MeasureArticle
+        {
+            get => _measureArticle;
+            set
+            {
+                SetProperty(ref _measureArticle, value);
+                AddArticleCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public string QuantityArticle
         {
             get => _quantityArticle;
-            set => SetProperty(ref _quantityArticle, value);
+            set
+            {
+                if (ValidationesInput.IsNumber(value , "Cantidad invalida"))
+                {
+                    SetProperty(ref _quantityArticle, value);
+                    AddArticleCommand.RaiseCanExecuteChanged(); 
+                }
+            }
+
         }
 
         public DataTable TableArticles
@@ -618,7 +637,13 @@ namespace ProyectoGrado.ViewModels
 
         private bool CanAddArticle()
         {
-            return true;
+            if (!string.IsNullOrWhiteSpace(NameArticle)
+                && !string.IsNullOrWhiteSpace(MeasureArticle)
+                && !string.IsNullOrWhiteSpace(QuantityArticle))
+            {
+                return true;
+            }
+            return false;
         }
 
         private void AddArticle()
@@ -656,7 +681,7 @@ namespace ProyectoGrado.ViewModels
         {
             NameArticle = string.Empty;
             AddArticles();
-            QuantityArticle = 0;
+            QuantityArticle = string.Empty;
         }
 
         private void ConsultArticles()
