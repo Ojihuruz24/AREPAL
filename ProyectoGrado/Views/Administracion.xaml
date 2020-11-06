@@ -92,13 +92,13 @@
                                 Orientation="Vertical">
                                 <Label Content="NUEVO PRODUCTO" />
                                 <Label Margin="0,5,0,0" Content="CODIGO" />
-                                <TextBox Text="{Binding CodeProducto}" />
+                                <TextBox Text="{Binding CodeProducto, UpdateSourceTrigger=PropertyChanged}" />
 
                                 <Label Content="NOMBRE PRODUCTO" />
-                                <TextBox Text="{Binding NombreProducto}" />
+                                <TextBox Text="{Binding NombreProducto, UpdateSourceTrigger=PropertyChanged}" />
 
                                 <Label Content="PRECIO VENTA" />
-                                <TextBox Text="{Binding PrecioVentaProducto}" />
+                                <TextBox Text="{Binding PrecioVentaProducto, UpdateSourceTrigger=PropertyChanged}" />
 
                                 <Label Content="CATEGORIA" />
                                 <ComboBox
@@ -174,13 +174,13 @@
                                 <Label Margin="0,-10,0,10" Content="CONTIENE" />
                                 <Label Content="CODIGO" />
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBox Width="200" Text="{Binding CodeProductDetailProduct}" />
+                                    <TextBox Width="200" Text="{Binding CodeProductDetailProduct}" IsEnabled="False" />
                                     <Button Command="{Binding SearchCodeDetalleProductoCommand}">
                                         <Image Source="/ProyectoGrado;component/Utility/Icons/Search-icon.png" />
                                     </Button>
                                 </StackPanel>
                                 <Label Margin="0,5,0,0" Content="PRODUCTO" />
-                                <TextBox Text="{Binding NameProducto}" />
+                                <TextBox Text="{Binding NameProducto}" IsEnabled="False" />
                                 <Label Content="ARTICULO" />
                                 <ComboBox
                                     Grid.Row="0"
@@ -197,7 +197,7 @@
                                     </i:Interaction.Triggers>
                                 </ComboBox>
                                 <Label Content="CANTIDAD" />
-                                <TextBox Text="{Binding CountDetailProduct}" />
+                                <TextBox Text="{Binding CountDetailProduct, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                             <StackPanel
                                 Margin="0,18,0,0"

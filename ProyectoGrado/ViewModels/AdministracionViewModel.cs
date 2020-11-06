@@ -51,7 +51,7 @@ namespace ProyectoGrado.ViewModels
                 if (ValidationesInput.IsString(value, "Nombre de categoria invalido"))
                 {
                     SetProperty(ref nombreCategoria, value);
-                    AddCategoriaCommand.RaiseCanExecuteChanged(); 
+                    AddCategoriaCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -138,10 +138,11 @@ namespace ProyectoGrado.ViewModels
         #region PRODUCTO
 
         private DataTable _tableProductos;
-        private int _codeProducto;
+        private string _codeProducto;
         private string _nombreProducto;
-        private int _precioVentaProducto;
+        private string _precioVentaProducto;
         private ObservableCollection<Articulo> _categoriaProductos;
+        private Articulo categoriaProducto;
 
         public DataTable TableProductos
         {
@@ -152,27 +153,61 @@ namespace ProyectoGrado.ViewModels
         public ObservableCollection<Articulo> CategoriaProductos
         {
             get { return _categoriaProductos; }
-            set { SetProperty(ref _categoriaProductos, value); }
+            set
+            {
+                SetProperty(ref _categoriaProductos, value);
+
+            }
         }
 
-        public Articulo CategoriaProducto { get; set; }
+        public Articulo CategoriaProducto
+        {
+            get => categoriaProducto;
+            set
+            {
+                SetProperty(ref categoriaProducto, value);
+                AddProductoCommand.RaiseCanExecuteChanged();
+            }
+        }
 
-        public int CodeProducto
+        public string CodeProducto
         {
             get => _codeProducto;
-            set => SetProperty(ref _codeProducto, value);
+            set
+            {
+                if (ValidationesInput.IsNumber(value, "Codigo invalido"))
+                {
+                    SetProperty(ref _codeProducto, value);
+                    AddProductoCommand.RaiseCanExecuteChanged();
+                }
+
+            }
         }
 
         public string NombreProducto
         {
             get => _nombreProducto;
-            set => SetProperty(ref _nombreProducto, value);
+            set
+            {
+                if (ValidationesInput.IsString(value, "Nombre invalido"))
+                {
+                    SetProperty(ref _nombreProducto, value);
+                    AddProductoCommand.RaiseCanExecuteChanged();
+                }
+            }
         }
 
-        public int PrecioVentaProducto
+        public string PrecioVentaProducto
         {
             get => _precioVentaProducto;
-            set => SetProperty(ref _precioVentaProducto, value);
+            set
+            {
+                if (ValidationesInput.IsNumber(value, "Precio invalido"))
+                {
+                    SetProperty(ref _precioVentaProducto, value);
+                    AddProductoCommand.RaiseCanExecuteChanged();
+                }
+            }
         }
 
         public DelegateCommand AddProductoCommand { get; set; }
@@ -210,7 +245,14 @@ namespace ProyectoGrado.ViewModels
 
         private bool CanProducto()
         {
-            return true;
+            if (!string.IsNullOrWhiteSpace(CodeProducto)
+                && !string.IsNullOrWhiteSpace(NombreProducto)
+                && !string.IsNullOrWhiteSpace(PrecioVentaProducto)
+                && CategoriaProducto != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void AddProducto()
@@ -286,9 +328,9 @@ namespace ProyectoGrado.ViewModels
 
         private void ClearProduct()
         {
-            CodeProducto = 0;
+            CodeProducto = string.Empty;
             NombreProducto = string.Empty;
-            PrecioVentaProducto = 0;
+            PrecioVentaProducto = string.Empty;
             AddCategoriaProducto();
         }
 
@@ -499,7 +541,7 @@ namespace ProyectoGrado.ViewModels
             set { SetProperty(ref _measureArticles, value); }
         }
 
-        public string MeasureArticle 
+        public string MeasureArticle
         {
             get => _measureArticle;
             set => SetProperty(ref _measureArticle, value);
@@ -622,7 +664,6 @@ namespace ProyectoGrado.ViewModels
         private string _rolUser;
         private DataTable _tableUser;
 
-
         public DataTable TableUser
         {
             get { return _tableUser; }
@@ -672,7 +713,7 @@ namespace ProyectoGrado.ViewModels
             ConsultUser();
         }
 
-       
+
 
         private bool CanCancelUser()
         {
@@ -684,7 +725,7 @@ namespace ProyectoGrado.ViewModels
             ClearUser();
         }
 
-       
+
         private bool CanAddUser()
         {
             return true;
