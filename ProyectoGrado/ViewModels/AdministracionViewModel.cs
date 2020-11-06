@@ -343,23 +343,39 @@ namespace ProyectoGrado.ViewModels
         private string _nameProducto;
         private string _countDetailProduct;
         private string _codeProductDetailProduct;
+        private Articulo _articleDetailProduct;
 
         public string NameProducto
         {
             get { return _nameProducto; }
-            set { SetProperty(ref _nameProducto, value); }
+            set
+            {
+                SetProperty(ref _nameProducto, value);
+                AddDetailProductCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public string CodeProductDetailProduct
         {
             get { return _codeProductDetailProduct; }
-            set { SetProperty(ref _codeProductDetailProduct, value); }
+            set
+            {
+                SetProperty(ref _codeProductDetailProduct, value);
+                AddDetailProductCommand.RaiseCanExecuteChanged();
+            }
         }
 
         public string CountDetailProduct
         {
             get { return _countDetailProduct; }
-            set { SetProperty(ref _countDetailProduct, value); }
+            set
+            {
+                if (ValidationesInput.IsNumber(value, "Cantidad invalida"))
+                {
+                    SetProperty(ref _countDetailProduct, value);
+                    AddDetailProductCommand.RaiseCanExecuteChanged();
+                }
+            }
         }
 
         public ObservableCollection<Articulo> ArticlesDetailProduct
@@ -377,7 +393,15 @@ namespace ProyectoGrado.ViewModels
             set => SetProperty(ref _tableDetalleProducto, value);
         }
 
-        public Articulo ArticleDetailProduct { get; set; }
+        public Articulo ArticleDetailProduct
+        {
+            get => _articleDetailProduct;
+            set
+            {
+                SetProperty(ref _articleDetailProduct, value);
+                AddDetailProductCommand.RaiseCanExecuteChanged();
+            }
+        }
 
 
         public DelegateCommand ArticleDetalleComboboxCommand { get; private set; }
@@ -408,7 +432,14 @@ namespace ProyectoGrado.ViewModels
 
         private bool CanAddDetailProduct()
         {
-            return true;
+            if (!string.IsNullOrWhiteSpace(CodeProductDetailProduct)
+                && !string.IsNullOrWhiteSpace(NameProducto)
+                && !string.IsNullOrWhiteSpace(CountDetailProduct)
+                && ArticleDetailProduct != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void AddDetailProduct()
@@ -663,6 +694,7 @@ namespace ProyectoGrado.ViewModels
         private ObservableCollection<string> _rolUsers;
         private string _rolUser;
         private DataTable _tableUser;
+     
 
         public DataTable TableUser
         {
