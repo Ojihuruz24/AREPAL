@@ -1,14 +1,17 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using ProyectoGrado.Utility.Validations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.ComponentModel;
 
 namespace ProyectoGrado.ViewModels
 {
@@ -23,6 +26,7 @@ namespace ProyectoGrado.ViewModels
         private ObservableCollection<Articulo> _vouncher;
         private string _numComprobante;
         private Articulo _article;
+        private Articulo _provider;
 
         public DataTable TableArticle
         {
@@ -33,7 +37,33 @@ namespace ProyectoGrado.ViewModels
         public Articulo Article
         {
             get { return _article; }
-            set { SetProperty(ref _article, value); }
+            set
+            {
+                SetProperty(ref _article, value);
+                AddCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public string QuantityString
+        {
+            get
+            {
+                return Quantity.ToString();
+            }
+            set
+            {
+                if (ValidationesInput.IsNumber(value, "Cantidad invalida"))
+                {
+                    if (int.TryParse(value, out int resul))
+                    {
+                        Quantity = resul;
+                    }
+                    else
+                    {
+                        Quantity = 0;
+                    }
+                }
+            }
         }
 
         public int Quantity
@@ -43,8 +73,32 @@ namespace ProyectoGrado.ViewModels
             {
                 SetProperty(ref _quantity, value);
                 Total = Quantity * Price;
+                AddCommand.RaiseCanExecuteChanged();
             }
         }
+
+        public string PriceString
+        {
+            get
+            {
+                return Price.ToString();
+            }
+            set
+            {
+                if (ValidationesInput.IsNumber(value, "Precio invalido"))
+                {
+                    if (int.TryParse(value, out int resul))
+                    {
+                        Price = resul;
+                    }
+                    else
+                    {
+                        Price = 0;
+                    }
+                }
+            }
+        }
+
 
         public int Price
         {
@@ -53,6 +107,7 @@ namespace ProyectoGrado.ViewModels
             {
                 SetProperty(ref _price, value);
                 Total = Quantity * Price;
+                AddCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -68,10 +123,25 @@ namespace ProyectoGrado.ViewModels
         public string NumComprobante
         {
             get { return _numComprobante; }
-            set { SetProperty(ref _numComprobante, value); }
+            set
+            {
+                if (ValidationesInput.IsNumber(value, "# Comprobante: Solo acepta digitos numericos"))
+                {
+                    SetProperty(ref _numComprobante, value);
+                    AddCommand.RaiseCanExecuteChanged();
+                }
+            }
         }
 
-        public Articulo Provider { get; set; }
+        public Articulo Provider
+        {
+            get => _provider;
+            set
+            {
+                SetProperty(ref _provider, value);
+                AddCommand.RaiseCanExecuteChanged();
+            }
+        }
         public Articulo Vouncher { get; set; }
 
         public ObservableCollection<Articulo> Vounchers
@@ -86,6 +156,7 @@ namespace ProyectoGrado.ViewModels
             set
             {
                 SetProperty(ref _providers, value);
+             
             }
         }
 
@@ -143,11 +214,20 @@ namespace ProyectoGrado.ViewModels
 
         private void Cancel()
         {
+            Clear();
         }
 
         private bool CanAdd()
         {
-            return true;
+            if (Quantity != 0 && Price != 0
+                && !string.IsNullOrWhiteSpace(NumComprobante)
+                && Article != null
+                && Vouncher != null
+                && Provider != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void Add()
@@ -339,9 +419,12 @@ namespace ProyectoGrado.ViewModels
         public void Clear()
         {
             Quantity = 0;
+            QuantityString = string.Empty;
+            PriceString = string.Empty;
             Price = 0;
             Total = 0;
             NumComprobante = string.Empty;
+            QuantityString = string.Empty;
             Articles = new ObservableCollection<Articulo>();
             AddArticles();
             Vounchers = new ObservableCollection<Articulo>();
