@@ -4,6 +4,7 @@ using Prism.Mvvm;
 using ProyectoGrado.Dialog;
 using ProyectoGrado.Dialog.ViewModels;
 using ProyectoGrado.Events;
+using ProyectoGrado.Utility.Validations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -45,7 +46,14 @@ namespace ProyectoGrado.ViewModels
         public string NombreCategoria
         {
             get => nombreCategoria;
-            set => SetProperty(ref nombreCategoria, value);
+            set
+            {
+                if (ValidationesInput.IsString(value, "Nombre de categoria invalido"))
+                {
+                    SetProperty(ref nombreCategoria, value);
+                    AddCategoriaCommand.RaiseCanExecuteChanged(); 
+                }
+            }
         }
 
         public DelegateCommand AddCategoriaCommand { get; set; }
@@ -70,7 +78,11 @@ namespace ProyectoGrado.ViewModels
 
         private bool CanAddCategoria()
         {
-            return true;
+            if (!string.IsNullOrWhiteSpace(NombreCategoria))
+            {
+                return true;
+            }
+            return false;
         }
 
         private void AddCategoria()

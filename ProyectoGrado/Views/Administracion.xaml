@@ -40,7 +40,7 @@
                                     Margin="0,15,0,15"
                                     HorizontalAlignment="Center"
                                     Content="NOMBRE" />
-                                <TextBox Text="{Binding NombreCategoria}" />
+                                <TextBox Text="{Binding NombreCategoria, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                             <StackPanel
                                 Margin="0,18,0,0"
