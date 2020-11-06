@@ -107,8 +107,10 @@ namespace ProyectoGrado.ViewModels
 
         private void PrintVenta()
         {
+            _reportNetosService.DateInitial = DateInitial.ToString("yyyy-MM-dd");
+            _reportNetosService.DateEnd = DateEnd.ToString("yyyy-MM-dd");
             ReportVentaTotalesView reportVentaTotalesView = new ReportVentaTotalesView();
-            reportVentaTotalesView.DataContext = new ReportVentaTotalesViewModel();
+            reportVentaTotalesView.DataContext = new ReportVentaTotalesViewModel(_reportNetosService);
             reportVentaTotalesView.ShowDialog();
         }
     }
