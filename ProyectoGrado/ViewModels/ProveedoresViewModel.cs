@@ -1,5 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using ProyectoGrado.Utility.Validations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,12 +16,50 @@ namespace ProyectoGrado.ViewModels
     public class ProveedoresViewModel : BindableBase
     {
         private DataTable _tableProvider;
+        private string _searchProvider;
+        private string _razonSocial;
+        private string _numberDocument;
+        private string _telUser;
+        private TipoDocuments typeDocument;
 
-        public string DocumentUser { get; set; }
-        public string RazonSocial { get; set; }
+        public string RazonSocial
+        {
+            get => _razonSocial;
+
+            set
+            {
+                if (ValidationesInput.IsString(value, "Razon social invalida"))
+                {
+                    SetProperty(ref _razonSocial, value);
+                    AddProviderCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        public string TelUser
+        {
+            get => _telUser;
+            set
+            {
+                if (ValidationesInput.IsNumber(value, "Télefono invalido"))
+                {
+                    SetProperty(ref _telUser, value);
+                    AddProviderCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
         public ObservableCollection<TipoDocuments> TypeDocuments { get; set; } = new ObservableCollection<TipoDocuments>();
 
-        public TipoDocuments TypeDocument { get; set; }
+        public TipoDocuments TypeDocument
+        {
+            get => typeDocument;
+            set
+            {
+                SetProperty(ref typeDocument, value);
+                AddProviderCommand.RaiseCanExecuteChanged();
+            }
+        }
 
         public DataTable TableProvider
         {
@@ -28,17 +67,31 @@ namespace ProyectoGrado.ViewModels
             set { SetProperty(ref _tableProvider, value); }
         }
 
-        public string NumberDocument { get; set; }
-        public string TelUser { get; set; }
-        private string _searchProvider;
+        public string NumberDocument
+        {
+            get => _numberDocument;
+            set
+            {
+
+                if (ValidationesInput.IsNumber(value, "Documento invalido"))
+                {
+                    SetProperty(ref _numberDocument, value);
+                    AddProviderCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
 
         public string SearchProvider
         {
             get { return _searchProvider; }
             set
             {
-                SetProperty(ref _searchProvider, value);
-                Search(value);
+                if (ValidationesInput.IsNumber(value, "Buscar por numero de documento"))
+                {
+                    SetProperty(ref _searchProvider, value);
+                    Search(value); 
+                }
             }
         }
 
@@ -66,7 +119,14 @@ namespace ProyectoGrado.ViewModels
 
         private bool CanAddProvider()
         {
-            return true;
+            if (!string.IsNullOrWhiteSpace(TelUser)
+                && !string.IsNullOrWhiteSpace(NumberDocument)
+                && !string.IsNullOrWhiteSpace(RazonSocial)
+                && TypeDocument != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void AddProvider()

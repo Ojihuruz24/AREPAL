@@ -42,7 +42,7 @@
                         Orientation="Vertical">
                         <Label Content="NUEVO PROVEEDOR" />
                         <Label Margin="0,5,0,0" Content="NOMBRE - RAZON SOCIAL" />
-                        <TextBox Text="{Binding RazonSocial}" />
+                        <TextBox Text="{Binding RazonSocial, UpdateSourceTrigger=PropertyChanged}" />
 
                         <Label Content="TIPO DE DOCUMENTO" />
                         <ComboBox
@@ -56,10 +56,10 @@
                             SelectedValuePath="Tipe" />
 
                         <Label Content="NUMERO DE DOCUMENTO" />
-                        <TextBox Text="{Binding NumberDocument}" />
+                        <TextBox Text="{Binding NumberDocument, UpdateSourceTrigger=PropertyChanged}" />
 
                         <Label Content="TELEFONO" />
-                        <TextBox Text="{Binding TelUser}" />
+                        <TextBox Text="{Binding TelUser, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <StackPanel
                         Margin="0,18,0,0"
