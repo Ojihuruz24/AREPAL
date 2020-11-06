@@ -8,10 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:rep="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
-    prism:ViewModelLocator.AutoWireViewModel="True"
     d:DesignHeight="450"
     d:DesignWidth="900"
-
+    prism:ViewModelLocator.AutoWireViewModel="True"
     Background="White"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -61,7 +60,10 @@
                 VerticalAlignment="Center"
                 Orientation="Vertical">
                 <Label Content="DESDE" />
-                <DatePicker SelectedDate="{Binding DateInitial}" />
+                <DatePicker
+                    DisplayDateEnd="{Binding Desde}"
+                    DisplayDateStart="01/01/2020"
+                    SelectedDate="{Binding DateInitial, UpdateSourceTrigger=PropertyChanged, StringFormat=yyyy-MM-dd}" />
             </StackPanel>
             <StackPanel
                 Grid.Row="2"
@@ -69,13 +71,19 @@
                 VerticalAlignment="Center"
                 Orientation="Vertical">
                 <Label Content="HASTA" />
-                <DatePicker SelectedDate="{Binding DateEnd}" />
+                <DatePicker
+                    DisplayDateEnd="{Binding Desde}"
+                    DisplayDateStart="01/01/2020"
+                    SelectedDate="{Binding DateEnd, UpdateSourceTrigger=PropertyChanged, StringFormat=yyyy-MM-dd}" />
             </StackPanel>
             <StackPanel
                 Grid.Row="3"
                 Grid.ColumnSpan="2"
                 VerticalAlignment="Center">
-                <Button Command="{Binding PrintReportCommand}" CommandParameter="{Binding ElementName=ReportViewer}" Content="IMPRIMIR" />
+                <Button
+                    Command="{Binding PrintReportCommand}"
+                    CommandParameter="{Binding ElementName=ReportViewer}"
+                    Content="IMPRIMIR" />
             </StackPanel>
         </Grid>
     </Border>

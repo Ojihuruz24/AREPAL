@@ -11,7 +11,7 @@ namespace ProyectoGrado.Utility.Validations
     public static class ValidationesInput
     {
 
-        public static bool IsNumber(string number,string mensaje)
+        public static bool IsNumber(string number, string mensaje)
         {
             Regex regex = new Regex("[^0-9]+");
             if (regex.IsMatch(number))
@@ -27,7 +27,7 @@ namespace ProyectoGrado.Utility.Validations
             Regex regex = new Regex("[^0-9]+");
             if (regex.IsMatch(number.ToString()))
             {
-                MessageBox.Show(mensaje, "VALIDACIÓN" , MessageBoxButton.OK , MessageBoxImage.Warning);
+                MessageBox.Show(mensaje, "VALIDACIÓN", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
             return true;
@@ -42,6 +42,16 @@ namespace ProyectoGrado.Utility.Validations
                 return false;
             }
             return true;
+        }
+
+        public static bool IsDateRange(DateTime dateTimeOne, DateTime dateTimeTwo, string mensaje)
+        {
+                if (dateTimeOne > dateTimeTwo)
+                {
+                    MessageBox.Show(mensaje, "VALIDACIÓN", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return true;
+                }
+            return false;
         }
     }
 }

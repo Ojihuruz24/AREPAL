@@ -1,7 +1,9 @@
 ﻿using Prism.Commands;
+using Prism.Mvvm;
 using ProyectoGrado.Reportings.ViewModels;
 using ProyectoGrado.Reportings.Views;
 using ProyectoGrado.Services.ReportNeto;
+using ProyectoGrado.Utility.Validations;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoGrado.ViewModels
 {
-    public class ReportViewModel
+    public class ReportViewModel : BindableBase
     {
         private bool isVenta = false;
         private bool _isCompra = false;
@@ -20,20 +22,24 @@ namespace ProyectoGrado.ViewModels
         private DateTime _dateEnd = DateTime.Now;
         private readonly IReportNetosService _reportNetosService;
 
+        public DateTime InititalRange { get; set; }
+        public DateTime Desde { get; set; } = DateTime.Now;
+
+
         public DateTime DateInitial
         {
             get => _dateInitial;
             set
             {
-                _dateInitial = value;
+                SetProperty(ref _dateInitial, value);
             }
         }
-        public DateTime DateEnd
+        public DateTime DateEnd 
         {
             get => _dateEnd;
             set
             {
-                _dateEnd = value;
+                SetProperty(ref _dateEnd, value);
             }
         }
         public bool IsVenta
@@ -75,6 +81,11 @@ namespace ProyectoGrado.ViewModels
 
         private void PrintReport()
         {
+            if (ValidationesInput.IsDateRange(DateInitial, DateEnd, "Fecha inicial debe ser menor a la fecha final"))
+            {
+                return;
+            }
+
             if (IsVenta)
             {
                 PrintVenta();
