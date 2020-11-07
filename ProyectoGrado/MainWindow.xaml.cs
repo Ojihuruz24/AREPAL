@@ -11,11 +11,6 @@ namespace ProyectoGrado
             InitializeComponent();
         }
 
-        private void Window_Closed(object sender, System.EventArgs e)
-        {
-
-        }
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var reponder = MessageBox.Show("¿Desea salir de la aplicacion?", "EXIT", MessageBoxButton.YesNo, MessageBoxImage.Question);
