@@ -1,6 +1,4 @@
-﻿using MaterialDesignThemes.Wpf;
-using Microsoft.Win32;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using ProyectoGrado.Dialog;
@@ -11,22 +9,13 @@ using ProyectoGrado.Models;
 using ProyectoGrado.Reportings;
 using ProyectoGrado.Reportings.ViewModels;
 using ProyectoGrado.Services;
-using ProyectoGrado.Utility.Validations;
-using ProyectoGrado.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Forms;
 
 namespace ProyectoGrado.ViewModels
 {

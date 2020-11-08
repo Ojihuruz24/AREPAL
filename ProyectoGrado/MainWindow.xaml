@@ -1,17 +1,31 @@
-﻿<Window x:Class="ProyectoGrado.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:views="clr-namespace:ProyectoGrado.Views"
-        mc:Ignorable="d"
-        xmlns:prism="http://prismlibrary.com/"
-        prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="HOME" Height="600" Width="900" Background="White" WindowStartupLocation="CenterScreen"
-        
-        Closing="Window_Closing">
+﻿<Window
+    x:Class="ProyectoGrado.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:views="clr-namespace:ProyectoGrado.Views"
+    Title="HOME"
+    Width="900"
+    Height="600"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Background="White"
+    Closing="Window_Closing"
+    Icon="{iconPacks:MaterialImage Kind=Home}"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
     <Grid>
-        <TabControl HorizontalAlignment="Left" Height="549" Margin="0,10,0,0" VerticalAlignment="Top" Width="900">
+        <Grid.Resources>
+            <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button"/>
+        </Grid.Resources>
+        <TabControl
+            Width="900"
+            Height="549"
+            Margin="0,10,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
             <TabItem Header="CLIENTES">
                 <Grid Background="#FFE5E5E5">
                     <views:ClientesView />
@@ -19,32 +33,32 @@
             </TabItem>
             <TabItem Header="PRODUCTOS">
                 <Grid Background="#FFE5E5E5">
-                    <views:ProductosView/>
+                    <views:ProductosView />
                 </Grid>
             </TabItem>
             <TabItem Header="VENTAS">
                 <Grid Background="#FFE5E5E5">
-                    <views:VentasView/>
+                    <views:VentasView />
                 </Grid>
             </TabItem>
             <TabItem Header="COMPRAS">
                 <Grid Background="#FFE5E5E5">
-                    <views:ComprasView/>
+                    <views:ComprasView />
                 </Grid>
             </TabItem>
             <TabItem Header="PROVEEDOR">
                 <Grid Background="#FFE5E5E5">
-                    <views:ProveedoresView/>
+                    <views:ProveedoresView />
                 </Grid>
             </TabItem>
             <TabItem Header="ADMINISTRACION">
                 <Grid Background="#FFE5E5E5">
-                    <views:Administracion/>
+                    <views:Administracion />
                 </Grid>
             </TabItem>
             <TabItem Header="REPORTES">
                 <Grid Background="#FFE5E5E5">
-                    <views:ReportView/>
+                    <views:ReportView />
                 </Grid>
             </TabItem>
         </TabControl>

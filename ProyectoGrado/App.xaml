@@ -6,6 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/Metro/BaseStyle.xaml" />
                 <ResourceDictionary Source="Styles/BaseTextBoxStyle.xaml"/>
                 <ResourceDictionary Source="Styles/BasePasswordBoxStyle.xaml"/>
                 <ResourceDictionary Source="Styles/BaseDataGridStyle.xaml"/>
