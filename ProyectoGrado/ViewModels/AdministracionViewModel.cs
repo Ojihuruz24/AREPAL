@@ -21,6 +21,31 @@ namespace ProyectoGrado.ViewModels
     {
         private readonly IEventAggregator _eventAggregator;
 
+        private bool _isSelectedCategoria = true;
+        private bool _isSelectedArticle;
+
+
+        public bool IsSelectedArticle
+        {
+            get { return _isSelectedArticle; }
+            set
+            { 
+                _isSelectedArticle = value;
+                ArticleViewModel();
+            }
+        }
+
+        public bool IsSelectedCategoria
+        {
+            get { return _isSelectedCategoria; }
+            set
+            {
+                _isSelectedCategoria = value;
+                CategoriaViewModel();
+            }
+        }
+
+
         public AdministracionViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;

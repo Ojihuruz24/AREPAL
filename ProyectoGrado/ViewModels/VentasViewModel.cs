@@ -263,8 +263,6 @@ namespace ProyectoGrado.ViewModels
 
                     #endregion
 
-
-                    // Este es el insert para agregar a la tabla de VENTAS_CLIENTE para registrar la id de la venta y el id cliente
                     #region tabla Venta cliente
                     string venta_cliente = "INSERT INTO VENTAS_CLIENTE " +
                                 " (ID_VENTA ,ID_CLIENTE) VALUES (@ID_VENTA ,@Client)";
@@ -279,9 +277,9 @@ namespace ProyectoGrado.ViewModels
                     #endregion  
 
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
-                    System.Windows.MessageBox.Show("Error a la hora de insertar el cliente", ex.Message);
+                    System.Windows.MessageBox.Show("Problema con la base de datos", "WARNING", System.Windows.MessageBoxButton.OK , System.Windows.MessageBoxImage.Warning);
                 }
             }
 

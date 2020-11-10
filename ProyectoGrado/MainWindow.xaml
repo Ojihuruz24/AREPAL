@@ -51,10 +51,10 @@
                     <views:ProveedoresView />
                 </Grid>
             </TabItem>
-            <TabItem Header="ADMINISTRACION">
-                <Grid Background="#FFE5E5E5">
+            <TabItem Header="ADMINISTRACION" IsSelected="{Binding IsAdminitracion}">
+                <!--<Grid Background="#FFE5E5E5">
                     <views:Administracion />
-                </Grid>
+                </Grid>-->
             </TabItem>
             <TabItem Header="REPORTES">
                 <Grid Background="#FFE5E5E5">

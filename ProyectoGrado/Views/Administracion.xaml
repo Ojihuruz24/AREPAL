@@ -20,7 +20,7 @@
     </UserControl.Resources>
     <Grid>
         <TabControl>
-            <TabItem Header="Cateogira">
+            <TabItem Header="Cateogira" IsSelected="{Binding IsSelectedCategoria}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250" />
@@ -238,7 +238,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Articulo">
+            <TabItem Header="Articulo" IsSelected="{Binding IsSelectedArticle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250" />

@@ -156,6 +156,7 @@
     <Compile Include="ViewModels\ClientesViewModel.cs" />
     <Compile Include="ViewModels\ComprasViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ProductosViewModel.cs" />
     <Compile Include="ViewModels\ProveedoresViewModel.cs" />
     <Compile Include="ViewModels\ReportViewModel.cs" />
