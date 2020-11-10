@@ -210,7 +210,6 @@ namespace ProyectoGrado.ViewModels
                     cmd.Parameters.AddWithValue("@FECHA", DateTime.Now);
 
                     _idVenta = Convert.ToInt32(cmd.ExecuteScalar());
-                    cmd.ExecuteNonQuery();
                     cmd.Parameters.Clear();
 
                     #endregion
@@ -237,6 +236,35 @@ namespace ProyectoGrado.ViewModels
                     cmd.Parameters.Clear();
                     #endregion
 
+                    #region Detalle Producto
+
+                    foreach (var item in Ventas)
+                    {
+                        string PROBANDO = $"UPDATE ARTICULO SET ARTICULO.STOCK = ARTICULO.STOCK - (DETALLE_PRODUCTO.CANTIDAD * {item.Quantity} ) " +
+                                     "FROM VENTA " +
+                                     "INNER JOIN DETALLE_VENTA " +
+                                     "INNER JOIN DETALLE_PRODUCTO " +
+                                     "INNER JOIN ARTICULO " +
+                                     "ON DETALLE_PRODUCTO.ID_ARTICULO = ARTICULO.ID " +
+                                     "INNER JOIN PRODUCTO ON DETALLE_PRODUCTO.ID_PRODUCTO = PRODUCTO.ID " +
+                                     "ON DETALLE_VENTA.ID_PRODUCTO = PRODUCTO.ID " +
+                                     "ON VENTA.ID = DETALLE_VENTA.ID_VENTA " +
+                                     $"WHERE VENTA.ID = {_idVenta} AND DETALLE_PRODUCTO.ID_PRODUCTO = {item.IdProduct} "; 
+
+                    cmd = new SqlCommand(PROBANDO, conn);
+
+                    cmd.ExecuteNonQuery();
+
+                    cmd.Parameters.Clear();
+
+                    }
+
+
+
+                    #endregion
+
+
+                    // Este es el insert para agregar a la tabla de VENTAS_CLIENTE para registrar la id de la venta y el id cliente
                     #region tabla Venta cliente
                     string venta_cliente = "INSERT INTO VENTAS_CLIENTE " +
                                 " (ID_VENTA ,ID_CLIENTE) VALUES (@ID_VENTA ,@Client)";
@@ -248,7 +276,7 @@ namespace ProyectoGrado.ViewModels
                     cmd.ExecuteNonQuery();
 
                     cmd.Parameters.Clear();
-                    #endregion
+                    #endregion  
 
                 }
                 catch (Exception ex)
