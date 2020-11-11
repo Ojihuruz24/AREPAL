@@ -4,33 +4,30 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ProyectoGrado.Views"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     Width="auto"
     Height="500"
     prism:ViewModelLocator.AutoWireViewModel="True"
-    Background="White"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <Style BasedOn="{StaticResource DataGridStyle}" TargetType="DataGrid" />
-        <Style BasedOn="{StaticResource BaseTextBox}" TargetType="TextBox" />
-        <Style BasedOn="{StaticResource LabelStyle}" TargetType="Label" />
-    </UserControl.Resources>
     <StackPanel Orientation="Vertical">
         <StackPanel
             Grid.ColumnSpan="2"
-            Margin="5,20,0,40"
+            Margin="5,50,0,40"
             HorizontalAlignment="Center"
             Orientation="Vertical">
-            <Label Content="CODIGO PRODUCTO" />
-            <TextBox Text="{Binding SearchProduct, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox
+                Width="200"
+                mah:TextBoxHelper.Watermark="CODIGO PRODUCTO"
+                Text="{Binding SearchProduct, UpdateSourceTrigger=PropertyChanged}"   Style="{DynamicResource MahApps.Styles.TextBox.Search}" />
         </StackPanel>
         <DataGrid
             Width="810"
             MinHeight="370"
             MaxHeight="300"
             AutoGenerateColumns="False"
-            ItemsSource="{Binding Products, Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}">
+            ItemsSource="{Binding Products, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="160"
