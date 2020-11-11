@@ -6,17 +6,12 @@
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     Width="auto"
     Height="500"
     prism:ViewModelLocator.AutoWireViewModel="True"
-    Background="White"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <Style BasedOn="{StaticResource DataGridStyle}" TargetType="DataGrid" />
-        <Style BasedOn="{StaticResource BaseTextBox}" TargetType="TextBox" />
-        <Style BasedOn="{StaticResource LabelStyle}" TargetType="Label" />
-        <Style BasedOn="{StaticResource ButtonStyle}" TargetType="Button" />
-
     </UserControl.Resources>
     <Grid>
         <TabControl>
@@ -176,7 +171,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBox Width="200" Text="{Binding CodeProductDetailProduct}" IsEnabled="False" />
                                     <Button Command="{Binding SearchCodeDetalleProductoCommand}">
-                                        <Image Source="/ProyectoGrado;component/Utility/Icons/Search-icon.png" />
+                                        <iconPacks:PackIconMaterial Kind="Magnify"/>
                                     </Button>
                                 </StackPanel>
                                 <Label Margin="0,5,0,0" Content="PRODUCTO" />

@@ -13,6 +13,7 @@
     prism:ViewModelLocator.AutoWireViewModel="True"
     Background="White"
     Closing="Window_Closing"
+    ResizeMode="NoResize"
     Icon="{iconPacks:MaterialImage Kind=Home}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
