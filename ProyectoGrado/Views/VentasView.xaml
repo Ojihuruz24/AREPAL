@@ -57,7 +57,7 @@
                 Grid.RowSpan="2"
                 Grid.Column="1"
                 Margin="0,40,0,0"
-                Background="#FFDEDEDE">
+                Background="{DynamicResource MahApps.Brushes.Gray8}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -69,8 +69,7 @@
                     </Grid.RowDefinitions>
                     <StackPanel
                         Grid.Row="0"
-                        Grid.ColumnSpan="2"
-                        >
+                        Grid.ColumnSpan="2">
                         <DataGrid
                             x:Name="GridOfVents"
                             MaxWidth="615"

@@ -11,7 +11,6 @@
     Width="900"
     Height="600"
     prism:ViewModelLocator.AutoWireViewModel="True"
-    Background="White"
     Closing="Window_Closing"
     ResizeMode="NoResize"
     Icon="{iconPacks:MaterialImage Kind=Home}"
@@ -25,37 +24,37 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top">
             <TabItem Header="CLIENTES">
-                <Grid Background="#FFE5E5E5">
+                <Grid>
                     <views:ClientesView />
                 </Grid>
             </TabItem>
             <TabItem Header="PRODUCTOS">
-                <Grid Background="#FFE5E5E5">
+                <Grid >
                     <views:ProductosView />
                 </Grid>
             </TabItem>
             <TabItem Header="VENTAS">
-                <Grid Background="#FFE5E5E5">
+                <Grid >
                     <views:VentasView />
                 </Grid>
             </TabItem>
             <TabItem Header="COMPRAS">
-                <Grid Background="#FFE5E5E5">
+                <Grid >
                     <views:ComprasView />
                 </Grid>
             </TabItem>
             <TabItem Header="PROVEEDOR">
-                <Grid Background="#FFE5E5E5">
+                <Grid >
                     <views:ProveedoresView />
                 </Grid>
             </TabItem>
             <TabItem Header="ADMINISTRACION">
-                <Grid Background="#FFE5E5E5">
+                <Grid >
                     <views:Administracion />
                 </Grid>
             </TabItem>
             <TabItem Header="REPORTES">
-                <Grid Background="#FFE5E5E5">
+                <Grid >
                     <views:ReportView />
                 </Grid>
             </TabItem>
