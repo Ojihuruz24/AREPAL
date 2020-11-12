@@ -4,20 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     Width="900"
     Height="500"
     prism:ViewModelLocator.AutoWireViewModel="True"
-    Background="White"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <Style BasedOn="{StaticResource DataGridStyle}" TargetType="DataGrid" />
-        <Style BasedOn="{StaticResource BaseTextBox}" TargetType="TextBox" />
-        <Style BasedOn="{StaticResource LabelStyle}" TargetType="Label" />
-        <Style BasedOn="{StaticResource ButtonStyle}" TargetType="Button" />
-
-    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="AUTO" />
@@ -29,14 +22,12 @@
         </Grid.RowDefinitions>
         <StackPanel
             Grid.Row="1"
-            Margin="5"
-            Background="#FFDEDEDE"
-            Orientation="Vertical">
+            Background="{DynamicResource MahApps.Brushes.Gray8}"
+            Orientation="Vertical" Margin="5,5,-20,0">
             <Border
                 Height="auto"
-                Margin="0,0,0,0"
-                BorderBrush="Black"
-                BorderThickness="1">
+                BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
+                BorderThickness="1" >
                 <StackPanel>
                     <Grid Margin="0,50,0,0" HorizontalAlignment="Left">
                         <Grid.ColumnDefinitions>
@@ -165,8 +156,7 @@
             <DataGrid
                 Width="Auto"
                 MinHeight="450"
-                MaxWidth="585"
-                Margin="0,0,10,0"
+                MaxWidth="600"
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding TableArticle, Mode=TwoWay}">
                 <DataGrid.Columns>

@@ -39,7 +39,7 @@
             Orientation="Vertical">
             <Border
                 Padding="0,65,0,45"
-                BorderBrush="Black"
+                BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
                 BorderThickness="1">
                 <StackPanel HorizontalAlignment="Center">
                     <Label Content="NUEVO USUARIO" FontSize="20" Margin="0,0,0,50"/>
