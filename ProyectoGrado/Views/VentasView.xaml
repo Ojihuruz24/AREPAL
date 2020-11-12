@@ -2,21 +2,11 @@
     x:Class="ProyectoGrado.Views.VentasView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:ProyectoGrado.Views"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:prism="http://prismlibrary.com/"
     Width="auto"
     Height="auto"
-    prism:ViewModelLocator.AutoWireViewModel="True"
-    Background="White">
-    <UserControl.Resources>
-        <Style BasedOn="{StaticResource DataGridStyle}" TargetType="DataGrid" />
-        <Style BasedOn="{StaticResource BaseTextBox}" TargetType="TextBox" />
-        <Style BasedOn="{StaticResource LabelStyle}" TargetType="Label" />
-        <Style BasedOn="{StaticResource ButtonStyle}" TargetType="Button" />
-
-    </UserControl.Resources>
+    prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid Margin="5">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -34,16 +24,16 @@
                 Orientation="Vertical">
                 <Border BorderBrush="Black" BorderThickness="1">
                     <StackPanel Height="454">
-                        <Label Margin="0,20,0,0" Content="INFORMACION VENTA" />
+                        <Label Margin="0,20,0,0" Content="INFORMACION VENTA" FontSize="20" HorizontalAlignment="Center"/>
                         <StackPanel
                             Margin="0,50,0,0"
                             HorizontalAlignment="Center"
                             Orientation="Vertical">
                             <Label Content="CODIGO" />
                             <StackPanel Orientation="Horizontal">
-                                <TextBox Text="{Binding Code}" IsEnabled="False" />
-                                <Button Margin="3" Command="{Binding SearchCodeCommand}">
-                                    <Image Source="/ProyectoGrado;component/Utility/Icons/Search-icon.png" />
+                                <TextBox Width="200" IsEnabled="False" Text="{Binding Code}" />
+                                <Button  Command="{Binding SearchCodeCommand}">
+                                    <iconPacks:PackIconMaterial Kind="Magnify" />
                                 </Button>
                             </StackPanel>
                             <Label Content="PRODUCTO" />
@@ -78,13 +68,12 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <StackPanel
-                        x:Name="Grilla"
                         Grid.Row="0"
                         Grid.ColumnSpan="2"
-                        Margin="0,0,0,0">
+                        >
                         <DataGrid
                             x:Name="GridOfVents"
-                            Width="auto"
+                            MaxWidth="615"
                             MinHeight="340"
                             Margin="0"
                             AutoGenerateColumns="False"
@@ -119,11 +108,11 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Border BorderBrush="Black" BorderThickness="1">
+                            <Border  BorderBrush="Black" BorderThickness="1" >
                                 <StackPanel Grid.Column="0" Orientation="Vertical">
                                     <Label Content="CLIENTE" />
-                                    <TextBox Text="{Binding ClientName, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" />
-                                    <Button Command="{Binding AddClientCommand}" Content="Agregar" />
+                                    <TextBox IsEnabled="False" Text="{Binding ClientName, UpdateSourceTrigger=PropertyChanged}" />
+                                    <Button Margin="0,20,0,0" Command="{Binding AddClientCommand}" Content="Agregar" />
                                 </StackPanel>
                             </Border>
                             <StackPanel
@@ -134,7 +123,7 @@
                                     <StackPanel>
                                         <Label Content="TOTAL A PAGAR" />
                                         <TextBox IsEnabled="False" Text="{Binding Total, Mode=TwoWay}" />
-                                        <Button Command="{Binding PrintCommand}" Content="IMPRIMIR" />
+                                        <Button Margin="0,20,0,0" Command="{Binding PrintCommand}" Content="IMPRIMIR" />
                                     </StackPanel>
                                 </Border>
                             </StackPanel>
