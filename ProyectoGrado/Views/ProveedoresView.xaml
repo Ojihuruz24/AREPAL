@@ -2,45 +2,42 @@
     x:Class="ProyectoGrado.Views.ProveedoresView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     Width="auto"
     Height="500"
     prism:ViewModelLocator.AutoWireViewModel="True"
-    Background="White"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <Style BasedOn="{StaticResource DataGridStyle}" TargetType="DataGrid" />
-        <Style BasedOn="{StaticResource BaseTextBox}" TargetType="TextBox" />
-        <Style BasedOn="{StaticResource LabelStyle}" TargetType="Label" />
-        <Style BasedOn="{StaticResource ButtonStyle}" TargetType="Button" />
-    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80" />
+            <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal">
-            <Label Content="PROVEEDOR" />
-            <TextBox Text="{Binding SearchProvider, UpdateSourceTrigger=PropertyChanged}" />
+        <StackPanel Orientation="Vertical" Margin="5">
+            <TextBox
+                Width="240"
+                mah:TextBoxHelper.Watermark="PROVEEDOR"
+                Style="{DynamicResource MahApps.Styles.TextBox.Search}"
+               Text="{Binding SearchProvider, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         <StackPanel
             Grid.Row="1"
             Margin="5"
-            Background="#FFDEDEDE"
+            Background="{DynamicResource MahApps.Brushes.Gray8}"
             Orientation="Vertical">
-            <Border BorderBrush="Black" BorderThickness="1">
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1">
                 <StackPanel>
+                    <Label Content="NUEVO PROVEEDOR" HorizontalAlignment="Center" FontSize="20" />
                     <StackPanel
-                        Margin="0,10,0,0"
+                        Margin="0,40,0,0"
                         HorizontalAlignment="Center"
                         Orientation="Vertical">
-                        <Label Content="NUEVO PROVEEDOR" />
                         <Label Margin="0,5,0,0" Content="NOMBRE - RAZON SOCIAL" />
                         <TextBox Text="{Binding RazonSocial, UpdateSourceTrigger=PropertyChanged}" />
 
@@ -62,7 +59,7 @@
                         <TextBox Text="{Binding TelUser, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <StackPanel
-                        Margin="0,18,0,0"
+                        Margin="0,38,0,78"
                         HorizontalAlignment="Center"
                         Orientation="Horizontal">
                         <Button Command="{Binding AddProviderCommand}" Content="Agregar" />
@@ -71,12 +68,13 @@
                 </StackPanel>
             </Border>
         </StackPanel>
-        <StackPanel
+        <StackPanel HorizontalAlignment="Left"
             Grid.Row="2"
             Grid.Column="2"
             Margin="5">
             <DataGrid
-                MinHeight="410"
+                MinHeight="450"
+                MinWidth="620"
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding TableProvider, Mode=TwoWay}">
                 <DataGrid.Columns>
