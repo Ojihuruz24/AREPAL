@@ -16,6 +16,7 @@ namespace ProyectoGrado.Views
         private void OnPasswordChanged(object sender, RoutedEventArgs e)
         {
             ((LoginViewModel)DataContext).Password = ((PasswordBox)sender).SecurePassword;
-        }    
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using Prism.Ioc;
+﻿using MahApps.Metro.Controls.Dialogs;
+using Prism.Ioc;
 using Prism.Unity;
 using ProyectoGrado.Services;
 using ProyectoGrado.Services.ReportNeto;
@@ -24,6 +25,7 @@ namespace ProyectoGrado
         {
             containerRegistry.RegisterSingleton<IVentasService, VentasService>();
             containerRegistry.RegisterSingleton<IReportNetosService, ReportNetosService>();
+            //containerRegistry.RegisterInstance(DialogCoordinator.Instance);
         }
 
         protected override Window CreateShell()

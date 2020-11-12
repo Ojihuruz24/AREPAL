@@ -4,10 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-    xmlns:local="clr-namespace:ProyectoGrado.Views"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:prism="http://prismlibrary.com/"
     Width="300"
     Title="LOGIN"
     Height="350"
@@ -37,9 +35,12 @@
                 Grid.Row="2"
                 VerticalAlignment="Center">
                 <TextBox
+                    x:Name="User"
                     Width="200"
                     mah:TextBoxHelper.SelectAllOnFocus="True"
-                    mah:TextBoxHelper.Watermark="USUARIO" Padding="30,4,0,0" TextAlignment="Left"
+                    mah:TextBoxHelper.Watermark="USUARIO"
+                    mah:TextBoxHelper.ClearTextButton="True"
+                    Padding="30,4,0,0" TextAlignment="Left"
                     Text="{Binding User, UpdateSourceTrigger=PropertyChanged}"
                    />
                 <iconPacks:PackIconMaterial
@@ -51,6 +52,7 @@
                 <PasswordBox
                     Grid.Row="4"
                     Width="200"
+                    mah:TextBoxHelper.ClearTextButton="True"
                     PasswordChanged="OnPasswordChanged" mah:TextBoxHelper.SelectAllOnFocus="True"
                         mah:TextBoxHelper.Watermark="CONTRASEÑA" Padding="30,4,0,0" 
                     Tag="{Binding Password, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Left"/>
