@@ -3,23 +3,21 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:ProyectoGrado.Views"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     Width="300"
+    Title="LOGIN"
     Height="350"
     Block.TextAlignment="Center"
+    Icon="{iconPacks:MaterialImage Kind=Home}"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Window.Resources>
-        <Style BasedOn="{StaticResource BasePasswordBox}" TargetType="PasswordBox" />
-        <Style BasedOn="{StaticResource BaseTextBox}" TargetType="TextBox" />
-        <Style BasedOn="{StaticResource LabelStyle}" TargetType="Label" />
-        <Style BasedOn="{StaticResource ButtonStyle}" TargetType="Button" />
-    </Window.Resources>
     <Border>
-        <Grid Background="Bisque">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
@@ -32,23 +30,35 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <StackPanel
-                Grid.Row="1"
-                Grid.RowSpan="2"
-                Orientation="Vertical">
-                <Label Grid.Row="1" Content="USUARIO" />
-                <TextBox Text="{Binding User, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" />
-            </StackPanel>
-            <StackPanel
-                Grid.Row="3"
-                Grid.RowSpan="2"
-                Orientation="Vertical">
-                <Label Grid.Row="3" Content="CONTRASEÑA" />
+            <Grid Grid.RowSpan="2">
+                <iconPacks:PackIconMaterial Kind="HomeAccount" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+            <Grid
+                Grid.Row="2"
+                VerticalAlignment="Center">
+                <TextBox
+                    Width="200"
+                    mah:TextBoxHelper.SelectAllOnFocus="True"
+                    mah:TextBoxHelper.Watermark="USUARIO" Padding="30,4,0,0" TextAlignment="Left"
+                    Text="{Binding User, UpdateSourceTrigger=PropertyChanged}"
+                   />
+                <iconPacks:PackIconMaterial
+                    Margin="50,5,0,0"
+                    DockPanel.Dock="Top"
+                    Kind="AccountOutline" />
+            </Grid>
+            <Grid Grid.Row="3" Grid.RowSpan="2" VerticalAlignment="Center">
                 <PasswordBox
                     Grid.Row="4"
-                    PasswordChanged="OnPasswordChanged"
-                    Tag="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
+                    Width="200"
+                    PasswordChanged="OnPasswordChanged" mah:TextBoxHelper.SelectAllOnFocus="True"
+                        mah:TextBoxHelper.Watermark="CONTRASEÑA" Padding="30,4,0,0" 
+                    Tag="{Binding Password, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Left"/>
+                <iconPacks:PackIconMaterial
+                        Margin="50,5,0,0"
+                        DockPanel.Dock="Left"
+                        Kind="LockOutline" />
+            </Grid>
             <Button
                 Grid.Row="5"
                 Width="120"

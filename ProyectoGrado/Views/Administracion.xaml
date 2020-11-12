@@ -11,8 +11,6 @@
     Height="500"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
-    <UserControl.Resources>
-    </UserControl.Resources>
     <Grid>
         <TabControl>
             <TabItem Header="Cateogira" IsSelected="{Binding IsSelectedCategoria}">
@@ -23,14 +21,14 @@
                     </Grid.ColumnDefinitions>
                     <Border
                         Margin="5"
-                        BorderBrush="Black"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
                         BorderThickness="1">
                         <StackPanel>
                             <StackPanel
                                 Margin="0,40,0,0"
                                 HorizontalAlignment="Center"
                                 Orientation="Vertical">
-                                <Label Content="NUEVA CATEGORIA" />
+                                <Label Content="NUEVA CATEGORIA" FontSize="20" Margin="0,0,0,30" />
                                 <Label
                                     Margin="0,15,0,15"
                                     HorizontalAlignment="Center"
@@ -78,14 +76,14 @@
                     </Grid.ColumnDefinitions>
                     <Border
                         Margin="5"
-                        BorderBrush="Black"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
                         BorderThickness="1">
                         <StackPanel>
                             <StackPanel
                                 Margin="0,50,0,0"
                                 HorizontalAlignment="Center"
                                 Orientation="Vertical">
-                                <Label Content="NUEVO PRODUCTO" />
+                                <Label Content="NUEVO PRODUCTO" FontSize="20" Margin="0,0,0,30" />
                                 <Label Margin="0,5,0,0" Content="CODIGO" />
                                 <TextBox Text="{Binding CodeProducto, UpdateSourceTrigger=PropertyChanged}" />
 
@@ -158,15 +156,17 @@
                     </Grid.ColumnDefinitions>
                     <Border
                         Margin="5"
-                        BorderBrush="Black"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
                         BorderThickness="1">
                         <StackPanel>
                             <StackPanel
                                 Margin="0,10,0,0"
                                 HorizontalAlignment="Center"
                                 Orientation="Vertical">
-                                <Label Content="ARTICULOS QUE EL PRODUCTO " />
-                                <Label Margin="0,-10,0,10" Content="CONTIENE" />
+                                <StackPanel Margin="0,20,0,30">
+                                    <Label Content="ARTICULOS QUE EL PRODUCTO " FontSize="15" />
+                                    <Label Margin="0,-10,0,10" Content="CONTIENE" FontSize="15" />
+                                </StackPanel>
                                 <Label Content="CODIGO" />
                                 <StackPanel Orientation="Horizontal">
                                     <TextBox Width="200" Text="{Binding CodeProductDetailProduct}" IsEnabled="False" />
@@ -241,14 +241,14 @@
                     </Grid.ColumnDefinitions>
                     <Border
                         Margin="5"
-                        BorderBrush="Black"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
                         BorderThickness="1">
                         <StackPanel>
                             <StackPanel
                                 Margin="0,50,0,0"
                                 HorizontalAlignment="Center"
                                 Orientation="Vertical">
-                                <Label Content="NUEVO ARTICULO" />
+                                <Label Content="NUEVO ARTICULO" FontSize="20" Margin="0,0,0,30" />
                                 <Label Margin="0,5,0,0" Content="NOMBRE" />
                                 <TextBox Text="{Binding NameArticle, UpdateSourceTrigger=PropertyChanged}" />
 
@@ -308,14 +308,14 @@
                     </Grid.ColumnDefinitions>
                     <Border
                         Margin="5"
-                        BorderBrush="Black"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
                         BorderThickness="1">
                         <StackPanel>
                             <StackPanel
                                 Margin="0,10,0,0"
                                 HorizontalAlignment="Center"
                                 Orientation="Vertical">
-                                <Label Content="NUEVO USUARIO" />
+                                <Label Content="NUEVO USUARIO" FontSize="20" Margin="0,30,0,30" />
                                 <Label Margin="0,5,0,0" Content="DOCUMENTO" />
                                 <TextBox Text="{Binding DocumentUser, UpdateSourceTrigger=PropertyChanged}" />
 
