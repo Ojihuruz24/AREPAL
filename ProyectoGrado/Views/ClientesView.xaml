@@ -78,7 +78,7 @@
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding TableClient, Mode=TwoWay}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding ID}" Header="DOCUMENTO" />
+                    <DataGridTextColumn Binding="{Binding ID}" Header="DOCUMENTO"/>
                     <DataGridTextColumn Binding="{Binding NOMBRE}" Header="NOMBRE" />
                     <DataGridTextColumn Binding="{Binding DIRECCION}" Header="DIRECCION" />
                     <DataGridTextColumn Binding="{Binding TELEFONO}" Header="TELEFONO" />

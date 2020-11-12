@@ -30,6 +30,8 @@
         <Setter Property="CanUserDeleteRows" Value="False" />
         <Setter Property="AutoGenerateColumns" Value="False" />
         <Setter Property="CanUserResizeRows" Value="False" />
+        <Setter Property="ColumnHeaderStyle" Value="{DynamicResource MahApps.Styles.DataGridColumnHeader}"/>
+        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray8}"/>
     </Style>
 
     <Style BasedOn="{StaticResource BaseDataGridStyle}" TargetType="DataGrid">

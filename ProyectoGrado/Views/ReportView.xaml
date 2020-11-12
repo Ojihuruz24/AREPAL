@@ -5,23 +5,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:ProyectoGrado.Views"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:rep="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
     d:DesignHeight="450"
     d:DesignWidth="900"
     prism:ViewModelLocator.AutoWireViewModel="True"
-    Background="White"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <Style BasedOn="{StaticResource DataGridStyle}" TargetType="DataGrid" />
-        <Style BasedOn="{StaticResource BaseTextBox}" TargetType="TextBox" />
-        <Style BasedOn="{StaticResource LabelStyle}" TargetType="Label" />
-        <Style BasedOn="{StaticResource ButtonStyle}" TargetType="Button" />
-    </UserControl.Resources>
     <Border
         Width="450"
-        BorderBrush="Black"
+        BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
         BorderThickness="2">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -80,7 +74,7 @@
                 Grid.Row="3"
                 Grid.ColumnSpan="2"
                 VerticalAlignment="Center">
-                <Button
+                <Button Width="200"
                     Command="{Binding PrintReportCommand}"
                     CommandParameter="{Binding ElementName=ReportViewer}"
                     Content="IMPRIMIR" />
