@@ -1,21 +1,24 @@
-﻿<Window
+﻿<mah:MetroWindow
     x:Class="ProyectoGrado.Views.LoginView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Width="300"
     Title="LOGIN"
-    Height="350"
+    Topmost="True"
+    Width="500"
+    Height="500"
+    Dialog:DialogParticipation.Register="{Binding}"
     Block.TextAlignment="Center"
-    Icon="{iconPacks:MaterialImage Kind=Home}"
     ResizeMode="NoResize"
+    Background="{DynamicResource MahApps.Brushes.Gray10}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Border>
-        <Grid>
+    <Grid>
+        <Grid Width="250" Height="300" Background="{DynamicResource MahApps.Brushes.Gray7}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
@@ -29,37 +32,46 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid Grid.RowSpan="2">
-                <iconPacks:PackIconMaterial Kind="HomeAccount" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <iconPacks:PackIconMaterial
+                    Width="60"
+                    Height="60"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Kind="Account" Foreground="{DynamicResource MahApps.Brushes.Gray1}"  />
             </Grid>
-            <Grid
-                Grid.Row="2"
-                VerticalAlignment="Center">
+            <Grid Grid.Row="2" VerticalAlignment="Center">
                 <TextBox
                     x:Name="User"
                     Width="200"
+                    Padding="30,4,0,0"
+                    mah:TextBoxHelper.ClearTextButton="True"
                     mah:TextBoxHelper.SelectAllOnFocus="True"
                     mah:TextBoxHelper.Watermark="USUARIO"
-                    mah:TextBoxHelper.ClearTextButton="True"
-                    Padding="30,4,0,0" TextAlignment="Left"
                     Text="{Binding User, UpdateSourceTrigger=PropertyChanged}"
-                   />
+                    TextAlignment="Left" />
                 <iconPacks:PackIconMaterial
-                    Margin="50,5,0,0"
+                    Margin="38,5,0,0"
                     DockPanel.Dock="Top"
                     Kind="AccountOutline" />
             </Grid>
-            <Grid Grid.Row="3" Grid.RowSpan="2" VerticalAlignment="Center">
+            <Grid
+                Grid.Row="3"
+                Grid.RowSpan="2"
+                VerticalAlignment="Center">
                 <PasswordBox
                     Grid.Row="4"
                     Width="200"
+                    Padding="30,4,0,0"
+                    HorizontalContentAlignment="Left"
                     mah:TextBoxHelper.ClearTextButton="True"
-                    PasswordChanged="OnPasswordChanged" mah:TextBoxHelper.SelectAllOnFocus="True"
-                        mah:TextBoxHelper.Watermark="CONTRASEÑA" Padding="30,4,0,0" 
-                    Tag="{Binding Password, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Left"/>
+                    mah:TextBoxHelper.SelectAllOnFocus="True"
+                    mah:TextBoxHelper.Watermark="CONTRASEÑA"
+                    PasswordChanged="OnPasswordChanged"
+                    Tag="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
                 <iconPacks:PackIconMaterial
-                        Margin="50,5,0,0"
-                        DockPanel.Dock="Left"
-                        Kind="LockOutline" />
+                    Margin="38,5,0,0"
+                    DockPanel.Dock="Left"
+                    Kind="LockOutline" />
             </Grid>
             <Button
                 Grid.Row="5"
@@ -67,5 +79,5 @@
                 Command="{Binding Path=LoginUserCommand}"
                 Content="INGRESAR" />
         </Grid>
-    </Border>
-</Window>
+    </Grid>
+</mah:MetroWindow>

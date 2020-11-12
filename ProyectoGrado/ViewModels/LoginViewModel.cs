@@ -1,10 +1,10 @@
-﻿using MahApps.Metro.Controls;
+﻿using ControlzEx.Theming;
+using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
-using ProyectoGrado.Dialog.Probando;
 using ProyectoGrado.Dialog.ViewModels;
 using ProyectoGrado.Services;
 using ProyectoGrado.Utility.Validations;
@@ -73,7 +73,7 @@ namespace ProyectoGrado.ViewModels
             {
                 if (Password != null)
                 {
-                return true;
+                    return true;
                 }
             }
             return false;
@@ -120,18 +120,15 @@ namespace ProyectoGrado.ViewModels
                         //dialo.DataContext = new DialogMahappViewModel(DialogCoordinator.Instance);
                         //_dialogCoordinator.ShowMessageAsync(this, "funciona", "title");
 
-                        //var dialog = DialogCoordinator.Instance;
-                        //var settings = new MetroDialogSettings()
-                        //{
-                        //    ColorScheme = MetroDialogColorScheme.Accented,
+                        var dialog = DialogCoordinator.Instance;
+                        var settings = new MetroDialogSettings()
+                        {
+                            ColorScheme = MetroDialogColorScheme.Theme,
+                            AnimateHide = true
+                        };
+                        await dialog.ShowMessageAsync(this, "AUTENTICACIÓN", "Usuario o contraseña incorrecta", MessageDialogStyle.AffirmativeAndNegative, settings);
 
-                        //};
-                        //_ = Task.Run(() =>
-                        //  {
-                        //      dialog.ShowMessageAsync(this, "Mensaje", "Titulo");
-                        //  });
-
-                        MessageBox.Show($"Usuario o contraseña incorrecta", "AUTENTICACIÓN", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        //MessageBox.Show($"Usuario o contraseña incorrecta", "AUTENTICACIÓN", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                 }
             }

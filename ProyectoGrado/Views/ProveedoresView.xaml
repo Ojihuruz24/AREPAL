@@ -23,7 +23,7 @@
             <TextBox
                 Width="240"
                 mah:TextBoxHelper.Watermark="PROVEEDOR"
-                Style="{DynamicResource MahApps.Styles.TextBox.Search}"
+                mah:TextBoxHelper.ClearTextButton="True"
                Text="{Binding SearchProvider, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         <StackPanel

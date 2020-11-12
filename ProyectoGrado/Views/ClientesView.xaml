@@ -28,7 +28,7 @@
             <TextBox
                 Width="240"
                 mah:TextBoxHelper.Watermark="CEDULA"
-                Style="{DynamicResource MahApps.Styles.TextBox.Search}"
+                mah:TextBoxHelper.ClearTextButton="True"
                 Text="{Binding SearchClient, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
         <StackPanel

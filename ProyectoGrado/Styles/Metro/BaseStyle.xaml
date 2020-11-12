@@ -9,8 +9,9 @@
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
         <!--  Theme setting  -->
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Cyan.xaml" />
+        
+        
         <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.blue.xaml" />-->
-
 
     </ResourceDictionary.MergedDictionaries>
 

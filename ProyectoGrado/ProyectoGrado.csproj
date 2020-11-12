@@ -122,10 +122,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Dialog\ViewModels\DialogMahappViewModel.cs" />
-    <Compile Include="Dialog\Views\DialogMahappView.xaml.cs">
-      <DependentUpon>DialogMahappView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dialog\ViewModels\DialogClienteViewModel.cs" />
     <Compile Include="Dialog\ViewModels\DialogProductoViewModel.cs" />
     <Compile Include="Dialog\Views\DialogClienteView.xaml.cs">
@@ -189,10 +185,6 @@
     <Compile Include="Views\VentasView.xaml.cs">
       <DependentUpon>VentasView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Dialog\Views\DialogMahappView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Dialog\Views\DialogClienteView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

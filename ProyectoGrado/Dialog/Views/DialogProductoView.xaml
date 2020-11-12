@@ -8,11 +8,6 @@
         Title="Producto" Height="450" Width="700"
         ResizeMode="NoResize" 
         WindowStyle="None" FontFamily="Roboto" WindowStartupLocation="CenterScreen">
-    <Window.Resources>
-        <Style BasedOn="{StaticResource DataGridStyle}" TargetType="DataGrid" />
-        <Style BasedOn="{StaticResource BaseTextBox}" TargetType="TextBox" />
-        <Style BasedOn="{StaticResource LabelStyle}" TargetType="Label" />
-    </Window.Resources>
     <StackPanel>
         <StackPanel Orientation="Vertical">
             <StackPanel
