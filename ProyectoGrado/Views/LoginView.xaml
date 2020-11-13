@@ -8,7 +8,6 @@
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="LOGIN"
-    Topmost="True"
     Width="500"
     Height="500"
     Dialog:DialogParticipation.Register="{Binding}"
@@ -17,6 +16,13 @@
     Background="{DynamicResource MahApps.Brushes.Gray10}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button ToolTip="Herramienta" Command="{Binding ShowToolsCommand}">
+                <iconPacks:Material Kind="Tools"/>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
     <Grid>
         <Grid Width="250" Height="300" Background="{DynamicResource MahApps.Brushes.Gray7}">
             <Grid.ColumnDefinitions>

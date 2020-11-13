@@ -67,6 +67,9 @@
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Prism, Version=7.2.0.1422, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.7.2.0.1422\lib\net45\Prism.dll</HintPath>
     </Reference>
@@ -122,8 +125,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Conection\Parameter.cs" />
     <Compile Include="Dialog\ViewModels\DialogClienteViewModel.cs" />
+    <Compile Include="Dialog\ViewModels\DialogConfigBDViewModel.cs" />
     <Compile Include="Dialog\ViewModels\DialogProductoViewModel.cs" />
+    <Compile Include="Dialog\Views\DialogConfigBDView.xaml.cs">
+      <DependentUpon>DialogConfigBDView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialog\Views\DialogClienteView.xaml.cs">
       <DependentUpon>DialogClienteView.xaml</DependentUpon>
     </Compile>
@@ -131,6 +139,7 @@
       <DependentUpon>DialogProductoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Events\ClientSelectedEvent.cs" />
+    <Compile Include="Events\ParameterDataBaseEvent.cs" />
     <Compile Include="Events\ProductSelectedEvent.cs" />
     <Compile Include="Models\Venta.cs" />
     <Compile Include="Models\VentaNeto.cs" />
@@ -186,6 +195,10 @@
     <Compile Include="Views\VentasView.xaml.cs">
       <DependentUpon>VentasView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Dialog\Views\DialogConfigBDView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialog\Views\DialogClienteView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

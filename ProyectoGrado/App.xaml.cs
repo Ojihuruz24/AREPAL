@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls.Dialogs;
+using Prism.Events;
 using Prism.Ioc;
 using Prism.Unity;
 using ProyectoGrado.Services;
@@ -45,7 +46,7 @@ namespace ProyectoGrado
                     login.Close();
                 }
             };
-            var loginViewModel = new LoginViewModel(onCompleted);
+            var loginViewModel = new LoginViewModel(onCompleted, Container.Resolve<IEventAggregator>());
             login.DataContext = loginViewModel;
             login.ShowDialog();
             if (!result)

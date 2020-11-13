@@ -41,7 +41,6 @@ namespace ProyectoGrado.ViewModels
 
                 if (dataTable.Rows.Count == 1)
                 {
-
                     if (dataTable.Rows[0][3].ToString().ToLower() == "vendedor")
                     {
                         Permisson = Visibility.Collapsed;
