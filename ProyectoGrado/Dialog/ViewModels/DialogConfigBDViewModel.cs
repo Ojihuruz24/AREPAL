@@ -1,5 +1,8 @@
 ﻿using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
+using ProyectoGrado.Conection;
+using ProyectoGrado.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +19,7 @@ namespace ProyectoGrado.Dialog.ViewModels
         private Visibility _visibilityAdvanced = Visibility.Collapsed;
         private string _nameServer;
         private string _dataBase;
+        private readonly IEventAggregator _eventAggregator;
 
         public bool IsAvanced
         {
@@ -64,10 +68,18 @@ namespace ProyectoGrado.Dialog.ViewModels
         public DelegateCommand AceptarCommand { set; get; }
         public DelegateCommand CancelCommand { set; get; }
 
-        public DialogConfigBDViewModel()
+        public DialogConfigBDViewModel(IEventAggregator eventAggregator)
         {
             AceptarCommand = new DelegateCommand(Aceptar, CanAceptar);
             CancelCommand = new DelegateCommand(Cancel, CanCancel);
+            _eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<ParameterDataBaseEvent>().Subscribe(OnParameterSelected);
+        }
+
+        private void OnParameterSelected(Parameter parameter)
+        {
+            NameServer = parameter.ServerName;
+            DataBase = parameter.DataBase;
         }
 
         private bool CanCancel()

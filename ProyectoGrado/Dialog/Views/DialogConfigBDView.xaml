@@ -7,7 +7,9 @@
     xmlns:local="clr-namespace:ProyectoGrado.Dialog.Views"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Width="260" 
+    Width="260"   
+    xmlns:prism="http://prismlibrary.com/"   
+    prism:ViewModelLocator.AutoWireViewModel="True"
     Block.TextAlignment="Left"
     ResizeMode="NoResize"
     Background="{DynamicResource MahApps.Brushes.Gray10}"
@@ -43,7 +45,7 @@
             Grid.ColumnSpan="2"
             VerticalAlignment="Center"
             Orientation="Horizontal">
-            <TextBox Width="150" Height="25" />
+            <TextBox Width="150" Height="25" Text="{Binding NameServer}" />
         </StackPanel>
         <CheckBox
             Grid.Row="2"
@@ -67,25 +69,20 @@
             </Grid.RowDefinitions>
 
             <Label VerticalAlignment="Center" Content="Base de datos" />
-            <TextBox
+            <TextBox Text="{Binding DataBase}"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
                 Width="150"
                 Height="25"
                 HorizontalAlignment="Left" />
-
-            <Label
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label
                 Grid.Row="1"
                 VerticalAlignment="Center"
                 Content="Seguridad" />
-            <TextBox
-                Grid.Row="1"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                Width="150"
-                Height="25"
-                HorizontalAlignment="Left"
-                IsEnabled="False" />
+                <RadioButton IsChecked="True" Content="True"></RadioButton>
+                <RadioButton Content="False"></RadioButton>
+            </StackPanel>
         </Grid>
         <StackPanel
             Grid.Row="5"

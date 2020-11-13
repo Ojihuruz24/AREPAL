@@ -24,8 +24,6 @@ namespace ProyectoGrado.Dialog.Views
     {
         public DialogConfigBDView()
         {
-            DialogConfigBDViewModel viewModel = new DialogConfigBDViewModel();
-            this.DataContext = viewModel;
             InitializeComponent();
         }
     }

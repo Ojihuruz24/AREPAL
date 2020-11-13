@@ -9,10 +9,12 @@ using Prism.Services.Dialogs;
 using ProyectoGrado.Conection;
 using ProyectoGrado.Dialog.ViewModels;
 using ProyectoGrado.Dialog.Views;
+using ProyectoGrado.Events;
 using ProyectoGrado.Services;
 using ProyectoGrado.Utility.Validations;
 using ProyectoGrado.Views;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
@@ -32,10 +34,12 @@ namespace ProyectoGrado.ViewModels
         private SecureString _password;
         private readonly Action<bool> _onCompleted;
         private readonly IEventAggregator _eventAggregator;
+        private Parameter parameter;
         DialogCoordinator _dialogCoordinator;
         public static string ConectionBD = @"server=(Localdb)\PROYECTO; database=AREPAL ; integrated security = true";
         public static string UserBD = "";
         public string PathConection = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\AREPAL\Conection.json";
+
         #region Conection
 
         private void ConectionParameter()
@@ -45,8 +49,8 @@ namespace ProyectoGrado.ViewModels
                 using (StreamReader jsonStream = File.OpenText(PathConection))
                 {
                     var json = jsonStream.ReadToEnd();
-                    Parameter product = JsonConvert.DeserializeObject<Parameter>(json);
-                    ConectionBD = $"server= {product.ServerName}; database={product.DataBase}; integrated security ={product.Security}";
+                    parameter = JsonConvert.DeserializeObject<Parameter>(json);
+                    ConectionBD = $"server= {parameter.ServerName}; database={parameter.DataBase}; integrated security ={parameter.Security}";
                 }
             }
             else
@@ -93,17 +97,17 @@ namespace ProyectoGrado.ViewModels
 
         public LoginViewModel(Action<bool> onCompleted, IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
             ConectionParameter();
             _dialogCoordinator = new DialogCoordinator();
             LoginUserCommand = new DelegateCommand(LoginUser, CanLoginUser);
             ShowToolsCommand = new DelegateCommand(() => ShowTools(), CanShowTools);
             _onCompleted = onCompleted;
-            _eventAggregator = eventAggregator;
+
         }
 
         private async void ShowTools()
         {
-
             var dialog = DialogCoordinator.Instance;
             var setings = new LoginDialogSettings()
             {
@@ -129,6 +133,7 @@ namespace ProyectoGrado.ViewModels
                     if (result.Rows[0][3].ToString().ToLower() == "admin")
                     {
                         DialogConfigBDView view = new DialogConfigBDView();
+                        _eventAggregator.GetEvent<ParameterDataBaseEvent>().Publish(parameter);
                         view.ShowDialog();
                     }
                     else
