@@ -7,14 +7,14 @@
     xmlns:local="clr-namespace:ProyectoGrado.Dialog.Views"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Width="260"   
-    xmlns:prism="http://prismlibrary.com/"   
+    xmlns:prism="http://prismlibrary.com/"
+    Width="260"
+    Height="350"
     prism:ViewModelLocator.AutoWireViewModel="True"
+    Background="{DynamicResource MahApps.Brushes.Gray10}"
     Block.TextAlignment="Left"
     ResizeMode="NoResize"
-    Background="{DynamicResource MahApps.Brushes.Gray10}"
     WindowStartupLocation="CenterScreen"
-    Height="350"
     mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -45,13 +45,17 @@
             Grid.ColumnSpan="2"
             VerticalAlignment="Center"
             Orientation="Horizontal">
-            <TextBox Width="150" Height="25" Text="{Binding NameServer}" />
+            <TextBox
+                Width="150"
+                Height="25"
+                Text="{Binding NameServer}" />
         </StackPanel>
         <CheckBox
             Grid.Row="2"
             Grid.ColumnSpan="3"
             HorizontalAlignment="Center"
-            Content="AVANZADA" IsChecked="{Binding IsAvanced}"/>
+            Content="AVANZADA"
+            IsChecked="{Binding IsAvanced}" />
 
         <Grid
             Grid.Row="3"
@@ -69,20 +73,26 @@
             </Grid.RowDefinitions>
 
             <Label VerticalAlignment="Center" Content="Base de datos" />
-            <TextBox Text="{Binding DataBase}"
+            <TextBox
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
                 Width="150"
                 Height="25"
-                HorizontalAlignment="Left" />
-            <StackPanel Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Label
+                HorizontalAlignment="Left"
+                Text="{Binding DataBase}" />
+            <Label
                 Grid.Row="1"
                 VerticalAlignment="Center"
                 Content="Seguridad" />
-                <RadioButton IsChecked="True" Content="True"></RadioButton>
-                <RadioButton Content="False"></RadioButton>
-            </StackPanel>
+            <mah:ToggleSwitch
+                Grid.Row="1"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                FontSize="12"
+                IsOn="{Binding IsTrueSeguridad}"
+                OffContent="Inactivo"
+                OnContent="Activa"
+                Style="{StaticResource MahApps.Styles.ToggleSwitch}" />
         </Grid>
         <StackPanel
             Grid.Row="5"
@@ -96,7 +106,7 @@
             <Button
                 Margin="5"
                 Command="{Binding CancelCommand}"
-                Content="Cancelar" />
+                Content="LIMPIAR"/>
         </StackPanel>
 
     </Grid>

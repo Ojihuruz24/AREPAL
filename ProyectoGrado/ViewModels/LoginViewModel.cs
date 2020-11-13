@@ -27,9 +27,6 @@ namespace ProyectoGrado.ViewModels
 {
     public class LoginViewModel : BindableBase
     {
-
-
-
         private string _user;
         private SecureString _password;
         private readonly Action<bool> _onCompleted;
@@ -38,7 +35,7 @@ namespace ProyectoGrado.ViewModels
         DialogCoordinator _dialogCoordinator;
         public static string ConectionBD = @"server=(Localdb)\PROYECTO; database=AREPAL ; integrated security = true";
         public static string UserBD = "";
-        public string PathConection = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\AREPAL\Conection.json";
+        public static string PathConection = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\AREPAL\Conection.json";
 
         #region Conection
 
@@ -103,7 +100,12 @@ namespace ProyectoGrado.ViewModels
             LoginUserCommand = new DelegateCommand(LoginUser, CanLoginUser);
             ShowToolsCommand = new DelegateCommand(() => ShowTools(), CanShowTools);
             _onCompleted = onCompleted;
+            _eventAggregator.GetEvent<ParameterDataBaseEvent>().Subscribe(OnParameterDataBase);
+        }
 
+        private void OnParameterDataBase(Parameter parameter)
+        {
+            ConectionBD = $"server= {parameter.ServerName}; database={parameter.DataBase}; integrated security ={parameter.Security}";
         }
 
         private async void ShowTools()
@@ -123,24 +125,39 @@ namespace ProyectoGrado.ViewModels
                 return;
             }
 
-            using (var conection = new SqlConnection(ConectionBD))
-            {
-                conection.Open();
-                var result = await Validation(resultDialog.Username, resultDialog.SecurePassword, conection, false);
+            await FormConfigDataBase(resultDialog);
+        }
 
-                if (result.Rows.Count == 1)
+        private async Task FormConfigDataBase(LoginDialogData resultDialog)
+        {
+            try
+            {
+                using (var conection = new SqlConnection(ConectionBD))
                 {
-                    if (result.Rows[0][3].ToString().ToLower() == "admin")
+                    conection.Open();
+
+                    var result = await Validation(resultDialog.Username, resultDialog.SecurePassword, conection, false);
+
+                    if (result.Rows.Count == 1)
                     {
-                        DialogConfigBDView view = new DialogConfigBDView();
-                        _eventAggregator.GetEvent<ParameterDataBaseEvent>().Publish(parameter);
-                        view.ShowDialog();
-                    }
-                    else
-                    {
-                        await MenssageErrorConectionUser("AUTENTICACIÓN", "NO CUMPLES CON LOS PERMISOS REQUERIDOS");
+                        if (result.Rows[0][3].ToString().ToLower() == "admin")
+                        {
+                            DialogConfigBDView view = new DialogConfigBDView();
+                            _eventAggregator.GetEvent<ParameterDataBaseEvent>().Publish(parameter);
+                            view.ShowDialog();
+                        }
+                        else
+                        {
+                            await MenssageErrorConectionUser("AUTENTICACIÓN", "NO CUMPLES CON LOS PERMISOS REQUERIDOS");
+                        }
                     }
                 }
+            }
+            catch
+            {
+                DialogConfigBDView view = new DialogConfigBDView();
+                _eventAggregator.GetEvent<ParameterDataBaseEvent>().Publish(parameter);
+                view.ShowDialog();
             }
         }
 
@@ -153,7 +170,7 @@ namespace ProyectoGrado.ViewModels
         {
             if (!OpenConectionBD())
             {
-                MessageBox.Show("Problemas con la conexion a la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MenssageErrorConectionUser("ERROR", "PROBLEMA CON LA CONEXIÓN A LA BASE DE DATOS");
             }
         }
 
@@ -171,14 +188,24 @@ namespace ProyectoGrado.ViewModels
 
         private bool OpenConectionBD()
         {
-            using (var conection = new SqlConnection(ConectionBD))
+            try
             {
-                conection.Open();
+                using (var conection = new SqlConnection(ConectionBD))
+                {
+                    conection.Open();
 
-                _ = Validation(User, Password, conection, true);
+                    _ = Validation(User, Password, conection, true);
 
-                return true;
+                    return true;
+                }
             }
+            catch (Exception ex)
+            {
+                MenssageErrorConectionUser("ALERTA", "PROBLEMAS CON LA CONEXION");
+            }
+
+            return false;
+
         }
         /// <summary>
         /// 
@@ -245,6 +272,17 @@ namespace ProyectoGrado.ViewModels
                 AnimateHide = true
             };
             await dialog.ShowMessageAsync(this, title, mensaje, MessageDialogStyle.AffirmativeAndNegative, settings);
+        }
+
+        private async Task MenssageLoadConection(string title, string mensaje)
+        {
+            var dialog = DialogCoordinator.Instance;
+            var settings = new MetroDialogSettings()
+            {
+                ColorScheme = MetroDialogColorScheme.Theme,
+            };
+
+            await dialog.ShowProgressAsync(this, title, mensaje);
         }
     }
 }

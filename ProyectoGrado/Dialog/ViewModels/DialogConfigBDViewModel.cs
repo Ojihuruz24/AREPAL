@@ -1,10 +1,14 @@
-﻿using Prism.Commands;
+﻿using Newtonsoft.Json;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using ProyectoGrado.Conection;
+using ProyectoGrado.Dialog.Views;
 using ProyectoGrado.Events;
+using ProyectoGrado.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,11 +42,22 @@ namespace ProyectoGrado.Dialog.ViewModels
             }
         }
 
+        private bool _isTrueSeguridad = true;
+
+        public bool IsTrueSeguridad
+        {
+            get { return _isTrueSeguridad; }
+            set
+            {
+                SetProperty(ref _isTrueSeguridad, value);
+            }
+        }
+
         public Visibility VisibilityAdvanced
         {
             get { return _visibilityAdvanced; }
-            set 
-            { 
+            set
+            {
                 SetProperty(ref _visibilityAdvanced, value);
             }
         }
@@ -53,6 +68,7 @@ namespace ProyectoGrado.Dialog.ViewModels
             set
             {
                 SetProperty(ref _nameServer, value);
+                AceptarCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -62,6 +78,7 @@ namespace ProyectoGrado.Dialog.ViewModels
             set
             {
                 SetProperty(ref _dataBase, value);
+                AceptarCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -70,16 +87,24 @@ namespace ProyectoGrado.Dialog.ViewModels
 
         public DialogConfigBDViewModel(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
             AceptarCommand = new DelegateCommand(Aceptar, CanAceptar);
             CancelCommand = new DelegateCommand(Cancel, CanCancel);
-            _eventAggregator = eventAggregator;
-            _eventAggregator.GetEvent<ParameterDataBaseEvent>().Subscribe(OnParameterSelected);
+            ReadConfiguration();
         }
 
-        private void OnParameterSelected(Parameter parameter)
+        private void ReadConfiguration()
         {
-            NameServer = parameter.ServerName;
-            DataBase = parameter.DataBase;
+            string path = LoginViewModel.PathConection;
+            using (StreamReader jsonStream = File.OpenText(path))
+            {
+                var json = jsonStream.ReadToEnd();
+                Parameter parameters = JsonConvert.DeserializeObject<Parameter>(json);
+
+                NameServer = parameters.ServerName;
+                DataBase = parameters.DataBase;
+                IsTrueSeguridad = parameters.Security;
+            }
         }
 
         private bool CanCancel()
@@ -89,17 +114,41 @@ namespace ProyectoGrado.Dialog.ViewModels
 
         private void Cancel()
         {
+            Clear();
+        }
 
+        private void Clear()
+        {
+            NameServer = string.Empty;
+            DataBase = string.Empty;
+            IsTrueSeguridad = true;
+            IsAvanced = false;
         }
 
         private bool CanAceptar()
         {
-            return true;
+            if (!string.IsNullOrWhiteSpace(NameServer) &&
+                !string.IsNullOrWhiteSpace(DataBase))
+            {
+                return true;
+            }
+            return false;
         }
 
         private void Aceptar()
         {
-            
+            var parameter = new Parameter
+            {
+                ServerName = NameServer,
+                DataBase = DataBase,
+                Security = IsTrueSeguridad
+            };
+
+            string json = JsonConvert.SerializeObject(parameter);
+            File.WriteAllText(LoginViewModel.PathConection, json);
+
+            _eventAggregator.GetEvent<ParameterDataBaseEvent>().Publish(parameter);
+
         }
     }
 }
