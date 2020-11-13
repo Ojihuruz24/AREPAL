@@ -64,7 +64,6 @@
                     Padding="30,4,0,0"
                     HorizontalContentAlignment="Left"
                     mah:TextBoxHelper.ClearTextButton="True"
-                    mah:TextBoxHelper.SelectAllOnFocus="True"
                     mah:TextBoxHelper.Watermark="CONTRASEÑA"
                     PasswordChanged="OnPasswordChanged"
                     Tag="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />

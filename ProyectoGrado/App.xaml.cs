@@ -30,7 +30,7 @@ namespace ProyectoGrado
 
         protected override Window CreateShell()
         {
-            return Container.Resolve<MainWindow>();
+            return Container.Resolve<LoginView>();
         }
 
         protected override void InitializeShell(Window shell)
@@ -53,7 +53,13 @@ namespace ProyectoGrado
                 Current.Shutdown();
                 return;
             }
-            base.InitializeShell(shell);
+
+            var win = new HomeView();
+            var homeViewModel = new HomeViewModel();
+            win.DataContext = homeViewModel;
+            win.ShowDialog();
+
+            //base.InitializeModules();
         }
     }
 }

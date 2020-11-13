@@ -1,12 +1,7 @@
 ﻿using Prism.Mvvm;
 using ProyectoGrado.Utility.Validations;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProyectoGrado.ViewModels
 {
