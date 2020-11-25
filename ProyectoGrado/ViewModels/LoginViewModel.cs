@@ -35,23 +35,14 @@ namespace ProyectoGrado.ViewModels
         DialogCoordinator _dialogCoordinator;
         public static string ConectionBD = @"server=(Localdb)\PROYECTO; database=AREPAL ; integrated security = true";
         public static string UserBD = "";
-        public static string PathConection = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\AREPAL\Conection.json";
+        public static string PathConection = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + @"\Arepal\BD\Conection.json";
         public static string PathBackup = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\AREPAL-\Backup.json";
 
         #region Conection
 
         private void ConectionParameter()
         {
-            if (File.Exists(PathConection))
-            {
-                using (StreamReader jsonStream = File.OpenText(PathConection))
-                {
-                    var json = jsonStream.ReadToEnd();
-                    parameter = JsonConvert.DeserializeObject<Parameter>(json);
-                    ConectionBD = $"server= {parameter.ServerName}; database={parameter.DataBase}; integrated security ={parameter.Security}";
-                }
-            }
-            else
+            if (!File.Exists(PathConection))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(PathConection));
                 var arepal = new Parameter
@@ -63,6 +54,14 @@ namespace ProyectoGrado.ViewModels
                 string json = JsonConvert.SerializeObject(arepal);
                 File.WriteAllText(PathConection, json);
             }
+
+            using (StreamReader jsonStream = File.OpenText(PathConection))
+            {
+                var json = jsonStream.ReadToEnd();
+                parameter = JsonConvert.DeserializeObject<Parameter>(json);
+                ConectionBD = $"server= {parameter.ServerName}; database={parameter.DataBase}; integrated security ={parameter.Security}";
+            }
+
         }
 
         #endregion
