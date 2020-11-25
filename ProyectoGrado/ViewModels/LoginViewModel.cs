@@ -36,6 +36,7 @@ namespace ProyectoGrado.ViewModels
         public static string ConectionBD = @"server=(Localdb)\PROYECTO; database=AREPAL ; integrated security = true";
         public static string UserBD = "";
         public static string PathConection = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\AREPAL\Conection.json";
+        public static string PathBackup = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\AREPAL-\Backup.json";
 
         #region Conection
 
@@ -52,6 +53,7 @@ namespace ProyectoGrado.ViewModels
             }
             else
             {
+                Directory.CreateDirectory(Path.GetDirectoryName(PathConection));
                 var arepal = new Parameter
                 {
                     ServerName = @"(Localdb)\PROYECTO",
@@ -64,6 +66,27 @@ namespace ProyectoGrado.ViewModels
         }
 
         #endregion
+
+
+        public void RestoreDatabase(string databaseName)
+        {
+            using (var connection = new SqlConnection(ConectionBD))
+            {
+                var userPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+
+                var query = $@"USE master RESTORE DATABASE [{databaseName}]
+                    FROM DISK='{PathBackup}'
+                    WITH REPLACE, 
+                    MOVE '{databaseName}' TO '{userPath}\{databaseName}.mdf',
+                    MOVE '{databaseName}_log' TO '{userPath}\{databaseName}_log.ldf'";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
 
         public string User
         {
