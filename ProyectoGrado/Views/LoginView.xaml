@@ -21,6 +21,9 @@
             <Button ToolTip="Herramienta" Command="{Binding ShowToolsCommand}">
                 <iconPacks:Material Kind="Tools"/>
             </Button>
+            <!--<Button ToolTip="Herramienta" Command="{Binding BackupRestoreCommand}">
+                <iconPacks:Material Kind="BackupRestore"/>
+            </Button>-->
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
     <Grid>

@@ -48,6 +48,7 @@
                         HorizontalAlignment="Center"
                         Orientation="Horizontal">
                 <Button Command="{Binding SendCommand}" Content="Enviar" Click="Button_Click" />
+                <Button Content="Cancelar" Name="Cancel" Click="Cancel_Click" />
             </StackPanel>
         </StackPanel>
     </StackPanel>
