@@ -28,5 +28,10 @@ namespace ProyectoGrado.Dialog.Views
         {
             this.Close();
         }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
