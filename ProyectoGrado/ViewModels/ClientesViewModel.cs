@@ -35,7 +35,6 @@ namespace ProyectoGrado.ViewModels
             {
                 if (ValidationesInput.IsNumber(value, "Documento Invalido"))
                 {
-                    AddCommand.RaiseCanExecuteChanged();
                     SetProperty(ref _documentUser, value);
                 }
             }
@@ -64,9 +63,7 @@ namespace ProyectoGrado.ViewModels
             {
                 if (ValidationesInput.IsString(value, "Nombre Invalido"))
                 {
-                    AddCommand.RaiseCanExecuteChanged();
                     SetProperty(ref _nameUser, value);
-
                 }
             }
         }
@@ -77,7 +74,6 @@ namespace ProyectoGrado.ViewModels
             set
             {
                 SetProperty(ref _directionUser, value);
-                AddCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -89,7 +85,6 @@ namespace ProyectoGrado.ViewModels
                 if (ValidationesInput.IsNumber(value, "Teléfono Invalido"))
                 {
                     SetProperty(ref _telUser, value);
-                    AddCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -99,7 +94,11 @@ namespace ProyectoGrado.ViewModels
 
         public ClientesViewModel()
         {
-            AddCommand = new DelegateCommand(Add, CanAdd);
+            AddCommand = new DelegateCommand(Add, CanAdd)
+                .ObservesProperty(() => DocumentUser)
+                .ObservesProperty(() => NameUser)
+                .ObservesProperty(() => DirectionUser)
+                .ObservesProperty(() => TelUser);
             CancelCommand = new DelegateCommand(Cancel, CanCancel);
             ConectionTable();
         }
