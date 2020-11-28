@@ -29,7 +29,7 @@ namespace ProyectoGrado.ViewModels
         {
             get { return _isSelectedArticle; }
             set
-            { 
+            {
                 _isSelectedArticle = value;
                 ArticleViewModel();
             }
@@ -76,7 +76,6 @@ namespace ProyectoGrado.ViewModels
                 if (ValidationesInput.IsString(value, "Nombre de categoria invalido"))
                 {
                     SetProperty(ref nombreCategoria, value);
-                    AddCategoriaCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -86,7 +85,7 @@ namespace ProyectoGrado.ViewModels
 
         private void CategoriaViewModel()
         {
-            AddCategoriaCommand = new DelegateCommand(AddCategoria, CanAddCategoria);
+            AddCategoriaCommand = new DelegateCommand(AddCategoria, CanAddCategoria).ObservesProperty(() => NombreCategoria);
             CancelCategoriaCommand = new DelegateCommand(CancelCategoria, CanCancelCategoria);
             ConsultCategoria();
         }
@@ -191,7 +190,6 @@ namespace ProyectoGrado.ViewModels
             set
             {
                 SetProperty(ref categoriaProducto, value);
-                AddProductoCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -203,7 +201,6 @@ namespace ProyectoGrado.ViewModels
                 if (ValidationesInput.IsNumber(value, "Codigo invalido"))
                 {
                     SetProperty(ref _codeProducto, value);
-                    AddProductoCommand.RaiseCanExecuteChanged();
                 }
 
             }
@@ -217,7 +214,6 @@ namespace ProyectoGrado.ViewModels
                 if (ValidationesInput.IsString(value, "Nombre invalido"))
                 {
                     SetProperty(ref _nombreProducto, value);
-                    AddProductoCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -230,7 +226,6 @@ namespace ProyectoGrado.ViewModels
                 if (ValidationesInput.IsNumber(value, "Precio invalido"))
                 {
                     SetProperty(ref _precioVentaProducto, value);
-                    AddProductoCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -241,7 +236,11 @@ namespace ProyectoGrado.ViewModels
 
         private void ProductoViewModel()
         {
-            AddProductoCommand = new DelegateCommand(AddProducto, CanProducto);
+            AddProductoCommand = new DelegateCommand(AddProducto, CanProducto)
+                .ObservesProperty(() => CategoriaProducto)
+                .ObservesProperty(() => CodeProducto)
+                .ObservesProperty(() => NombreProducto)
+                .ObservesProperty(() => PrecioVentaProducto);
             CancelProductoCommand = new DelegateCommand(CancelProducto, CanCancelProducto);
             CategoriaComboboxCommand = new DelegateCommand(CategoriaCombobo, CanCategoriaCombobox);
             ConsultProducto();
@@ -376,7 +375,6 @@ namespace ProyectoGrado.ViewModels
             set
             {
                 SetProperty(ref _nameProducto, value);
-                AddDetailProductCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -386,7 +384,6 @@ namespace ProyectoGrado.ViewModels
             set
             {
                 SetProperty(ref _codeProductDetailProduct, value);
-                AddDetailProductCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -398,7 +395,6 @@ namespace ProyectoGrado.ViewModels
                 if (ValidationesInput.IsNumber(value, "Cantidad invalida"))
                 {
                     SetProperty(ref _countDetailProduct, value);
-                    AddDetailProductCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -424,10 +420,8 @@ namespace ProyectoGrado.ViewModels
             set
             {
                 SetProperty(ref _articleDetailProduct, value);
-                AddDetailProductCommand.RaiseCanExecuteChanged();
             }
         }
-
 
         public DelegateCommand ArticleDetalleComboboxCommand { get; private set; }
         public DelegateCommand SearchCodeDetalleProductoCommand { get; private set; }
@@ -439,7 +433,11 @@ namespace ProyectoGrado.ViewModels
             ConsultDetalleProducto();
             ArticleDetalleComboboxCommand = new DelegateCommand(UpdateArticle, CanUpdateArticle);
             SearchCodeDetalleProductoCommand = new DelegateCommand(OpenProduct, CanOpenProduct);
-            AddDetailProductCommand = new DelegateCommand(AddDetailProduct, CanAddDetailProduct);
+            AddDetailProductCommand = new DelegateCommand(AddDetailProduct, CanAddDetailProduct)
+                .ObservesProperty(() => NameProducto)
+                .ObservesProperty(() => CodeProductDetailProduct)
+                .ObservesProperty(() => CountDetailProduct)
+                .ObservesProperty(() => ArticleDetailProduct);
             CancelDetailProductCommand = new DelegateCommand(CancelDetailProduct, CanAddCancelDetailProduct);
             AddArticleDetalle();
             _eventAggregator.GetEvent<ProductSelectedEvent>().Subscribe(OnProductSelected);
@@ -605,7 +603,6 @@ namespace ProyectoGrado.ViewModels
                 if (ValidationesInput.IsString(value, "Nombre invalido"))
                 {
                     SetProperty(ref nameArticle, value);
-                    AddArticleCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -616,7 +613,6 @@ namespace ProyectoGrado.ViewModels
             set
             {
                 SetProperty(ref _measureArticle, value);
-                AddArticleCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -628,7 +624,6 @@ namespace ProyectoGrado.ViewModels
                 if (ValidationesInput.IsNumber(value, "Cantidad invalida"))
                 {
                     SetProperty(ref _quantityArticle, value);
-                    AddArticleCommand.RaiseCanExecuteChanged();
                 }
             }
 
@@ -644,7 +639,11 @@ namespace ProyectoGrado.ViewModels
 
         private void ArticleViewModel()
         {
-            AddArticleCommand = new DelegateCommand(AddArticle, CanAddArticle);
+            AddArticleCommand = new DelegateCommand(AddArticle, CanAddArticle)
+                .ObservesProperty(() => NameArticle)
+                .ObservesProperty(() => MeasureArticle)
+                .ObservesProperty(() => QuantityArticle)
+                .ObservesProperty(() => MeasureArticles);
             CancelArticleCommand = new DelegateCommand(CancelArticle, CanCancelArticle);
             ConsultArticles();
             AddArticles();
@@ -723,8 +722,6 @@ namespace ProyectoGrado.ViewModels
             }
         }
 
-
-
         private void AddArticles()
         {
             MeasureArticles = new ObservableCollection<string>();
@@ -745,7 +742,6 @@ namespace ProyectoGrado.ViewModels
         private string _rolUser;
         private DataTable _tableUser;
 
-
         public DataTable TableUser
         {
             get { return _tableUser; }
@@ -760,7 +756,6 @@ namespace ProyectoGrado.ViewModels
                 if (ValidationesInput.IsNumber(value, "Documento invalido"))
                 {
                     SetProperty(ref _documentUser, value);
-                    AddUserCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -773,7 +768,6 @@ namespace ProyectoGrado.ViewModels
                 if (ValidationesInput.IsString(value, "Nombre invalido"))
                 {
                     SetProperty(ref _nameUser, value);
-                    AddUserCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -784,7 +778,6 @@ namespace ProyectoGrado.ViewModels
             set
             {
                 SetProperty(ref _passwordUser, value);
-                AddUserCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -800,7 +793,6 @@ namespace ProyectoGrado.ViewModels
             set
             {
                 SetProperty(ref _rolUser, value);
-                AddUserCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -809,14 +801,16 @@ namespace ProyectoGrado.ViewModels
 
         private void UserViewModel()
         {
-            AddUserCommand = new DelegateCommand(AddUser, CanAddUser);
+            AddUserCommand = new DelegateCommand(AddUser, CanAddUser)
+                .ObservesProperty(() => DocumentUser)
+                .ObservesProperty(() => NameUser)
+                .ObservesProperty(() => PasswordUser)
+                .ObservesProperty(() => RolUser);
             CancelUserCommand = new DelegateCommand(CancelUser, CanCancelUser);
 
             AddListRols();
             ConsultUser();
         }
-
-
 
         private bool CanCancelUser()
         {
@@ -827,7 +821,6 @@ namespace ProyectoGrado.ViewModels
         {
             ClearUser();
         }
-
 
         private bool CanAddUser()
         {
@@ -871,7 +864,6 @@ namespace ProyectoGrado.ViewModels
                 ClearUser();
             }
         }
-
         private void ClearUser()
         {
             DocumentUser = string.Empty;

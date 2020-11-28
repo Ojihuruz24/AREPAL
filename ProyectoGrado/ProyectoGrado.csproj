@@ -39,6 +39,9 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>IconoEmpresa.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.5.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.5\lib\net47\CommonServiceLocator.dll</HintPath>
@@ -158,6 +161,7 @@
     <Compile Include="Reportings\Views\ReportVentView.xaml.cs">
       <DependentUpon>ReportVentView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\DataBase\BackupService.cs" />
     <Compile Include="Services\ReportNeto\IReportNetosService.cs" />
     <Compile Include="Services\ReportNeto\ReportNetosService.cs" />
     <Compile Include="Services\Ventas\IVentasService.cs" />
@@ -169,7 +173,6 @@
     <Compile Include="ViewModels\ComprasViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ProductosViewModel.cs" />
     <Compile Include="ViewModels\ProveedoresViewModel.cs" />
     <Compile Include="ViewModels\ReportViewModel.cs" />
@@ -344,7 +347,9 @@
       <Link>SqlServerTypes\x86\SqlServerSpatial110.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="IconoEmpresa.ico" />
     <Content Include="SqlServerTypes\readme.htm" />
+    <Resource Include="Utility\Icons\IconoEmpresa.ico" />
     <Resource Include="Utility\Icons\IconoEmpresa.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

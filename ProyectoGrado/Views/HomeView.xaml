@@ -47,6 +47,9 @@
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </Button>
+            <Button ToolTip="Backup" Command="{Binding BackupRestoreCommand}" Visibility="{Binding Permisson}">
+                <iconPacks:Material Kind="BackupRestore"/>
+            </Button>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
 

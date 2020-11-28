@@ -3,6 +3,7 @@ using Prism.Events;
 using Prism.Ioc;
 using Prism.Unity;
 using ProyectoGrado.Services;
+using ProyectoGrado.Services.DataBase;
 using ProyectoGrado.Services.ReportNeto;
 using ProyectoGrado.ViewModels;
 using ProyectoGrado.Views;
@@ -26,6 +27,7 @@ namespace ProyectoGrado
         {
             containerRegistry.RegisterSingleton<IVentasService, VentasService>();
             containerRegistry.RegisterSingleton<IReportNetosService, ReportNetosService>();
+            containerRegistry.Register<BackupService>();
             //containerRegistry.RegisterInstance(DialogCoordinator.Instance);
         }
 
@@ -56,7 +58,7 @@ namespace ProyectoGrado
             }
 
             var win = new HomeView();
-            var homeViewModel = new HomeViewModel();
+            var homeViewModel = new HomeViewModel(Container.Resolve<BackupService>());
             win.DataContext = homeViewModel;
             win.ShowDialog();
 

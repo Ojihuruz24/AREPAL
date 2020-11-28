@@ -1,19 +1,24 @@
-﻿using Prism.Mvvm;
+﻿using Newtonsoft.Json;
+using Prism.Commands;
+using Prism.Mvvm;
+using ProyectoGrado.Conection;
+using ProyectoGrado.Services.DataBase;
 using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
+
 
 namespace ProyectoGrado.ViewModels
 {
     public class HomeViewModel : BindableBase
     {
-
+        private Parameter parameter;
         private Visibility _permisson;
+        private readonly BackupService _backupService;
+       
 
         public Visibility Permisson
         {
@@ -21,9 +26,25 @@ namespace ProyectoGrado.ViewModels
             set { SetProperty(ref _permisson, value); }
         }
 
-        public HomeViewModel()
+        public DelegateCommand BackupRestoreCommand { get; }
+
+
+        public HomeViewModel(BackupService backupService)
         {
             validation();
+            BackupRestoreCommand = new DelegateCommand(() => BackupRestore(), CanBackupRestore);
+            _backupService = backupService;
+        }
+
+        private bool CanBackupRestore()
+        {
+            return true;
+        }
+
+        private void BackupRestore()
+        {
+            _backupService.BackupDatabase("AREPAL");
+
         }
 
         private void validation()

@@ -32,7 +32,6 @@ namespace ProyectoGrado.ViewModels
         private readonly Action<bool> _onCompleted;
         private readonly IEventAggregator _eventAggregator;
         private Parameter parameter;
-        DialogCoordinator _dialogCoordinator;
         public static string ConectionBD = @"server=(Localdb)\PROYECTO; database=AREPAL ; integrated security = true";
         public static string UserBD = "";
         public static string PathConection = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + @"\Arepal\BD\Conection.json";
@@ -92,48 +91,16 @@ namespace ProyectoGrado.ViewModels
 
         public DelegateCommand LoginUserCommand { get; }
         public DelegateCommand ShowToolsCommand { get; }
-        public DelegateCommand BackupRestoreCommand { get; }
 
         public LoginViewModel(Action<bool> onCompleted, IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
             ConectionParameter();
-            _dialogCoordinator = new DialogCoordinator();
             LoginUserCommand = new DelegateCommand(LoginUser, CanLoginUser);
             ShowToolsCommand = new DelegateCommand(() => ShowTools(), CanShowTools);
-            BackupRestoreCommand = new DelegateCommand(() => BackupRestore(), CanBackupRestore);
+          
             _onCompleted = onCompleted;
             _eventAggregator.GetEvent<ParameterDataBaseEvent>().Subscribe(OnParameterDataBase);
-        }
-
-        private bool CanBackupRestore()
-        {
-            return true;
-        }
-
-        private void BackupRestore()
-        {
-            RestoreDatabase(parameter.DataBase);
-        }
-
-        private void RestoreDatabase(string databaseName)
-        {
-            using (var connection = new SqlConnection(ConectionBD))
-            {
-                var userPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-
-                var query = $@"USE master RESTORE DATABASE [{databaseName}]
-                    FROM DISK='{PathBackup}'
-                    WITH REPLACE, 
-                    MOVE '{databaseName}' TO '{userPath}\{databaseName}.mdf',
-                    MOVE '{databaseName}_log' TO '{userPath}\{databaseName}_log.ldf'";
-
-                using (var command = new SqlCommand(query, connection))
-                {
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
-            }
         }
 
         private void OnParameterDataBase(Parameter parameter)
