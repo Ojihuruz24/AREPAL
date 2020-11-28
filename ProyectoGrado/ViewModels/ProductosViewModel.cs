@@ -36,7 +36,6 @@ namespace ProyectoGrado.ViewModels
             ConectionTable();
         }
 
-
         private void Search(string search)
         {
             if (!string.IsNullOrEmpty(search))

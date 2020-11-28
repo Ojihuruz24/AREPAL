@@ -73,7 +73,6 @@ namespace ProyectoGrado.ViewModels
                 if (ValidationesInput.IsNumber(value, "Cédula Incorrecta"))
                 {
                     SetProperty(ref _user, value);
-                    LoginUserCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -85,7 +84,6 @@ namespace ProyectoGrado.ViewModels
             {
                 SetProperty(ref _password, value.Copy());
                 _password.MakeReadOnly();
-                LoginUserCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -96,9 +94,11 @@ namespace ProyectoGrado.ViewModels
         {
             _eventAggregator = eventAggregator;
             ConectionParameter();
-            LoginUserCommand = new DelegateCommand(LoginUser, CanLoginUser);
+            LoginUserCommand = new DelegateCommand(() => LoginUser(), CanLoginUser)
+                .ObservesProperty(() => Password)
+                .ObservesProperty(() => User);
             ShowToolsCommand = new DelegateCommand(() => ShowTools(), CanShowTools);
-          
+
             _onCompleted = onCompleted;
             _eventAggregator.GetEvent<ParameterDataBaseEvent>().Subscribe(OnParameterDataBase);
         }
@@ -118,7 +118,7 @@ namespace ProyectoGrado.ViewModels
                 RememberCheckBoxChecked = true
             };
 
-            var resultDialog = await dialog.ShowLoginAsync(this, "CONFIGURACION", "mensaje", setings);
+            var resultDialog = await dialog.ShowLoginAsync(this, "CONFIGURACION", "LOGIN", setings);
 
             if (string.IsNullOrWhiteSpace(resultDialog.Username) || string.IsNullOrWhiteSpace(resultDialog.Password))
             {
@@ -155,9 +155,7 @@ namespace ProyectoGrado.ViewModels
             }
             catch
             {
-                DialogConfigBDView view = new DialogConfigBDView();
-                _eventAggregator.GetEvent<ParameterDataBaseEvent>().Publish(parameter);
-                view.ShowDialog();
+                await MenssageErrorConectionUser("CONEXION", "Problemas de conexion");
             }
         }
 
@@ -166,11 +164,11 @@ namespace ProyectoGrado.ViewModels
             return true;
         }
 
-        private void LoginUser()
+        private async void LoginUser()
         {
             if (!OpenConectionBD())
             {
-                MenssageErrorConectionUser("ERROR", "PROBLEMA CON LA CONEXIÓN A LA BASE DE DATOS");
+                await MenssageErrorConectionUser("ERROR", "PROBLEMA CON LA CONEXIÓN A LA BASE DE DATOS");
             }
         }
 
@@ -252,13 +250,12 @@ namespace ProyectoGrado.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error en la consulta, {ex.Message}");
+                await MenssageErrorConectionUser("AUTENTICACIÓN", "Problemas de conexion");
                 conection.Close();
             }
             finally
             {
                 conection.Close();
-
             }
             return dataTable;
         }

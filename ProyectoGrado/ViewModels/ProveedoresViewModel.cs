@@ -21,6 +21,7 @@ namespace ProyectoGrado.ViewModels
         private string _numberDocument;
         private string _telUser;
         private TipoDocuments typeDocument;
+        private ObservableCollection<TipoDocuments> typeDocuments;
 
         public string RazonSocial
         {
@@ -31,7 +32,6 @@ namespace ProyectoGrado.ViewModels
                 if (ValidationesInput.IsString(value, "Razon social invalida"))
                 {
                     SetProperty(ref _razonSocial, value);
-                    AddProviderCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -44,12 +44,22 @@ namespace ProyectoGrado.ViewModels
                 if (ValidationesInput.IsNumber(value, "Télefono invalido"))
                 {
                     SetProperty(ref _telUser, value);
-                    AddProviderCommand.RaiseCanExecuteChanged();
                 }
             }
         }
 
-        public ObservableCollection<TipoDocuments> TypeDocuments { get; set; } = new ObservableCollection<TipoDocuments>();
+        public ObservableCollection<TipoDocuments> TypeDocuments
+        {
+            get
+            {
+                return typeDocuments;
+            }
+
+            set
+            {
+                SetProperty(ref typeDocuments, value);
+            }
+        }
 
         public TipoDocuments TypeDocument
         {
@@ -57,7 +67,6 @@ namespace ProyectoGrado.ViewModels
             set
             {
                 SetProperty(ref typeDocument, value);
-                AddProviderCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -76,21 +85,25 @@ namespace ProyectoGrado.ViewModels
                 if (ValidationesInput.IsNumber(value, "Documento invalido"))
                 {
                     SetProperty(ref _numberDocument, value);
-                    AddProviderCommand.RaiseCanExecuteChanged();
                 }
             }
         }
-
 
         public string SearchProvider
         {
             get { return _searchProvider; }
             set
             {
+                SetProperty(ref _searchProvider, value);
+
                 if (ValidationesInput.IsNumber(value, "Buscar por numero de documento"))
                 {
-                    SetProperty(ref _searchProvider, value);
-                    Search(value); 
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        TableProvider.DefaultView.RowFilter = string.Format($"NUM_DOCUMENTO = {value}");
+                        return;
+                    }
+                    AddTableProvider();
                 }
             }
         }
@@ -100,9 +113,13 @@ namespace ProyectoGrado.ViewModels
 
         public ProveedoresViewModel()
         {
-            AddProviderCommand = new DelegateCommand(AddProvider, CanAddProvider);
+            AddProviderCommand = new DelegateCommand(AddProvider, CanAddProvider)
+                .ObservesProperty(() => RazonSocial)
+                .ObservesProperty(() => TelUser)
+                .ObservesProperty(() => TypeDocument)
+                .ObservesProperty(() => NumberDocument);
             CancelProviderCommand = new DelegateCommand(CancelProvider, CanCancelProvider);
-
+            TypeDocuments = new ObservableCollection<TipoDocuments>();
             AddTypesDocument();
             AddTableProvider();
         }
@@ -174,12 +191,7 @@ namespace ProyectoGrado.ViewModels
 
         private void Search(string search)
         {
-            if (!string.IsNullOrEmpty(search))
-            {
-                TableProvider.DefaultView.RowFilter = $"NUM_DOCUMENTO = {SearchProvider}";
-                return;
-            }
-            AddTableProvider();
+
         }
 
         private void AddTableProvider()
