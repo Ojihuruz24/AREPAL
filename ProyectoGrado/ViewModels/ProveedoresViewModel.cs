@@ -1,22 +1,26 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using ProyectoGrado.Models;
 using ProyectoGrado.Utility.Validations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 
 namespace ProyectoGrado.ViewModels
 {
     public class ProveedoresViewModel : BindableBase
     {
-        private DataTable _tableProvider;
-        private string _searchProvider;
+        private ObservableCollection<Proveedor> _tableProvider;
+        private ICollectionView _filteredSearch;
+        private string _searchProvider = "";
         private string _razonSocial;
         private string _numberDocument;
         private string _telUser;
@@ -70,7 +74,7 @@ namespace ProyectoGrado.ViewModels
             }
         }
 
-        public DataTable TableProvider
+        public ObservableCollection<Proveedor> TableProvider
         {
             get { return _tableProvider; }
             set { SetProperty(ref _tableProvider, value); }
@@ -94,16 +98,10 @@ namespace ProyectoGrado.ViewModels
             get { return _searchProvider; }
             set
             {
-                SetProperty(ref _searchProvider, value);
-
-                if (ValidationesInput.IsNumber(value, "Buscar por numero de documento"))
+                if (_searchProvider != value)
                 {
-                    if (!string.IsNullOrEmpty(value))
-                    {
-                        TableProvider.DefaultView.RowFilter = string.Format($"NUM_DOCUMENTO = {value}");
-                        return;
-                    }
-                    AddTableProvider();
+                    SetProperty(ref _searchProvider, value);
+                    _filteredSearch.Refresh();
                 }
             }
         }
@@ -113,6 +111,8 @@ namespace ProyectoGrado.ViewModels
 
         public ProveedoresViewModel()
         {
+            TableProvider = new ObservableCollection<Proveedor>();
+            SetFilteredProvider();
             AddProviderCommand = new DelegateCommand(AddProvider, CanAddProvider)
                 .ObservesProperty(() => RazonSocial)
                 .ObservesProperty(() => TelUser)
@@ -143,6 +143,22 @@ namespace ProyectoGrado.ViewModels
             {
                 return true;
             }
+            return false;
+        }
+
+        public void SetFilteredProvider()
+        {
+            _filteredSearch = CollectionViewSource.GetDefaultView(TableProvider);
+            _filteredSearch.Filter = Filter;
+        }
+
+        private bool Filter(object obj)
+        {
+            if (obj is Proveedor provider)
+            {
+                return provider.NumberDocument.ToLower().Contains(SearchProvider.ToLower());
+            }
+
             return false;
         }
 
@@ -189,10 +205,6 @@ namespace ProyectoGrado.ViewModels
             TelUser = string.Empty;
         }
 
-        private void Search(string search)
-        {
-
-        }
 
         private void AddTableProvider()
         {
@@ -200,20 +212,32 @@ namespace ProyectoGrado.ViewModels
             {
                 try
                 {
-                    DataTable dt = new DataTable();
                     var sql = "SELECT * FROM PROVEEDOR";
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    da.Fill(dt);
-                    TableProvider = dt;
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    TableProvider.Clear();
+
+                    while (reader.Read())
+                    {
+                        TableProvider.Add(new Proveedor
+                        {
+                            Name = reader.GetString(1),
+                            TypeDocument = reader.GetString(2),
+                            NumberDocument = reader.GetString(3),
+                            Tel = reader.GetString(4),
+                        });
+                    }
+
+                    conn.Close();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error al traer los proveedores de la base de datos", ex.Message);
+                    conn.Close();
                 }
             }
-
-
         }
 
         private void AddTypesDocument()

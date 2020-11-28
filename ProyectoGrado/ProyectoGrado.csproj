@@ -147,6 +147,7 @@
     <Compile Include="Events\ClientSelectedEvent.cs" />
     <Compile Include="Events\ParameterDataBaseEvent.cs" />
     <Compile Include="Events\ProductSelectedEvent.cs" />
+    <Compile Include="Models\Proveedor.cs" />
     <Compile Include="Models\Venta.cs" />
     <Compile Include="Models\VentaNeto.cs" />
     <Compile Include="Reportings\ViewModels\ReportComprasNetoViewModel.cs" />

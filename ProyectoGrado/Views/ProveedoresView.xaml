@@ -80,19 +80,19 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="50"
-                        Binding="{Binding TIPO_DOCUMENTO}"
+                        Binding="{Binding TypeDocument}"
                         Header="TIPO" />
                     <DataGridTextColumn
                         Width="140"
-                        Binding="{Binding NUM_DOCUMENTO}"
+                        Binding="{Binding NumberDocument}"
                         Header="NUMERO" />
                     <DataGridTextColumn
                         Width="280"
-                        Binding="{Binding RAZON_SOCIAL}"
+                        Binding="{Binding Name}"
                         Header="NOMBRE - RAZON SOCIAL" />
                     <DataGridTextColumn
                         Width="116"
-                        Binding="{Binding TELEFONO}"
+                        Binding="{Binding Tel}"
                         Header="TELEFONO" />
                 </DataGrid.Columns>
             </DataGrid>
