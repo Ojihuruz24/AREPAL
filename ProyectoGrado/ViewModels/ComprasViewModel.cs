@@ -40,7 +40,6 @@ namespace ProyectoGrado.ViewModels
             set
             {
                 SetProperty(ref _article, value);
-                AddCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -73,7 +72,6 @@ namespace ProyectoGrado.ViewModels
             {
                 SetProperty(ref _quantity, value);
                 Total = Quantity * Price;
-                AddCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -107,7 +105,6 @@ namespace ProyectoGrado.ViewModels
             {
                 SetProperty(ref _price, value);
                 Total = Quantity * Price;
-                AddCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -128,7 +125,6 @@ namespace ProyectoGrado.ViewModels
                 if (ValidationesInput.IsNumber(value, "# Comprobante: Solo acepta digitos numericos"))
                 {
                     SetProperty(ref _numComprobante, value);
-                    AddCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -139,7 +135,6 @@ namespace ProyectoGrado.ViewModels
             set
             {
                 SetProperty(ref _provider, value);
-                AddCommand.RaiseCanExecuteChanged();
             }
         }
         public Articulo Vouncher { get; set; }
@@ -156,7 +151,6 @@ namespace ProyectoGrado.ViewModels
             set
             {
                 SetProperty(ref _providers, value);
-             
             }
         }
 
@@ -180,7 +174,13 @@ namespace ProyectoGrado.ViewModels
             Vounchers = new ObservableCollection<Articulo>();
 
 
-            AddCommand = new DelegateCommand(Add, CanAdd);
+            AddCommand = new DelegateCommand(Add, CanAdd)
+                .ObservesProperty(() => Article)
+                .ObservesProperty(() => Quantity)
+                .ObservesProperty(() => Price)
+                .ObservesProperty(() => NumComprobante)
+                .ObservesProperty(() => Vouncher)
+                .ObservesProperty(() => Provider);
             CancelCommand = new DelegateCommand(Cancel, CanCancel);
             ArticleComboboxCommand = new DelegateCommand(ArticleCombobox, CanArticleCombobox);
             ProveedorComboboxCommand = new DelegateCommand(ProveedorCombobox, CanProveedorCombobox);
