@@ -13,7 +13,7 @@
     mah:GlowBrush="{DynamicResource MahApps.Brushes.Gray5}"
     mah:ShowMaxRestoreButton="False"
     Closing="Window_Closing"
-    Icon="{iconPacks:MaterialImage Kind=HomeAccount}"
+    Icon="{iconPacks:MaterialImage Kind=HomeFloorA}"
     ResizeMode="NoResize"
     Topmost="False"
     WindowStartupLocation="CenterScreen"

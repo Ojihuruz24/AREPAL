@@ -19,7 +19,7 @@
                         <ColumnDefinition Width="250" />
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
-                    <Border
+                    <Border  Background="{DynamicResource MahApps.Brushes.Gray8}"
                         Margin="5"
                         BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
                         BorderThickness="1">
@@ -76,7 +76,7 @@
                     </Grid.ColumnDefinitions>
                     <Border
                         Margin="5"
-                        BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"  Background="{DynamicResource MahApps.Brushes.Gray8}"
                         BorderThickness="1">
                         <StackPanel>
                             <StackPanel
@@ -156,7 +156,7 @@
                     </Grid.ColumnDefinitions>
                     <Border
                         Margin="5"
-                        BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"  Background="{DynamicResource MahApps.Brushes.Gray8}"
                         BorderThickness="1">
                         <StackPanel>
                             <StackPanel
@@ -180,7 +180,6 @@
                                 <ComboBox
                                     Grid.Row="0"
                                     Grid.Column="1"
-                                    Margin="5"
                                     DisplayMemberPath="Name"
                                     ItemsSource="{Binding ArticlesDetailProduct}"
                                     SelectedItem="{Binding ArticleDetailProduct}"
@@ -198,8 +197,8 @@
                                 Margin="0,18,0,0"
                                 HorizontalAlignment="Center"
                                 Orientation="Horizontal">
-                                <Button Command="{Binding AddDetailProductCommand}" Content="Agregar" />
-                                <Button Command="{Binding CancelDetailProductCommand}" Content="Cancelar" />
+                                <Button Command="{Binding AddDetailProductCommand}" Content="Agregar" Margin="5" />
+                                <Button Command="{Binding CancelDetailProductCommand}" Content="Cancelar"  Margin="5"/>
                             </StackPanel>
                         </StackPanel>
                     </Border>
@@ -239,7 +238,7 @@
                         <ColumnDefinition Width="250" />
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
-                    <Border
+                    <Border  Background="{DynamicResource MahApps.Brushes.Gray8}"
                         Margin="5"
                         BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
                         BorderThickness="1">
@@ -251,13 +250,11 @@
                                 <Label Content="NUEVO ARTICULO" FontSize="20" Margin="0,0,0,30" />
                                 <Label Margin="0,5,0,0" Content="NOMBRE" />
                                 <TextBox Text="{Binding NameArticle, UpdateSourceTrigger=PropertyChanged}" />
-
                                 <Label Content="MEDIDA" />
                                 <ComboBox
                                     Grid.Row="4"
                                     Grid.Column="1"
                                     Height="30"
-                                    Margin="5,5,5,0"
                                     VerticalAlignment="Top"
                                     ItemsSource="{Binding MeasureArticles}"
                                     SelectedItem="{Binding MeasureArticle}" />
@@ -269,8 +266,8 @@
                                 Margin="0,18,0,0"
                                 HorizontalAlignment="Center"
                                 Orientation="Horizontal">
-                                <Button Command="{Binding AddArticleCommand}" Content="Agregar" />
-                                <Button Command="{Binding CancelArticleCommand}" Content="Cancelar" />
+                                <Button Command="{Binding AddArticleCommand}" Content="Agregar" Margin="5" />
+                                <Button Command="{Binding CancelArticleCommand}" Content="Cancelar" Margin="5"/>
                             </StackPanel>
                         </StackPanel>
                     </Border>
@@ -306,7 +303,7 @@
                         <ColumnDefinition Width="250" />
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
-                    <Border
+                    <Border  Background="{DynamicResource MahApps.Brushes.Gray8}"
                         Margin="5"
                         BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
                         BorderThickness="1">
@@ -326,22 +323,20 @@
                                 <TextBox Text="{Binding PasswordUser, UpdateSourceTrigger=PropertyChanged}" />
 
                                 <Label Content="ROL" />
-
                                 <ComboBox
                                     Grid.Row="4"
                                     Grid.Column="1"
                                     Height="30"
-                                    Margin="5,5,5,0"
                                     VerticalAlignment="Top"
                                     ItemsSource="{Binding RolUsers}"
-                                    SelectedItem="{Binding RolUser}" />
+                                    SelectedItem="{Binding RolUser}"/>
                             </StackPanel>
                             <StackPanel
-                                Margin="0,18,0,0"
+                                Margin="0,28,0,0"
                                 HorizontalAlignment="Center"
                                 Orientation="Horizontal">
-                                <Button Command="{Binding AddUserCommand}" Content="Agregar" />
-                                <Button Command="{Binding CancelUserCommand}" Content="Cancelar" />
+                                <Button Command="{Binding AddUserCommand}" Content="Agregar" Margin="5"/>
+                                <Button Command="{Binding CancelUserCommand}" Content="Cancelar" Margin="5"/>
                             </StackPanel>
                         </StackPanel>
                     </Border>

@@ -22,14 +22,15 @@
         </Grid.RowDefinitions>
         <StackPanel
             Grid.Row="1"
-            Background="{DynamicResource MahApps.Brushes.Gray8}"
             Orientation="Vertical" Margin="5,5,-20,0">
             <Border
                 Height="auto"
                 BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
+                Background="{DynamicResource MahApps.Brushes.Gray8}"
                 BorderThickness="1" >
-                <StackPanel>
-                    <Grid Margin="0,50,0,0" HorizontalAlignment="Left">
+                <StackPanel Height="448">
+                    <Label Margin="0,20,0,0" Content="NUEVO ARTICULO" FontSize="20" HorizontalAlignment="Center"/>
+                    <Grid Margin="0,30,0,0" HorizontalAlignment="Left">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition Width="150" />
@@ -140,11 +141,11 @@
                         </ComboBox>
                     </Grid>
                     <StackPanel
-                        Margin="0,50,0,68"
+                        Margin="0,30,0,0"
                         HorizontalAlignment="Center"
                         Orientation="Horizontal">
-                        <Button Command="{Binding AddCommand}" Content="Agregar" />
-                        <Button Command="{Binding CancelCommand}" Content="Cancelar" />
+                        <Button Command="{Binding AddCommand}" Content="Agregar" Margin="5" />
+                        <Button Command="{Binding CancelCommand}" Content="Cancelar" Margin="5" />
                     </StackPanel>
                 </StackPanel>
             </Border>

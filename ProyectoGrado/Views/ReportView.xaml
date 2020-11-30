@@ -3,18 +3,18 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    xmlns:local="clr-namespace:ProyectoGrado.Views"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
-    xmlns:rep="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
     d:DesignHeight="450"
     d:DesignWidth="900"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
     <Border
         Width="450"
+        Margin="30"
+        Background="{DynamicResource MahApps.Brushes.Gray8}"
         BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
         BorderThickness="2">
         <Grid>
@@ -33,7 +33,6 @@
                 HorizontalAlignment="Center"
                 Content="REPORTES"
                 FontSize="40" />
-
             <StackPanel
                 Grid.Row="1"
                 Grid.ColumnSpan="2"
@@ -42,10 +41,12 @@
                 Orientation="Horizontal">
                 <RadioButton
                     Margin="5"
+                    Background="{DynamicResource MahApps.Brushes.Gray8}"
                     Content="VENTA"
                     IsChecked="{Binding IsVenta}" />
                 <RadioButton
                     Margin="5"
+                    Background="{DynamicResource MahApps.Brushes.Gray8}"
                     Content="COMPRA"
                     IsChecked="{Binding IsCompra}" />
             </StackPanel>
@@ -57,7 +58,7 @@
                 <DatePicker
                     DisplayDateEnd="{Binding Desde}"
                     DisplayDateStart="01/01/2020"
-                    SelectedDate="{Binding DateInitial, UpdateSourceTrigger=PropertyChanged, StringFormat=yyyy-MM-dd}" />
+                    SelectedDate="{Binding DateInitial, UpdateSourceTrigger=PropertyChanged,  StringFormat=yyyy-MM-dd}" />
             </StackPanel>
             <StackPanel
                 Grid.Row="2"
@@ -74,10 +75,15 @@
                 Grid.Row="3"
                 Grid.ColumnSpan="2"
                 VerticalAlignment="Center">
-                <Button Width="200"
+                <Button
                     Command="{Binding PrintReportCommand}"
                     CommandParameter="{Binding ElementName=ReportViewer}"
-                    Content="IMPRIMIR" />
+                    ToolTip="Imprimir">
+                    <iconPacks:PackIconMaterial
+                        Width="60"
+                        Height="40"
+                        Kind="Printer" />
+                </Button>
             </StackPanel>
         </Grid>
     </Border>

@@ -13,17 +13,25 @@
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
     <StackPanel Orientation="Vertical">
-        <StackPanel
-            Grid.ColumnSpan="2"
-            Margin="5,50,0,40"
-            HorizontalAlignment="Center"
-            Orientation="Vertical">
-            <TextBox
-                Width="200"
-                mah:TextBoxHelper.Watermark="CODIGO PRODUCTO"
-                mah:TextBoxHelper.ClearTextButton="True"
-                Text="{Binding SearchProduct, UpdateSourceTrigger=PropertyChanged}" />
-        </StackPanel>
+        <Border
+            Width="810"
+            Height="80"
+            Margin="0,10,0,20"
+            BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
+            Background="{DynamicResource MahApps.Brushes.Gray8}"
+            BorderThickness="1">
+            <StackPanel
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <TextBox
+                    Width="200"
+                    mah:TextBoxHelper.ClearTextButton="True"
+                    mah:TextBoxHelper.Watermark="CODIGO PRODUCTO"
+                    Text="{Binding SearchProduct, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+        </Border>
         <DataGrid
             Width="810"
             MinHeight="370"

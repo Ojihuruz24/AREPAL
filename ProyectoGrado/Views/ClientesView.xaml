@@ -21,14 +21,14 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <StackPanel
-            Grid.ColumnSpan="2"
-            Margin="5,0,0,0"
-            Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal">
             <TextBox
                 Width="240"
-                mah:TextBoxHelper.Watermark="CEDULA"
+                Margin="5"
                 mah:TextBoxHelper.ClearTextButton="True"
+                mah:TextBoxHelper.Watermark="CEDULA"
+                BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
+                BorderThickness="2"
                 Text="{Binding SearchClient, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
         <StackPanel
@@ -38,14 +38,18 @@
             Background="{DynamicResource MahApps.Brushes.Gray8}"
             Orientation="Vertical">
             <Border
-                Padding="0,65,0,45"
+                Padding="0,55,0,40"
                 BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
                 BorderThickness="1">
                 <StackPanel HorizontalAlignment="Center">
-                    <Label Content="NUEVO USUARIO" FontSize="20" Margin="0,0,0,50"/>
+                    <Label
+                        Margin="0,0,0,50"
+                        Content="NUEVO USUARIO"
+                        FontSize="20" />
                     <StackPanel
+                        Width="180"
                         HorizontalAlignment="Center"
-                        Orientation="Vertical"  Width="180" >
+                        Orientation="Vertical">
                         <Label Margin="0,5,0,0" Content="DOCUMENTO" />
                         <TextBox mah:TextBoxHelper.Watermark="103695798" Text="{Binding DocumentUser, UpdateSourceTrigger=PropertyChanged}" />
 
@@ -62,8 +66,14 @@
                         Margin="0,18,0,0"
                         HorizontalAlignment="Center"
                         Orientation="Horizontal">
-                        <Button Command="{Binding AddCommand}" Content="Agregar" />
-                        <Button Command="{Binding CancelCommand}" Content="Cancelar" />
+                        <Button
+                            Margin="5"
+                            Command="{Binding AddCommand}"
+                            Content="Agregar" />
+                        <Button
+                            Margin="5"
+                            Command="{Binding CancelCommand}"
+                            Content="Cancelar" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -74,11 +84,11 @@
             Margin="5">
             <DataGrid
                 Width="auto"
-                MinHeight="460"
+                MinHeight="452"
                 AutoGenerateColumns="False"
                 ItemsSource="{Binding TableClient, Mode=TwoWay}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding ID}" Header="DOCUMENTO"/>
+                    <DataGridTextColumn Binding="{Binding ID}" Header="DOCUMENTO" />
                     <DataGridTextColumn Binding="{Binding NOMBRE}" Header="NOMBRE" />
                     <DataGridTextColumn Binding="{Binding DIRECCION}" Header="DIRECCION" />
                     <DataGridTextColumn Binding="{Binding TELEFONO}" Header="TELEFONO" />
