@@ -47,12 +47,14 @@
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </Button>
-            <Button ToolTip="Backup" Command="{Binding BackupRestoreCommand}" Visibility="{Binding Permisson}">
-                <iconPacks:Material Kind="BackupRestore"/>
+            <Button
+                Command="{Binding BackupRestoreCommand}"
+                ToolTip="Backup"
+                Visibility="{Binding Permisson}">
+                <iconPacks:Material Kind="BackupRestore" />
             </Button>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
-
     <Grid>
         <TabControl
             Width="900"
@@ -60,42 +62,41 @@
             Margin="0,10,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top">
-            <TabItem Header="CLIENTES">
-                <Grid>
-                    <views:ClientesView />
-                </Grid>
+            <TabItem Header="| CLIENTES |">
+                    <Grid>
+                        <views:ClientesView />
+                    </Grid>
             </TabItem>
-            <TabItem Header="PRODUCTOS">
+            <TabItem Header="| PRODUCTOS |">
                 <Grid>
                     <views:ProductosView />
                 </Grid>
             </TabItem>
-            <TabItem Header="VENTAS">
+            <TabItem Header="| VENTAS |">
                 <Grid>
                     <views:VentasView />
                 </Grid>
             </TabItem>
-            <TabItem Header="COMPRAS">
+            <TabItem Header="| COMPRAS |">
                 <Grid>
                     <views:ComprasView />
                 </Grid>
             </TabItem>
-            <TabItem Header="PROVEEDOR">
+            <TabItem Header="| PROVEEDOR |">
                 <Grid>
                     <views:ProveedoresView />
                 </Grid>
             </TabItem>
-            <TabItem Header="ADMINISTRACION" Visibility="{Binding Permisson}">
+            <TabItem Header="| ADMINISTRACION |" Visibility="{Binding Permisson}">
                 <Grid>
                     <views:Administracion />
                 </Grid>
             </TabItem>
-            <TabItem Header="REPORTES"  Visibility="{Binding Permisson}">
+            <TabItem Header="| REPORTES |" Visibility="{Binding Permisson}">
                 <Grid>
                     <views:ReportView />
                 </Grid>
             </TabItem>
         </TabControl>
-
     </Grid>
 </mah:MetroWindow>

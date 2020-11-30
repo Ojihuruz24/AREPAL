@@ -13,7 +13,7 @@
     mc:Ignorable="d">
     <Grid>
         <TabControl>
-            <TabItem Header="Categoria" IsSelected="{Binding IsSelectedCategoria}">
+            <TabItem Header="| Categoria |" IsSelected="{Binding IsSelectedCategoria}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250" />
@@ -68,7 +68,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Producto">
+            <TabItem Header="| Producto |">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250" />
@@ -148,7 +148,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Detalle producto">
+            <TabItem Header="| Detalle producto |">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250" />
@@ -233,7 +233,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Articulo" IsSelected="{Binding IsSelectedArticle}">
+            <TabItem Header="| Articulo |" IsSelected="{Binding IsSelectedArticle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250" />
@@ -300,7 +300,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Usuarios">
+            <TabItem Header="| Usuarios |">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250" />

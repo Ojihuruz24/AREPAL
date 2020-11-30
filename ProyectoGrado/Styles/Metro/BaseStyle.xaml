@@ -16,7 +16,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style BasedOn="{StaticResource MahApps.Styles.TabItem}" TargetType="TabItem">
-        <Setter Property="controls:HeaderedControlHelper.HeaderFontSize" Value="16" />
+        <Setter Property="controls:HeaderedControlHelper.HeaderFontSize" Value="18" />
         <Setter Property="controls:HeaderedControlHelper.HeaderForeground" Value="{DynamicResource MahApps.Brushes.Text}" />
     </Style>
 
