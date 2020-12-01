@@ -34,7 +34,7 @@ namespace ProyectoGrado.ViewModels
         private Parameter parameter;
         public static string ConectionBD = @"server=(Localdb)\PROYECTO; database=AREPAL ; integrated security = true";
         public static string UserBD = "";
-        public static string PathConection = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + @"\Arepal\BD\Conection.json";
+        public static string PathConection = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + @"\AREPAL\BD\Conection.json";
         public static string PathBackup = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + @"\AREPAL\BD\AREPAL.bak";
 
         #region Conection
