@@ -147,6 +147,7 @@
     <Compile Include="Events\ClientSelectedEvent.cs" />
     <Compile Include="Events\ParameterDataBaseEvent.cs" />
     <Compile Include="Events\ProductSelectedEvent.cs" />
+    <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Producto.cs" />
     <Compile Include="Models\Proveedor.cs" />
     <Compile Include="Models\Venta.cs" />

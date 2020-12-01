@@ -1,8 +1,10 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using ProyectoGrado.Models;
 using ProyectoGrado.Utility.Validations;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
@@ -16,17 +18,18 @@ namespace ProyectoGrado.ViewModels
 {
     public class ClientesViewModel : BindableBase
     {
-        private DataTable _tableClient;
+        private ObservableCollection<Cliente> _clientes;
         private string _telUser;
         private string _documentUser;
         private string _nameUser;
         private string _directionUser;
-        private string _searchClient;
+        private string _searchClient = "";
+        private ICollectionView _filteredSearch;
 
-        public DataTable TableClient
+        public ObservableCollection<Cliente> Clientes
         {
-            get => _tableClient;
-            set => SetProperty(ref _tableClient, value);
+            get => _clientes;
+            set => SetProperty(ref _clientes, value);
         }
         public string DocumentUser
         {
@@ -45,14 +48,11 @@ namespace ProyectoGrado.ViewModels
             get => _searchClient;
             set
             {
-                SetProperty(ref _searchClient, value);
-
-                if (!string.IsNullOrEmpty(value))
+                if (_searchClient != value)
                 {
-                    TableClient.DefaultView.RowFilter = string.Format($"ID = {SearchClient}");
-                    return;
+                    SetProperty(ref _searchClient, value);
+                    _filteredSearch.Refresh();
                 }
-                ConectionTable();
             }
         }
 
@@ -94,13 +94,33 @@ namespace ProyectoGrado.ViewModels
 
         public ClientesViewModel()
         {
+            Clientes = new ObservableCollection<Cliente>();
+            SetFilteredProvider();
+            ConectionTable();
             AddCommand = new DelegateCommand(Add, CanAdd)
                 .ObservesProperty(() => DocumentUser)
                 .ObservesProperty(() => NameUser)
                 .ObservesProperty(() => DirectionUser)
                 .ObservesProperty(() => TelUser);
             CancelCommand = new DelegateCommand(Cancel, CanCancel);
-            ConectionTable();
+        }
+
+        public void SetFilteredProvider()
+        {
+            _filteredSearch = CollectionViewSource.GetDefaultView(Clientes);
+            _filteredSearch.Filter = Filter;
+        }
+
+        private bool Filter(object obj)
+        {
+            if (obj is Cliente cliente)
+            {
+                var search = $"{cliente.Documento} {cliente.Nombre}";
+
+                return search.ToLower().Contains(SearchClient.ToLower());
+            }
+
+            return false;
         }
 
         private bool CanCancel()
@@ -171,9 +191,24 @@ namespace ProyectoGrado.ViewModels
                 string query = "select * from CLIENTE";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                da.Fill(dt);
-                TableClient = dt;
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                Clientes.Clear();
+
+                while (reader.Read())
+                {
+                    Clientes.Add(new Cliente
+                    {
+                        Documento = reader.GetString(0),
+                        Nombre = reader.GetString(1),
+                        Direccion = reader.GetString(2),
+                        Telefono = reader.GetString(3),
+                    });
+                }
+
+                conn.Close();
             }
         }
 

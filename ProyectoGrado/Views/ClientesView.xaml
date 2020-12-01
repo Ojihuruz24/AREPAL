@@ -86,12 +86,12 @@
                 Width="auto"
                 MinHeight="452"
                 AutoGenerateColumns="False"
-                ItemsSource="{Binding TableClient, Mode=TwoWay}">
+                ItemsSource="{Binding Clientes, Mode=TwoWay}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding ID}" Header="DOCUMENTO" />
-                    <DataGridTextColumn Binding="{Binding NOMBRE}" Header="NOMBRE" />
-                    <DataGridTextColumn Binding="{Binding DIRECCION}" Header="DIRECCION" />
-                    <DataGridTextColumn Binding="{Binding TELEFONO}" Header="TELEFONO" />
+                    <DataGridTextColumn Binding="{Binding Documento}" Header="DOCUMENTO" />
+                    <DataGridTextColumn Binding="{Binding Nombre}" Header="NOMBRE" />
+                    <DataGridTextColumn Binding="{Binding Direccion}" Header="DIRECCION" />
+                    <DataGridTextColumn Binding="{Binding Telefono}" Header="TELEFONO" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
