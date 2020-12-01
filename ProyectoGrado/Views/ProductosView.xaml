@@ -41,19 +41,19 @@
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="160"
-                    Binding="{Binding CODIGO}"
+                    Binding="{Binding Codigo}"
                     Header="CODIGO" />
                 <DataGridTextColumn
                     Width="230"
-                    Binding="{Binding NOMBRE}"
+                    Binding="{Binding Nombre}"
                     Header="NOMBRE" />
                 <DataGridTextColumn
                     Width="210"
-                    Binding="{Binding PRECIO}"
+                    Binding="{Binding Precio}"
                     Header="PRECIO" />
                 <DataGridTextColumn
                     Width="200"
-                    Binding="{Binding CATEGORIA}"
+                    Binding="{Binding Categoria}"
                     Header="CATEGORIA" />
             </DataGrid.Columns>
 
