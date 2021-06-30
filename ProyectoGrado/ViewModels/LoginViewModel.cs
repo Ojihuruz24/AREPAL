@@ -140,7 +140,7 @@ namespace ProyectoGrado.ViewModels
                 RememberCheckBoxChecked = true
             };
 
-            var resultDialog = await dialog.ShowLoginAsync(this, "CONFIGURACION", "mensaje", setings);
+            var resultDialog = await dialog.ShowLoginAsync(this, "CONFIGURACION", "login", setings);
 
             if (string.IsNullOrWhiteSpace(resultDialog.Username) || string.IsNullOrWhiteSpace(resultDialog.Password))
             {
